@@ -1,0 +1,33 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "GameLevel_Outer",
+            "id": "1a714881-2df5-4a7a-a6a9-4cc955916597",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "71147960-7c76-4611-8d7d-7d48cde01ded",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "85551f62-2319-4e1a-88ef-23cbf7e334e2",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

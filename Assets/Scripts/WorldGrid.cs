@@ -35,40 +35,55 @@ public class WorldGrid : MonoBehaviour
             Floating_WorldGrid();
         }
 
+        
+
     }
 
-    public void Display(wg_HONEYCOMB Honeycomb)
+
+    public void Activate_ThisHoneycomb(wg_HONEYCOMB Honeycomb)
     {
         switch (Honeycomb)
         {
             case AA: 
-                Debug.Log("Mouse over AA");
+                //Debug.Log("Active Honeycomb: AA");
+                ActiveHoneyComb = AA;
                 break;
             case BB:
-                Debug.Log("Mouse over BB");
+                //Debug.Log("Active Honeycomb: BB");
+                ActiveHoneyComb = BB;
                 break;
             case CC:
-                Debug.Log("Mouse over CC");
+                //Debug.Log("Active Honeycomb: CC");
+                ActiveHoneyComb = CC;
                 break;
             case DD:
-                Debug.Log("Mouse over DD");
+                //Debug.Log("Active Honeycomb: DD");
+                ActiveHoneyComb = DD;
                 break;
             case EE:
-                Debug.Log("Mouse over EE");
+                //Debug.Log("Active Honeycomb: EE");
+                ActiveHoneyComb = EE;
                 break;
             case FF:
-                Debug.Log("Mouse over FF");
+                //Debug.Log("Active Honeycomb: FF");
+                ActiveHoneyComb = FF;
                 break;
             case GG:
-                Debug.Log("Mouse over GG");
+                //Debug.Log("Active Honeycomb: GG");
+                ActiveHoneyComb = GG;
+                break;
+            default:
+                ActiveHoneyComb = NONE;
                 break;
         }
     }
 
-    void OnMouseOver()
+    public void Deactivate_Honeycomb()
     {
-        //Debug.Log("Mouse over WorldGrid");
+        //Debug.Log("Active Honeycomb: NONE");
+        ActiveHoneyComb = NONE;
     }
+
 
 
     void Floating_WorldGrid()
@@ -117,6 +132,69 @@ public class WorldGrid : MonoBehaviour
         ActiveFlotation = true;
     }
 
+    public void Move_ToThisPosition(wg_HONEYCOMB pos)
+    {
+        //deactivate float
+        TurnOff_ActiveFlotation();
+
+        ////reset rotation
+        //gameObject.transform.rotation = Quaternion.identity;
+
+        //get and set new position
+        gameObject.transform.position = GetNewPosition(pos);
+
+    }
+
+    Vector3 GetNewPosition(wg_HONEYCOMB pos)
+    {
+        //slow way.  fix after tuning
+        Vector3 ReturnVector = new Vector3(0.0f, 0.0f, 0.0f);
+        float z_set = -8.09f;
+
+        float x1_set = 1.65f;
+        float x2_set = -0.56f;
+        float x3_set = -2.69f;
+
+        float y1_set = -1.47f;
+        float y2_set = -0.23f;
+        float y3_set = 1.01f;
+        float y4_set = 2.23f;
+        float y5_set = 3.49f;
+
+
+        switch (pos)
+        {
+            case AA:
+                Debug.Log("AT AA");
+                ReturnVector.Set(x2_set, y1_set, z_set);
+                break;
+            case BB:
+                Debug.Log("AT BB");
+                ReturnVector.Set(x1_set, y2_set, z_set);
+                break;
+            case CC:
+                Debug.Log("AT CC");
+                ReturnVector.Set(x3_set, y2_set, z_set);
+                break;
+            case DD:
+                Debug.Log("AT DD");
+                ReturnVector.Set(x2_set, y3_set, z_set);
+                break;
+            case EE:
+                Debug.Log("AT EE");
+                ReturnVector.Set(x1_set, y4_set, z_set);
+                break;
+            case FF:
+                Debug.Log("AT FF");
+                ReturnVector.Set(x3_set, y4_set, z_set);
+                break;
+            case GG:
+                Debug.Log("AT GG");
+                ReturnVector.Set(x2_set, y5_set, z_set);
+                break;
+        }
+        return ReturnVector;
+    }
 }
 
 
