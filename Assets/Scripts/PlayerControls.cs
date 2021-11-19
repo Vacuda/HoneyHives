@@ -25,6 +25,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""CancelBack"",
+                    ""type"": ""Button"",
+                    ""id"": ""058d5d1a-94d8-416a-ab26-1e8dd9d59096"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -38,6 +46,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6751d9ad-a4b2-40e1-8543-0c01e2d169b1"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -47,6 +66,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // GameLevel_Outer
         m_GameLevel_Outer = asset.FindActionMap("GameLevel_Outer", throwIfNotFound: true);
         m_GameLevel_Outer_Interact = m_GameLevel_Outer.FindAction("Interact", throwIfNotFound: true);
+        m_GameLevel_Outer_CancelBack = m_GameLevel_Outer.FindAction("CancelBack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -97,11 +117,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_GameLevel_Outer;
     private IGameLevel_OuterActions m_GameLevel_OuterActionsCallbackInterface;
     private readonly InputAction m_GameLevel_Outer_Interact;
+    private readonly InputAction m_GameLevel_Outer_CancelBack;
     public struct GameLevel_OuterActions
     {
         private @PlayerControls m_Wrapper;
         public GameLevel_OuterActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_GameLevel_Outer_Interact;
+        public InputAction @CancelBack => m_Wrapper.m_GameLevel_Outer_CancelBack;
         public InputActionMap Get() { return m_Wrapper.m_GameLevel_Outer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -114,6 +136,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnInteract;
+                @CancelBack.started -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnCancelBack;
+                @CancelBack.performed -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnCancelBack;
+                @CancelBack.canceled -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnCancelBack;
             }
             m_Wrapper.m_GameLevel_OuterActionsCallbackInterface = instance;
             if (instance != null)
@@ -121,6 +146,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @CancelBack.started += instance.OnCancelBack;
+                @CancelBack.performed += instance.OnCancelBack;
+                @CancelBack.canceled += instance.OnCancelBack;
             }
         }
     }
@@ -128,5 +156,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IGameLevel_OuterActions
     {
         void OnInteract(InputAction.CallbackContext context);
+        void OnCancelBack(InputAction.CallbackContext context);
     }
 }

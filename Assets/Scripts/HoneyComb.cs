@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static wg_HONEYCOMB;
+using static wg_ADDRESS;
 
-public class HoneyCombColliders : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HoneyComb : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public wg_HONEYCOMB HoneyComb;
+    public wg_ADDRESS HoneyComb_Address;
     private WorldGrid WorldGridScript;
+
+    public wg_ADDRESS[] HoneySlots;
 
     private void Start()
     {
@@ -16,15 +18,14 @@ public class HoneyCombColliders : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        WorldGridScript.Activate_ThisHoneycomb(HoneyComb);
+        WorldGridScript.Set_HoveredOver_HoneyComb(HoneyComb_Address);
     }
 
     //writing IPointerExitHander. then the function name made this work.  I think it overwrite's the base implementation written this way.
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        WorldGridScript.Deactivate_Honeycomb();
+        WorldGridScript.Set_HoveredOver_HoneyComb(NONE);
     }
-
 
 
 }
