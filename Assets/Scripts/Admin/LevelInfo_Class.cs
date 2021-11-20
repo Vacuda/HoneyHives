@@ -19,22 +19,21 @@ public struct HoneySlotInfo
         this.tri6 = tri6;
     }
 
-    readonly wg_ADDRESS Address;
-    readonly bool IsOccupied;
-    readonly bool IsMovable;
-    readonly bool IsSpinnable;
-    readonly v_VALUE tri1;
-    readonly v_VALUE tri2;
-    readonly v_VALUE tri3;
-    readonly v_VALUE tri4;
-    readonly v_VALUE tri5;
-    readonly v_VALUE tri6;
+    public readonly wg_ADDRESS Address;
+    public readonly bool IsOccupied;
+    public readonly bool IsMovable;
+    public readonly bool IsSpinnable;
+    public readonly v_VALUE tri1;
+    public readonly v_VALUE tri2;
+    public readonly v_VALUE tri3;
+    public readonly v_VALUE tri4;
+    public readonly v_VALUE tri5;
+    public readonly v_VALUE tri6;
 
 }
 
 public struct LevelInfo{
 
-    //public HoneySlotInfo[] HoneySlots = new HoneySlotInfo[49];
     public List<HoneySlotInfo> HoneySlots;
 
 }

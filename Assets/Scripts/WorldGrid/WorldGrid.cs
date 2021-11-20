@@ -38,7 +38,11 @@ public class WorldGrid : MonoBehaviour
     private bool ActiveMovement = false;
     public wg_ADDRESS HoveredOver_HoneyComb = NONE;
 
-
+    private void Awake()
+    {
+        //create ref dictionary
+        Make_WorldGridRefDict();
+    }
 
     void Start()
     {
@@ -46,8 +50,6 @@ public class WorldGrid : MonoBehaviour
         StartPosition = transform.position;
         TargetPosition = StartPosition;
 
-        //create ref dictionary
-        Make_WorldGridRefDict();
     }
 
 

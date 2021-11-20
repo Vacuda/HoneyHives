@@ -31,6 +31,9 @@ public class LevelHouse : MonoBehaviour
         //make package to return
         LevelInfo LevelPackage = new LevelInfo();
 
+        //initialize internal list
+        LevelPackage.HoneySlots = new List<HoneySlotInfo>();
+
         //honeycomb AA
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_AA, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_BB, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));

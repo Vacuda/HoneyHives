@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static gs_GAMESTATUS;
+using static ln_LEVELNAME;
 
 
 public class GameLevel : MonoBehaviour
 {
     private gs_GAMESTATUS GameStatus;
+    LevelBuilder Builder;
+
+    private void Awake()
+    {
+        //find builder
+        Builder = gameObject.GetComponent<LevelBuilder>();
+    }
 
     void Start()
     {
+        //find current level
+        ln_LEVELNAME CurrentLevel = Find_CurrentLevel();
+
+        Builder.Build_ThisLevel(CurrentLevel);
+
+
         GameStatus = OUTER;
 
-        ReadLevelFile();
+
     }
 
 
@@ -27,15 +41,12 @@ public class GameLevel : MonoBehaviour
         return GameStatus;
     }
 
-    void ReadLevelFile()
+    ln_LEVELNAME Find_CurrentLevel()
     {
-        /*
-         Need to create a mechanism that can load a level based off a set of info
-         
-        1) Place to house levels (LevelHouse)
-        2) Enum (LevelName)
-        3) Custom Struct for this level info (LevelInfo)
-         */
+        //@@@@ here we'll have to figure out the level that is supposed to be built
+
+        return LEVEL_001;
+
     }
 
 
