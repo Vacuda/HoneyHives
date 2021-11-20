@@ -34,6 +34,21 @@ public enum wg_ADDRESS
     GG_1, GG_2, GG_3, GG_4, GG_5, GG_6, GG_7, GG_8, GG_9
 }
 
+public enum ln_LEVELNAME
+{
+    LEVEL_001,
+    LEVEL_002,
+    LEVEL_003,
+    LEVEL_004,
+    LEVEL_005
+}
+
+public enum v_VALUE
+{
+    v_0, v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8, v_9,
+    v_add, v_sub, v_blank, v_equals
+}
+
 
 public class CustomEnums : MonoBehaviour
 {
