@@ -11,12 +11,11 @@ public class GameLevel : MonoBehaviour
     void Start()
     {
         GameStatus = OUTER;
+
+        ReadLevelFile();
     }
 
-    //void Update()
-    //{
 
-    //}
 
     public void Set_GameStatus(gs_GAMESTATUS status)
     {
@@ -26,6 +25,17 @@ public class GameLevel : MonoBehaviour
     public gs_GAMESTATUS Get_GameStatus()
     {
         return GameStatus;
+    }
+
+    void ReadLevelFile()
+    {
+        /*
+         Need to create a mechanism that can load a level based off a set of info
+         
+        1) Place to house levels (LevelHouse)
+        2) Enum (LevelName)
+        3) Custom Struct for this level info (LevelInfo)
+         */
     }
 
 
