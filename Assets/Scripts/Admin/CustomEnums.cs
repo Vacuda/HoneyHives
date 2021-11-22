@@ -43,10 +43,15 @@ public enum ln_LEVELNAME
     LEVEL_005
 }
 
-public enum v_VALUE
+public enum fv_FACEVALUE
 {
     v_0, v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8, v_9,
     v_add, v_sub, v_blank, v_equals
+}
+
+public enum t_TRI
+{
+    TRI_1, TRI_2, TRI_3, TRI_4, TRI_5, TRI_6
 }
 
 

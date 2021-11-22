@@ -9,11 +9,13 @@ public class GameLevel : MonoBehaviour
 {
     private gs_GAMESTATUS GameStatus;
     LevelBuilder Builder;
+    public WorldGrid WorldGridObject;
 
     private void Awake()
     {
         //find builder
         Builder = gameObject.GetComponent<LevelBuilder>();
+
     }
 
     void Start()
@@ -21,11 +23,11 @@ public class GameLevel : MonoBehaviour
         //find current level
         ln_LEVELNAME CurrentLevel = Find_CurrentLevel();
 
+        //build out level
         Builder.Build_ThisLevel(CurrentLevel);
 
 
         GameStatus = OUTER;
-
 
     }
 

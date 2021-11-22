@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 7752719}
   - component: {fileID: 7752720}
   m_Layer: 0
-  m_Name: AA_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 18473503}
   - component: {fileID: 18473504}
   m_Layer: 0
-  m_Name: DD_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 18578944}
   - component: {fileID: 18578943}
   m_Layer: 0
-  m_Name: DD_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 60406982}
   - component: {fileID: 60406981}
   m_Layer: 0
-  m_Name: BB_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 78996619}
   - component: {fileID: 78996618}
   m_Layer: 0
-  m_Name: FF_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 127538319}
   - component: {fileID: 127538320}
   m_Layer: 0
-  m_Name: EE_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 130983537}
   - component: {fileID: 130983536}
   m_Layer: 0
-  m_Name: BB_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1002,7 +1002,7 @@ GameObject:
   - component: {fileID: 160689540}
   - component: {fileID: 160689539}
   m_Layer: 0
-  m_Name: EE_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1387,7 +1387,7 @@ GameObject:
   - component: {fileID: 184127726}
   - component: {fileID: 184127727}
   m_Layer: 0
-  m_Name: BB_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1759,7 +1759,7 @@ GameObject:
   - component: {fileID: 209676678}
   - component: {fileID: 209676679}
   m_Layer: 0
-  m_Name: DD_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1806,7 +1806,7 @@ GameObject:
   - component: {fileID: 211002777}
   - component: {fileID: 211002776}
   m_Layer: 0
-  m_Name: FF_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1948,7 +1948,7 @@ GameObject:
   - component: {fileID: 242717884}
   - component: {fileID: 242717885}
   m_Layer: 0
-  m_Name: GG_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1995,7 +1995,7 @@ GameObject:
   - component: {fileID: 246619532}
   - component: {fileID: 246619531}
   m_Layer: 0
-  m_Name: DD_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2136,7 +2136,7 @@ GameObject:
   - component: {fileID: 256109386}
   - component: {fileID: 256109387}
   m_Layer: 0
-  m_Name: GG_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2345,7 +2345,7 @@ GameObject:
   - component: {fileID: 271601428}
   - component: {fileID: 271601427}
   m_Layer: 0
-  m_Name: FF_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2650,7 +2650,7 @@ GameObject:
   - component: {fileID: 315364711}
   - component: {fileID: 315364710}
   m_Layer: 0
-  m_Name: GG_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2874,7 +2874,7 @@ GameObject:
   - component: {fileID: 328158668}
   - component: {fileID: 328158669}
   m_Layer: 0
-  m_Name: DD_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3001,7 +3001,7 @@ GameObject:
   - component: {fileID: 359599982}
   - component: {fileID: 359599983}
   m_Layer: 0
-  m_Name: AA_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3047,7 +3047,7 @@ GameObject:
   - component: {fileID: 363215484}
   - component: {fileID: 363215485}
   m_Layer: 0
-  m_Name: BB_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3174,7 +3174,7 @@ GameObject:
   - component: {fileID: 371831215}
   - component: {fileID: 371831216}
   m_Layer: 0
-  m_Name: EE_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,7 +3220,7 @@ GameObject:
   - component: {fileID: 381731477}
   - component: {fileID: 381731478}
   m_Layer: 0
-  m_Name: BB_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3266,7 +3266,7 @@ GameObject:
   - component: {fileID: 381889993}
   - component: {fileID: 381889994}
   m_Layer: 0
-  m_Name: CC_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3472,7 +3472,7 @@ GameObject:
   - component: {fileID: 399429023}
   - component: {fileID: 399429022}
   m_Layer: 0
-  m_Name: DD_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3532,7 +3532,7 @@ GameObject:
   - component: {fileID: 406256787}
   - component: {fileID: 406256788}
   m_Layer: 0
-  m_Name: DD_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3905,7 +3905,7 @@ GameObject:
   - component: {fileID: 467786551}
   - component: {fileID: 467786552}
   m_Layer: 0
-  m_Name: AA_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4047,7 +4047,7 @@ GameObject:
   - component: {fileID: 477990255}
   - component: {fileID: 477990254}
   m_Layer: 0
-  m_Name: GG_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4188,7 +4188,7 @@ GameObject:
   - component: {fileID: 494440175}
   - component: {fileID: 494440176}
   m_Layer: 0
-  m_Name: AA_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4313,7 +4313,7 @@ GameObject:
   - component: {fileID: 505989238}
   - component: {fileID: 505989239}
   m_Layer: 0
-  m_Name: AA_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4373,7 +4373,7 @@ GameObject:
   - component: {fileID: 518218133}
   - component: {fileID: 518218134}
   m_Layer: 0
-  m_Name: EE_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4575,7 +4575,7 @@ GameObject:
   - component: {fileID: 537590170}
   - component: {fileID: 537590169}
   m_Layer: 0
-  m_Name: BB_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4635,7 +4635,7 @@ GameObject:
   - component: {fileID: 553510398}
   - component: {fileID: 553510399}
   m_Layer: 0
-  m_Name: AA_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4763,7 +4763,7 @@ GameObject:
   - component: {fileID: 582129989}
   - component: {fileID: 582129988}
   m_Layer: 0
-  m_Name: GG_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 601259634}
   - component: {fileID: 601259635}
   m_Layer: 0
-  m_Name: AA_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4963,7 +4963,7 @@ GameObject:
   - component: {fileID: 616771105}
   - component: {fileID: 616771106}
   m_Layer: 0
-  m_Name: AA_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5024,7 +5024,7 @@ GameObject:
   - component: {fileID: 630787444}
   - component: {fileID: 630787443}
   m_Layer: 0
-  m_Name: DD_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5085,7 +5085,7 @@ GameObject:
   - component: {fileID: 633572735}
   - component: {fileID: 633572736}
   m_Layer: 0
-  m_Name: AA_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5228,7 +5228,7 @@ GameObject:
   - component: {fileID: 637913198}
   - component: {fileID: 637913197}
   m_Layer: 0
-  m_Name: CC_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5370,7 +5370,7 @@ GameObject:
   - component: {fileID: 681225980}
   - component: {fileID: 681225981}
   m_Layer: 0
-  m_Name: FF_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5662,7 +5662,7 @@ GameObject:
   - component: {fileID: 696069012}
   - component: {fileID: 696069011}
   m_Layer: 0
-  m_Name: EE_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5722,7 +5722,7 @@ GameObject:
   - component: {fileID: 702546495}
   - component: {fileID: 702546496}
   m_Layer: 0
-  m_Name: EE_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6014,7 +6014,7 @@ GameObject:
   - component: {fileID: 722565054}
   - component: {fileID: 722565055}
   m_Layer: 0
-  m_Name: AA_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6155,7 +6155,7 @@ GameObject:
   - component: {fileID: 748065569}
   - component: {fileID: 748065570}
   m_Layer: 0
-  m_Name: GG_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6202,7 +6202,7 @@ GameObject:
   - component: {fileID: 753878729}
   - component: {fileID: 753878728}
   m_Layer: 0
-  m_Name: CC_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6262,7 +6262,7 @@ GameObject:
   - component: {fileID: 756183195}
   - component: {fileID: 756183196}
   m_Layer: 0
-  m_Name: CC_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6470,7 +6470,7 @@ GameObject:
   - component: {fileID: 789115420}
   - component: {fileID: 789115421}
   m_Layer: 0
-  m_Name: CC_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6516,7 +6516,7 @@ GameObject:
   - component: {fileID: 791819236}
   - component: {fileID: 791819237}
   m_Layer: 0
-  m_Name: EE_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6562,7 +6562,7 @@ GameObject:
   - component: {fileID: 800237235}
   - component: {fileID: 800237236}
   m_Layer: 0
-  m_Name: DD_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6853,7 +6853,7 @@ GameObject:
   - component: {fileID: 872591305}
   - component: {fileID: 872591306}
   m_Layer: 0
-  m_Name: GG_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7224,7 +7224,7 @@ GameObject:
   - component: {fileID: 919695547}
   - component: {fileID: 919695546}
   m_Layer: 0
-  m_Name: DD_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7284,7 +7284,7 @@ GameObject:
   - component: {fileID: 919707494}
   - component: {fileID: 919707495}
   m_Layer: 0
-  m_Name: CC_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7494,7 +7494,7 @@ GameObject:
   - component: {fileID: 933877911}
   - component: {fileID: 933877912}
   m_Layer: 0
-  m_Name: EE_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7704,7 +7704,7 @@ GameObject:
   - component: {fileID: 948419556}
   - component: {fileID: 948419555}
   m_Layer: 0
-  m_Name: GG_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7764,7 +7764,7 @@ GameObject:
   - component: {fileID: 997909669}
   - component: {fileID: 997909670}
   m_Layer: 0
-  m_Name: GG_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7912,6 +7912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbc1b36968e27943b1f0fb2e3dc6c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WorldGridObject: {fileID: 1350614151}
 --- !u!4 &1045452746
 Transform:
   m_ObjectHideFlags: 0
@@ -8140,7 +8141,7 @@ GameObject:
   - component: {fileID: 1086362264}
   - component: {fileID: 1086362265}
   m_Layer: 0
-  m_Name: FF_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8268,7 +8269,7 @@ GameObject:
   - component: {fileID: 1109005864}
   - component: {fileID: 1109005865}
   m_Layer: 0
-  m_Name: EE_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8314,7 +8315,7 @@ GameObject:
   - component: {fileID: 1126508076}
   - component: {fileID: 1126508077}
   m_Layer: 0
-  m_Name: AA_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8606,7 +8607,7 @@ GameObject:
   - component: {fileID: 1161517358}
   - component: {fileID: 1161517357}
   m_Layer: 0
-  m_Name: EE_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8747,7 +8748,7 @@ GameObject:
   - component: {fileID: 1167186232}
   - component: {fileID: 1167186233}
   m_Layer: 0
-  m_Name: CC_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8794,7 +8795,7 @@ GameObject:
   - component: {fileID: 1167248809}
   - component: {fileID: 1167248808}
   m_Layer: 0
-  m_Name: FF_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9018,7 +9019,7 @@ GameObject:
   - component: {fileID: 1173894773}
   - component: {fileID: 1173894774}
   m_Layer: 0
-  m_Name: GG_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9065,7 +9066,7 @@ GameObject:
   - component: {fileID: 1174426859}
   - component: {fileID: 1174426858}
   m_Layer: 0
-  m_Name: EE_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9125,7 +9126,7 @@ GameObject:
   - component: {fileID: 1182566972}
   - component: {fileID: 1182566973}
   m_Layer: 0
-  m_Name: GG_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9171,7 +9172,7 @@ GameObject:
   - component: {fileID: 1210334431}
   - component: {fileID: 1210334432}
   m_Layer: 0
-  m_Name: DD_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9218,7 +9219,7 @@ GameObject:
   - component: {fileID: 1212147199}
   - component: {fileID: 1212147198}
   m_Layer: 0
-  m_Name: GG_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9522,7 +9523,7 @@ GameObject:
   - component: {fileID: 1234854784}
   - component: {fileID: 1234854785}
   m_Layer: 0
-  m_Name: DD_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9569,7 +9570,7 @@ GameObject:
   - component: {fileID: 1244014970}
   - component: {fileID: 1244014969}
   m_Layer: 0
-  m_Name: FF_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9629,7 +9630,7 @@ GameObject:
   - component: {fileID: 1250259395}
   - component: {fileID: 1250259396}
   m_Layer: 0
-  m_Name: FF_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9676,7 +9677,7 @@ GameObject:
   - component: {fileID: 1254823509}
   - component: {fileID: 1254823508}
   m_Layer: 0
-  m_Name: EE_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9736,7 +9737,7 @@ GameObject:
   - component: {fileID: 1262247418}
   - component: {fileID: 1262247419}
   m_Layer: 0
-  m_Name: DD_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9865,7 +9866,7 @@ GameObject:
   - component: {fileID: 1282436630}
   - component: {fileID: 1282436629}
   m_Layer: 0
-  m_Name: BB_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9925,7 +9926,7 @@ GameObject:
   - component: {fileID: 1283293532}
   - component: {fileID: 1283293533}
   m_Layer: 0
-  m_Name: AA_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9972,7 +9973,7 @@ GameObject:
   - component: {fileID: 1293374672}
   - component: {fileID: 1293374671}
   m_Layer: 0
-  m_Name: EE_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10033,7 +10034,7 @@ GameObject:
   - component: {fileID: 1301231716}
   - component: {fileID: 1301231715}
   m_Layer: 0
-  m_Name: GG_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10093,7 +10094,7 @@ GameObject:
   - component: {fileID: 1302593065}
   - component: {fileID: 1302593066}
   m_Layer: 0
-  m_Name: CC_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10546,7 +10547,7 @@ GameObject:
   - component: {fileID: 1344931919}
   - component: {fileID: 1344931920}
   m_Layer: 0
-  m_Name: GG_Indicator_2
+  m_Name: FlowerIndicator_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10676,6 +10677,7 @@ GameObject:
   - component: {fileID: 1350614148}
   - component: {fileID: 1350614151}
   - component: {fileID: 1350614152}
+  - component: {fileID: 1350614153}
   m_Layer: 0
   m_Name: WorldGrid
   m_TagString: Untagged
@@ -10769,6 +10771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoveredOver_HoneyComb: 0
+  HoveredOver_HoneySlot: 0
 --- !u!64 &1350614152
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10783,6 +10786,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 432594329303549289, guid: 1178f9373100572429b7ee0b8f3c0ce0, type: 3}
+--- !u!114 &1350614153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350614147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053de799c7a84aa42acda9f13b655fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1363235680
 GameObject:
   m_ObjectHideFlags: 0
@@ -10794,7 +10809,7 @@ GameObject:
   - component: {fileID: 1363235681}
   - component: {fileID: 1363235682}
   m_Layer: 0
-  m_Name: BB_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10841,7 +10856,7 @@ GameObject:
   - component: {fileID: 1364007609}
   - component: {fileID: 1364007608}
   m_Layer: 0
-  m_Name: CC_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10902,7 +10917,7 @@ GameObject:
   - component: {fileID: 1370873940}
   - component: {fileID: 1370873939}
   m_Layer: 0
-  m_Name: CC_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11045,7 +11060,7 @@ GameObject:
   - component: {fileID: 1378945904}
   - component: {fileID: 1378945903}
   m_Layer: 0
-  m_Name: CC_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11105,7 +11120,7 @@ GameObject:
   - component: {fileID: 1394486114}
   - component: {fileID: 1394486115}
   m_Layer: 0
-  m_Name: BB_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11152,7 +11167,7 @@ GameObject:
   - component: {fileID: 1413175487}
   - component: {fileID: 1413175486}
   m_Layer: 0
-  m_Name: EE_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11456,7 +11471,7 @@ GameObject:
   - component: {fileID: 1431019886}
   - component: {fileID: 1431019887}
   m_Layer: 0
-  m_Name: CC_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11749,7 +11764,7 @@ GameObject:
   - component: {fileID: 1447003778}
   - component: {fileID: 1447003777}
   m_Layer: 0
-  m_Name: FF_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11809,7 +11824,7 @@ GameObject:
   - component: {fileID: 1468490505}
   - component: {fileID: 1468490506}
   m_Layer: 0
-  m_Name: GG_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11937,7 +11952,7 @@ GameObject:
   - component: {fileID: 1473464143}
   - component: {fileID: 1473464144}
   m_Layer: 0
-  m_Name: EE_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12065,7 +12080,7 @@ GameObject:
   - component: {fileID: 1492958202}
   - component: {fileID: 1492958203}
   m_Layer: 0
-  m_Name: AA_Indicator_5
+  m_Name: FlowerIndicator_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12111,7 +12126,7 @@ GameObject:
   - component: {fileID: 1493073400}
   - component: {fileID: 1493073401}
   m_Layer: 0
-  m_Name: CC_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12402,7 +12417,7 @@ GameObject:
   - component: {fileID: 1512144804}
   - component: {fileID: 1512144805}
   m_Layer: 0
-  m_Name: BB_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12448,7 +12463,7 @@ GameObject:
   - component: {fileID: 1518642087}
   - component: {fileID: 1518642088}
   m_Layer: 0
-  m_Name: BB_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12738,7 +12753,7 @@ GameObject:
   - component: {fileID: 1597588870}
   - component: {fileID: 1597588871}
   m_Layer: 0
-  m_Name: FF_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13064,7 +13079,7 @@ GameObject:
   - component: {fileID: 1642164668}
   - component: {fileID: 1642164667}
   m_Layer: 0
-  m_Name: CC_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13205,7 +13220,7 @@ GameObject:
   - component: {fileID: 1655601100}
   - component: {fileID: 1655601101}
   m_Layer: 0
-  m_Name: AA_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13741,7 +13756,7 @@ GameObject:
   - component: {fileID: 1697452147}
   - component: {fileID: 1697452146}
   m_Layer: 0
-  m_Name: GG_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13880,7 +13895,7 @@ GameObject:
   - component: {fileID: 1700059458}
   - component: {fileID: 1700059459}
   m_Layer: 0
-  m_Name: AA_CC
+  m_Name: HoneySlot_CC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13941,7 +13956,7 @@ GameObject:
   - component: {fileID: 1701649000}
   - component: {fileID: 1701648999}
   m_Layer: 0
-  m_Name: FF_AA
+  m_Name: HoneySlot_AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14246,7 +14261,7 @@ GameObject:
   - component: {fileID: 1759887686}
   - component: {fileID: 1759887685}
   m_Layer: 0
-  m_Name: DD_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14470,7 +14485,7 @@ GameObject:
   - component: {fileID: 1776824595}
   - component: {fileID: 1776824596}
   m_Layer: 0
-  m_Name: BB_Indicator_4
+  m_Name: FlowerIndicator_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14516,7 +14531,7 @@ GameObject:
   - component: {fileID: 1781821578}
   - component: {fileID: 1781821579}
   m_Layer: 0
-  m_Name: BB_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14562,7 +14577,7 @@ GameObject:
   - component: {fileID: 1798916369}
   - component: {fileID: 1798916370}
   m_Layer: 0
-  m_Name: FF_Indicator_9
+  m_Name: FlowerIndicator_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14933,7 +14948,7 @@ GameObject:
   - component: {fileID: 1831420868}
   - component: {fileID: 1831420869}
   m_Layer: 0
-  m_Name: DD_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15139,7 +15154,7 @@ GameObject:
   - component: {fileID: 1843259778}
   - component: {fileID: 1843259779}
   m_Layer: 0
-  m_Name: AA_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15185,7 +15200,7 @@ GameObject:
   - component: {fileID: 1843701645}
   - component: {fileID: 1843701646}
   m_Layer: 0
-  m_Name: EE_Indicator_8
+  m_Name: FlowerIndicator_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15557,7 +15572,7 @@ GameObject:
   - component: {fileID: 1948558728}
   - component: {fileID: 1948558729}
   m_Layer: 0
-  m_Name: CC_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15845,7 +15860,7 @@ GameObject:
   - component: {fileID: 1979806573}
   - component: {fileID: 1979806574}
   m_Layer: 0
-  m_Name: FF_Indicator_1
+  m_Name: FlowerIndicator_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15891,7 +15906,7 @@ GameObject:
   - component: {fileID: 1993758448}
   - component: {fileID: 1993758449}
   m_Layer: 0
-  m_Name: FF_Indicator_3
+  m_Name: FlowerIndicator_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16019,7 +16034,7 @@ GameObject:
   - component: {fileID: 2017835936}
   - component: {fileID: 2017835935}
   m_Layer: 0
-  m_Name: CC_FF
+  m_Name: HoneySlot_FF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16243,7 +16258,7 @@ GameObject:
   - component: {fileID: 2027355664}
   - component: {fileID: 2027355663}
   m_Layer: 0
-  m_Name: BB_BB
+  m_Name: HoneySlot_BB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16468,7 +16483,7 @@ GameObject:
   - component: {fileID: 2049119882}
   - component: {fileID: 2049119881}
   m_Layer: 0
-  m_Name: BB_GG
+  m_Name: HoneySlot_GG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16784,7 +16799,7 @@ GameObject:
   - component: {fileID: 2089814194}
   - component: {fileID: 2089814193}
   m_Layer: 0
-  m_Name: DD_DD
+  m_Name: HoneySlot_DD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16845,7 +16860,7 @@ GameObject:
   - component: {fileID: 2095626025}
   - component: {fileID: 2095626024}
   m_Layer: 0
-  m_Name: BB_EE
+  m_Name: HoneySlot_EE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16905,7 +16920,7 @@ GameObject:
   - component: {fileID: 2108335484}
   - component: {fileID: 2108335485}
   m_Layer: 0
-  m_Name: FF_Indicator_6
+  m_Name: FlowerIndicator_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17046,7 +17061,7 @@ GameObject:
   - component: {fileID: 2117186038}
   - component: {fileID: 2117186039}
   m_Layer: 0
-  m_Name: FF_Indicator_7
+  m_Name: FlowerIndicator_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

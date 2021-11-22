@@ -6,7 +6,6 @@ using static wg_ADDRESS;
 
 public class WorldGrid : MonoBehaviour
 {
-
     //grid positions
     private Vector3 StartPosition;
     private Vector3 TargetPosition;
@@ -37,6 +36,7 @@ public class WorldGrid : MonoBehaviour
     private bool ActiveFlotation = true;
     private bool ActiveMovement = false;
     public wg_ADDRESS HoveredOver_HoneyComb = NONE;
+    public wg_ADDRESS HoveredOver_HoneySlot = NONE;
 
     private void Awake()
     {
@@ -80,132 +80,132 @@ public class WorldGrid : MonoBehaviour
         WGRefDict.Add(GG, this.transform.Find("GG_HoneyComb").gameObject);
 
     //add HoneySlots
-        WGRefDict.Add(AA_AA, WGRefDict[AA].transform.Find("AA_AA").gameObject);
-        WGRefDict.Add(AA_BB, WGRefDict[AA].transform.Find("AA_BB").gameObject);
-        WGRefDict.Add(AA_CC, WGRefDict[AA].transform.Find("AA_CC").gameObject);
-        WGRefDict.Add(AA_DD, WGRefDict[AA].transform.Find("AA_DD").gameObject);
-        WGRefDict.Add(AA_EE, WGRefDict[AA].transform.Find("AA_EE").gameObject);
-        WGRefDict.Add(AA_FF, WGRefDict[AA].transform.Find("AA_FF").gameObject);
-        WGRefDict.Add(AA_GG, WGRefDict[AA].transform.Find("AA_GG").gameObject);
+        WGRefDict.Add(AA_AA, WGRefDict[AA].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(AA_BB, WGRefDict[AA].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(AA_CC, WGRefDict[AA].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(AA_DD, WGRefDict[AA].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(AA_EE, WGRefDict[AA].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(AA_FF, WGRefDict[AA].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(AA_GG, WGRefDict[AA].transform.Find("HoneySlot_GG").gameObject);
 
-        WGRefDict.Add(BB_AA, WGRefDict[BB].transform.Find("BB_AA").gameObject);
-        WGRefDict.Add(BB_BB, WGRefDict[BB].transform.Find("BB_BB").gameObject);
-        WGRefDict.Add(BB_CC, WGRefDict[BB].transform.Find("BB_CC").gameObject);
-        WGRefDict.Add(BB_DD, WGRefDict[BB].transform.Find("BB_DD").gameObject);
-        WGRefDict.Add(BB_EE, WGRefDict[BB].transform.Find("BB_EE").gameObject);
-        WGRefDict.Add(BB_FF, WGRefDict[BB].transform.Find("BB_FF").gameObject);
-        WGRefDict.Add(BB_GG, WGRefDict[BB].transform.Find("BB_GG").gameObject);
+        WGRefDict.Add(BB_AA, WGRefDict[BB].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(BB_BB, WGRefDict[BB].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(BB_CC, WGRefDict[BB].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(BB_DD, WGRefDict[BB].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(BB_EE, WGRefDict[BB].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(BB_FF, WGRefDict[BB].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(BB_GG, WGRefDict[BB].transform.Find("HoneySlot_GG").gameObject);
 
-        WGRefDict.Add(CC_AA, WGRefDict[CC].transform.Find("CC_AA").gameObject);
-        WGRefDict.Add(CC_BB, WGRefDict[CC].transform.Find("CC_BB").gameObject);
-        WGRefDict.Add(CC_CC, WGRefDict[CC].transform.Find("CC_CC").gameObject);
-        WGRefDict.Add(CC_DD, WGRefDict[CC].transform.Find("CC_DD").gameObject);
-        WGRefDict.Add(CC_EE, WGRefDict[CC].transform.Find("CC_EE").gameObject);
-        WGRefDict.Add(CC_FF, WGRefDict[CC].transform.Find("CC_FF").gameObject);
-        WGRefDict.Add(CC_GG, WGRefDict[CC].transform.Find("CC_GG").gameObject);
+        WGRefDict.Add(CC_AA, WGRefDict[CC].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(CC_BB, WGRefDict[CC].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(CC_CC, WGRefDict[CC].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(CC_DD, WGRefDict[CC].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(CC_EE, WGRefDict[CC].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(CC_FF, WGRefDict[CC].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(CC_GG, WGRefDict[CC].transform.Find("HoneySlot_GG").gameObject);
 
-        WGRefDict.Add(DD_AA, WGRefDict[DD].transform.Find("DD_AA").gameObject);
-        WGRefDict.Add(DD_BB, WGRefDict[DD].transform.Find("DD_BB").gameObject);
-        WGRefDict.Add(DD_CC, WGRefDict[DD].transform.Find("DD_CC").gameObject);
-        WGRefDict.Add(DD_DD, WGRefDict[DD].transform.Find("DD_DD").gameObject);
-        WGRefDict.Add(DD_EE, WGRefDict[DD].transform.Find("DD_EE").gameObject);
-        WGRefDict.Add(DD_FF, WGRefDict[DD].transform.Find("DD_FF").gameObject);
-        WGRefDict.Add(DD_GG, WGRefDict[DD].transform.Find("DD_GG").gameObject);
+        WGRefDict.Add(DD_AA, WGRefDict[DD].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(DD_BB, WGRefDict[DD].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(DD_CC, WGRefDict[DD].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(DD_DD, WGRefDict[DD].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(DD_EE, WGRefDict[DD].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(DD_FF, WGRefDict[DD].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(DD_GG, WGRefDict[DD].transform.Find("HoneySlot_GG").gameObject);
 
-        WGRefDict.Add(EE_AA, WGRefDict[EE].transform.Find("EE_AA").gameObject);
-        WGRefDict.Add(EE_BB, WGRefDict[EE].transform.Find("EE_BB").gameObject);
-        WGRefDict.Add(EE_CC, WGRefDict[EE].transform.Find("EE_CC").gameObject);
-        WGRefDict.Add(EE_DD, WGRefDict[EE].transform.Find("EE_DD").gameObject);
-        WGRefDict.Add(EE_EE, WGRefDict[EE].transform.Find("EE_EE").gameObject);
-        WGRefDict.Add(EE_FF, WGRefDict[EE].transform.Find("EE_FF").gameObject);
-        WGRefDict.Add(EE_GG, WGRefDict[EE].transform.Find("EE_GG").gameObject);
+        WGRefDict.Add(EE_AA, WGRefDict[EE].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(EE_BB, WGRefDict[EE].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(EE_CC, WGRefDict[EE].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(EE_DD, WGRefDict[EE].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(EE_EE, WGRefDict[EE].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(EE_FF, WGRefDict[EE].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(EE_GG, WGRefDict[EE].transform.Find("HoneySlot_GG").gameObject);
 
-        WGRefDict.Add(FF_AA, WGRefDict[FF].transform.Find("FF_AA").gameObject);
-        WGRefDict.Add(FF_BB, WGRefDict[FF].transform.Find("FF_BB").gameObject);
-        WGRefDict.Add(FF_CC, WGRefDict[FF].transform.Find("FF_CC").gameObject);
-        WGRefDict.Add(FF_DD, WGRefDict[FF].transform.Find("FF_DD").gameObject);
-        WGRefDict.Add(FF_EE, WGRefDict[FF].transform.Find("FF_EE").gameObject);
-        WGRefDict.Add(FF_FF, WGRefDict[FF].transform.Find("FF_FF").gameObject);
-        WGRefDict.Add(FF_GG, WGRefDict[FF].transform.Find("FF_GG").gameObject);
+        WGRefDict.Add(FF_AA, WGRefDict[FF].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(FF_BB, WGRefDict[FF].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(FF_CC, WGRefDict[FF].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(FF_DD, WGRefDict[FF].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(FF_EE, WGRefDict[FF].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(FF_FF, WGRefDict[FF].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(FF_GG, WGRefDict[FF].transform.Find("HoneySlot_GG").gameObject);
 
-        WGRefDict.Add(GG_AA, WGRefDict[GG].transform.Find("GG_AA").gameObject);
-        WGRefDict.Add(GG_BB, WGRefDict[GG].transform.Find("GG_BB").gameObject);
-        WGRefDict.Add(GG_CC, WGRefDict[GG].transform.Find("GG_CC").gameObject);
-        WGRefDict.Add(GG_DD, WGRefDict[GG].transform.Find("GG_DD").gameObject);
-        WGRefDict.Add(GG_EE, WGRefDict[GG].transform.Find("GG_EE").gameObject);
-        WGRefDict.Add(GG_FF, WGRefDict[GG].transform.Find("GG_FF").gameObject);
-        WGRefDict.Add(GG_GG, WGRefDict[GG].transform.Find("GG_GG").gameObject);
+        WGRefDict.Add(GG_AA, WGRefDict[GG].transform.Find("HoneySlot_AA").gameObject);
+        WGRefDict.Add(GG_BB, WGRefDict[GG].transform.Find("HoneySlot_BB").gameObject);
+        WGRefDict.Add(GG_CC, WGRefDict[GG].transform.Find("HoneySlot_CC").gameObject);
+        WGRefDict.Add(GG_DD, WGRefDict[GG].transform.Find("HoneySlot_DD").gameObject);
+        WGRefDict.Add(GG_EE, WGRefDict[GG].transform.Find("HoneySlot_EE").gameObject);
+        WGRefDict.Add(GG_FF, WGRefDict[GG].transform.Find("HoneySlot_FF").gameObject);
+        WGRefDict.Add(GG_GG, WGRefDict[GG].transform.Find("HoneySlot_GG").gameObject);
 
     //add FlowerIndicators
-        WGRefDict.Add(AA_1, WGRefDict[AA].transform.Find("AA_Indicator_1").gameObject);
-        WGRefDict.Add(AA_2, WGRefDict[AA].transform.Find("AA_Indicator_2").gameObject);
-        WGRefDict.Add(AA_3, WGRefDict[AA].transform.Find("AA_Indicator_3").gameObject);
-        WGRefDict.Add(AA_4, WGRefDict[AA].transform.Find("AA_Indicator_4").gameObject);
-        WGRefDict.Add(AA_5, WGRefDict[AA].transform.Find("AA_Indicator_5").gameObject);
-        WGRefDict.Add(AA_6, WGRefDict[AA].transform.Find("AA_Indicator_6").gameObject);
-        WGRefDict.Add(AA_7, WGRefDict[AA].transform.Find("AA_Indicator_7").gameObject);
-        WGRefDict.Add(AA_8, WGRefDict[AA].transform.Find("AA_Indicator_8").gameObject);
-        WGRefDict.Add(AA_9, WGRefDict[AA].transform.Find("AA_Indicator_9").gameObject);
+        WGRefDict.Add(AA_1, WGRefDict[AA].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(AA_2, WGRefDict[AA].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(AA_3, WGRefDict[AA].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(AA_4, WGRefDict[AA].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(AA_5, WGRefDict[AA].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(AA_6, WGRefDict[AA].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(AA_7, WGRefDict[AA].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(AA_8, WGRefDict[AA].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(AA_9, WGRefDict[AA].transform.Find("FlowerIndicator_9").gameObject);
 
-        WGRefDict.Add(BB_1, WGRefDict[BB].transform.Find("BB_Indicator_1").gameObject);
-        WGRefDict.Add(BB_2, WGRefDict[BB].transform.Find("BB_Indicator_2").gameObject);
-        WGRefDict.Add(BB_3, WGRefDict[BB].transform.Find("BB_Indicator_3").gameObject);
-        WGRefDict.Add(BB_4, WGRefDict[BB].transform.Find("BB_Indicator_4").gameObject);
-        WGRefDict.Add(BB_5, WGRefDict[BB].transform.Find("BB_Indicator_5").gameObject);
-        WGRefDict.Add(BB_6, WGRefDict[BB].transform.Find("BB_Indicator_6").gameObject);
-        WGRefDict.Add(BB_7, WGRefDict[BB].transform.Find("BB_Indicator_7").gameObject);
-        WGRefDict.Add(BB_8, WGRefDict[BB].transform.Find("BB_Indicator_8").gameObject);
-        WGRefDict.Add(BB_9, WGRefDict[BB].transform.Find("BB_Indicator_9").gameObject);
+        WGRefDict.Add(BB_1, WGRefDict[BB].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(BB_2, WGRefDict[BB].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(BB_3, WGRefDict[BB].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(BB_4, WGRefDict[BB].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(BB_5, WGRefDict[BB].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(BB_6, WGRefDict[BB].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(BB_7, WGRefDict[BB].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(BB_8, WGRefDict[BB].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(BB_9, WGRefDict[BB].transform.Find("FlowerIndicator_9").gameObject);
 
-        WGRefDict.Add(CC_1, WGRefDict[CC].transform.Find("CC_Indicator_1").gameObject);
-        WGRefDict.Add(CC_2, WGRefDict[CC].transform.Find("CC_Indicator_2").gameObject);
-        WGRefDict.Add(CC_3, WGRefDict[CC].transform.Find("CC_Indicator_3").gameObject);
-        WGRefDict.Add(CC_4, WGRefDict[CC].transform.Find("CC_Indicator_4").gameObject);
-        WGRefDict.Add(CC_5, WGRefDict[CC].transform.Find("CC_Indicator_5").gameObject);
-        WGRefDict.Add(CC_6, WGRefDict[CC].transform.Find("CC_Indicator_6").gameObject);
-        WGRefDict.Add(CC_7, WGRefDict[CC].transform.Find("CC_Indicator_7").gameObject);
-        WGRefDict.Add(CC_8, WGRefDict[CC].transform.Find("CC_Indicator_8").gameObject);
-        WGRefDict.Add(CC_9, WGRefDict[CC].transform.Find("CC_Indicator_9").gameObject);
+        WGRefDict.Add(CC_1, WGRefDict[CC].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(CC_2, WGRefDict[CC].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(CC_3, WGRefDict[CC].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(CC_4, WGRefDict[CC].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(CC_5, WGRefDict[CC].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(CC_6, WGRefDict[CC].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(CC_7, WGRefDict[CC].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(CC_8, WGRefDict[CC].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(CC_9, WGRefDict[CC].transform.Find("FlowerIndicator_9").gameObject);
 
-        WGRefDict.Add(DD_1, WGRefDict[DD].transform.Find("DD_Indicator_1").gameObject);
-        WGRefDict.Add(DD_2, WGRefDict[DD].transform.Find("DD_Indicator_2").gameObject);
-        WGRefDict.Add(DD_3, WGRefDict[DD].transform.Find("DD_Indicator_3").gameObject);
-        WGRefDict.Add(DD_4, WGRefDict[DD].transform.Find("DD_Indicator_4").gameObject);
-        WGRefDict.Add(DD_5, WGRefDict[DD].transform.Find("DD_Indicator_5").gameObject);
-        WGRefDict.Add(DD_6, WGRefDict[DD].transform.Find("DD_Indicator_6").gameObject);
-        WGRefDict.Add(DD_7, WGRefDict[DD].transform.Find("DD_Indicator_7").gameObject);
-        WGRefDict.Add(DD_8, WGRefDict[DD].transform.Find("DD_Indicator_8").gameObject);
-        WGRefDict.Add(DD_9, WGRefDict[DD].transform.Find("DD_Indicator_9").gameObject);
+        WGRefDict.Add(DD_1, WGRefDict[DD].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(DD_2, WGRefDict[DD].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(DD_3, WGRefDict[DD].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(DD_4, WGRefDict[DD].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(DD_5, WGRefDict[DD].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(DD_6, WGRefDict[DD].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(DD_7, WGRefDict[DD].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(DD_8, WGRefDict[DD].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(DD_9, WGRefDict[DD].transform.Find("FlowerIndicator_9").gameObject);
 
-        WGRefDict.Add(EE_1, WGRefDict[EE].transform.Find("EE_Indicator_1").gameObject);
-        WGRefDict.Add(EE_2, WGRefDict[EE].transform.Find("EE_Indicator_2").gameObject);
-        WGRefDict.Add(EE_3, WGRefDict[EE].transform.Find("EE_Indicator_3").gameObject);
-        WGRefDict.Add(EE_4, WGRefDict[EE].transform.Find("EE_Indicator_4").gameObject);
-        WGRefDict.Add(EE_5, WGRefDict[EE].transform.Find("EE_Indicator_5").gameObject);
-        WGRefDict.Add(EE_6, WGRefDict[EE].transform.Find("EE_Indicator_6").gameObject);
-        WGRefDict.Add(EE_7, WGRefDict[EE].transform.Find("EE_Indicator_7").gameObject);
-        WGRefDict.Add(EE_8, WGRefDict[EE].transform.Find("EE_Indicator_8").gameObject);
-        WGRefDict.Add(EE_9, WGRefDict[EE].transform.Find("EE_Indicator_9").gameObject);
+        WGRefDict.Add(EE_1, WGRefDict[EE].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(EE_2, WGRefDict[EE].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(EE_3, WGRefDict[EE].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(EE_4, WGRefDict[EE].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(EE_5, WGRefDict[EE].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(EE_6, WGRefDict[EE].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(EE_7, WGRefDict[EE].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(EE_8, WGRefDict[EE].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(EE_9, WGRefDict[EE].transform.Find("FlowerIndicator_9").gameObject);
 
-        WGRefDict.Add(FF_1, WGRefDict[FF].transform.Find("FF_Indicator_1").gameObject);
-        WGRefDict.Add(FF_2, WGRefDict[FF].transform.Find("FF_Indicator_2").gameObject);
-        WGRefDict.Add(FF_3, WGRefDict[FF].transform.Find("FF_Indicator_3").gameObject);
-        WGRefDict.Add(FF_4, WGRefDict[FF].transform.Find("FF_Indicator_4").gameObject);
-        WGRefDict.Add(FF_5, WGRefDict[FF].transform.Find("FF_Indicator_5").gameObject);
-        WGRefDict.Add(FF_6, WGRefDict[FF].transform.Find("FF_Indicator_6").gameObject);
-        WGRefDict.Add(FF_7, WGRefDict[FF].transform.Find("FF_Indicator_7").gameObject);
-        WGRefDict.Add(FF_8, WGRefDict[FF].transform.Find("FF_Indicator_8").gameObject);
-        WGRefDict.Add(FF_9, WGRefDict[FF].transform.Find("FF_Indicator_9").gameObject);
+        WGRefDict.Add(FF_1, WGRefDict[FF].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(FF_2, WGRefDict[FF].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(FF_3, WGRefDict[FF].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(FF_4, WGRefDict[FF].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(FF_5, WGRefDict[FF].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(FF_6, WGRefDict[FF].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(FF_7, WGRefDict[FF].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(FF_8, WGRefDict[FF].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(FF_9, WGRefDict[FF].transform.Find("FlowerIndicator_9").gameObject);
 
-        WGRefDict.Add(GG_1, WGRefDict[GG].transform.Find("GG_Indicator_1").gameObject);
-        WGRefDict.Add(GG_2, WGRefDict[GG].transform.Find("GG_Indicator_2").gameObject);
-        WGRefDict.Add(GG_3, WGRefDict[GG].transform.Find("GG_Indicator_3").gameObject);
-        WGRefDict.Add(GG_4, WGRefDict[GG].transform.Find("GG_Indicator_4").gameObject);
-        WGRefDict.Add(GG_5, WGRefDict[GG].transform.Find("GG_Indicator_5").gameObject);
-        WGRefDict.Add(GG_6, WGRefDict[GG].transform.Find("GG_Indicator_6").gameObject);
-        WGRefDict.Add(GG_7, WGRefDict[GG].transform.Find("GG_Indicator_7").gameObject);
-        WGRefDict.Add(GG_8, WGRefDict[GG].transform.Find("GG_Indicator_8").gameObject);
-        WGRefDict.Add(GG_9, WGRefDict[GG].transform.Find("GG_Indicator_9").gameObject);
+        WGRefDict.Add(GG_1, WGRefDict[GG].transform.Find("FlowerIndicator_1").gameObject);
+        WGRefDict.Add(GG_2, WGRefDict[GG].transform.Find("FlowerIndicator_2").gameObject);
+        WGRefDict.Add(GG_3, WGRefDict[GG].transform.Find("FlowerIndicator_3").gameObject);
+        WGRefDict.Add(GG_4, WGRefDict[GG].transform.Find("FlowerIndicator_4").gameObject);
+        WGRefDict.Add(GG_5, WGRefDict[GG].transform.Find("FlowerIndicator_5").gameObject);
+        WGRefDict.Add(GG_6, WGRefDict[GG].transform.Find("FlowerIndicator_6").gameObject);
+        WGRefDict.Add(GG_7, WGRefDict[GG].transform.Find("FlowerIndicator_7").gameObject);
+        WGRefDict.Add(GG_8, WGRefDict[GG].transform.Find("FlowerIndicator_8").gameObject);
+        WGRefDict.Add(GG_9, WGRefDict[GG].transform.Find("FlowerIndicator_9").gameObject);
 
 
 
@@ -231,6 +231,11 @@ public class WorldGrid : MonoBehaviour
     public void Set_HoveredOver_HoneyComb(wg_ADDRESS honeycomb)
     {
         HoveredOver_HoneyComb = honeycomb;
+    }
+
+    public void Set_HoveredOver_HoneySlot(wg_ADDRESS honeycomb)
+    {
+        HoveredOver_HoneySlot = honeycomb;
     }
 
 

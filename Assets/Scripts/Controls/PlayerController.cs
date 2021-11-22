@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         //condense
         wg_ADDRESS HoveredOver_HoneyComb = WorldGridScript.HoveredOver_HoneyComb;
+        wg_ADDRESS HoveredOver_HoneySlot = WorldGridScript.HoveredOver_HoneySlot;
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
 
         //if OUTER
@@ -83,7 +84,25 @@ public class PlayerController : MonoBehaviour
         //if INNER
         if(GameStatus == INNER)
         {
+            //no HoveredOver_HoneySlot
+            if(HoveredOver_HoneySlot == NONE)
+            {
+                //do nothing
+            }
+            else
+            {
+                //check if occupied, etc.
 
+                //find HoneySlotObject
+                GameObject HoneySlotObject = WorldGridScript.WGRefDict[HoveredOver_HoneySlot];
+
+                //rotate piece attached
+                HoneySlotObject.GetComponentInChildren<Piece>().Rotate_Piece();
+
+                WorldGridObject.GetComponent<VineValidator>().Validate_ThisHoneyComb(HoveredOver_HoneyComb);
+
+                //WorldGridScript.WGRefDict[HoveredOver_HoneySlot].GetComponent<PieceRotator>().Rotate_Piece();
+            }
         }
     }
 

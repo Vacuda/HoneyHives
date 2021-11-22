@@ -5,30 +5,30 @@ using static wg_ADDRESS;
 
 public struct HoneySlotInfo
 {
-    public HoneySlotInfo(wg_ADDRESS address, bool occupied, bool movable, bool spinnable, v_VALUE tri1, v_VALUE tri2, v_VALUE tri3, v_VALUE tri4, v_VALUE tri5, v_VALUE tri6)
+    public HoneySlotInfo(wg_ADDRESS address, bool occupied, bool movable, bool spinnable, fv_FACEVALUE fv_1, fv_FACEVALUE fv_2, fv_FACEVALUE fv_3, fv_FACEVALUE fv_4, fv_FACEVALUE fv_5, fv_FACEVALUE fv_6)
     {
         this.Address = address;
         this.IsOccupied = occupied;
         this.IsMovable = movable;
         this.IsSpinnable = spinnable;
-        this.tri1 = tri1;
-        this.tri2 = tri2;
-        this.tri3 = tri3;
-        this.tri4 = tri4;
-        this.tri5 = tri5;
-        this.tri6 = tri6;
+        this.fv_1 = fv_1;
+        this.fv_2 = fv_2;
+        this.fv_3 = fv_3;
+        this.fv_4 = fv_4;
+        this.fv_5 = fv_5;
+        this.fv_6 = fv_6;
     }
 
     public readonly wg_ADDRESS Address;
     public readonly bool IsOccupied;
     public readonly bool IsMovable;
     public readonly bool IsSpinnable;
-    public readonly v_VALUE tri1;
-    public readonly v_VALUE tri2;
-    public readonly v_VALUE tri3;
-    public readonly v_VALUE tri4;
-    public readonly v_VALUE tri5;
-    public readonly v_VALUE tri6;
+    public readonly fv_FACEVALUE fv_1;
+    public readonly fv_FACEVALUE fv_2;
+    public readonly fv_FACEVALUE fv_3;
+    public readonly fv_FACEVALUE fv_4;
+    public readonly fv_FACEVALUE fv_5;
+    public readonly fv_FACEVALUE fv_6;
 
 }
 

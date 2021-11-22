@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static ln_LEVELNAME;
 using static wg_ADDRESS;
-using static v_VALUE;
+using static fv_FACEVALUE;
 
 public class LevelHouse : MonoBehaviour
 {
@@ -35,13 +35,13 @@ public class LevelHouse : MonoBehaviour
         LevelPackage.HoneySlots = new List<HoneySlotInfo>();
 
         //honeycomb AA
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_AA, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_BB, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_CC, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_DD, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_EE, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_FF, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_GG, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_AA, true, true, true, v_blank, v_blank, v_1, v_blank, v_blank, v_add));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_BB, true, true, true, v_blank, v_2, v_blank, v_blank, v_blank, v_blank));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_CC, true, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_DD, true, true, true, v_2, v_5, v_blank, v_blank, v_add, v_blank));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_EE, true, true, true, v_blank, v_blank, v_blank, v_blank, v_blank, v_blank));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_FF, true, true, true, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_GG, true, true, true, v_3, v_blank, v_blank, v_equals, v_blank, v_blank));
 
         //honeycomb BB
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_AA, true, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
