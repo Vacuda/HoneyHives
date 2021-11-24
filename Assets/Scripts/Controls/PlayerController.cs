@@ -70,6 +70,9 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                //turn off HoneyComb Colliders
+                WorldGridScript.Modify_AllHoneyCombColliders(false);
+
                 //change status to INNER
                 GameLevelScript.Set_GameStatus(INNER);
 
@@ -78,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
                 //turn on HoneySlot colliders
                 WorldGridScript.Modify_ThisHoneyCombs_HoneySlotColliders(HoveredOver_HoneyComb, true);
+
             }
 
         }
@@ -99,9 +103,9 @@ public class PlayerController : MonoBehaviour
                 //rotate piece attached
                 HoneySlotObject.GetComponentInChildren<Piece>().Rotate_Piece();
 
+                //validate all indicators in this honeycomb
                 WorldGridObject.GetComponent<VineValidator>().Validate_ThisHoneyComb(HoveredOver_HoneyComb);
 
-                //WorldGridScript.WGRefDict[HoveredOver_HoneySlot].GetComponent<PieceRotator>().Rotate_Piece();
             }
         }
     }

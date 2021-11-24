@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static wg_ADDRESS;
+using static gs_GAMESTATUS;
 
 
 public class WorldGrid : MonoBehaviour
@@ -23,7 +24,8 @@ public class WorldGrid : MonoBehaviour
     float y4_set = 7.08f;
     float y5_set = 13.4f;
 
-    
+    public GameObject AdminObject;
+    private GameLevel GameLevelScript;
 
     int Tracker = 0;
 
@@ -50,6 +52,7 @@ public class WorldGrid : MonoBehaviour
         StartPosition = transform.position;
         TargetPosition = StartPosition;
 
+        GameLevelScript = AdminObject.GetComponent<GameLevel>();
     }
 
 
@@ -214,6 +217,16 @@ public class WorldGrid : MonoBehaviour
 
     }
 
+    public void Modify_AllHoneyCombColliders(bool direction)
+    {
+        //loop honeycombs
+        foreach(Transform child in gameObject.transform)
+        {
+            //turn on or off each honeycomb collider
+            child.transform.Find("HC_Collider").GetComponent<CircleCollider2D>().enabled = direction;
+        }
+    }
+
     public void Modify_ThisHoneyCombs_HoneySlotColliders(wg_ADDRESS honeycomb, bool direction)
     {
         //find HoneySlots array
@@ -222,15 +235,25 @@ public class WorldGrid : MonoBehaviour
         //loop HoneySlots
         foreach (wg_ADDRESS addy in HoneySlots)
         {
+
+
             //turn on colliders
-            WGRefDict[addy].GetComponent<CircleCollider2D>().enabled = direction;
+            WGRefDict[addy].GetComponentInChildren<CircleCollider2D>().enabled = direction;
         }
     }
 
 
     public void Set_HoveredOver_HoneyComb(wg_ADDRESS honeycomb)
     {
-        HoveredOver_HoneyComb = honeycomb;
+        //condense
+        gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
+
+        //only changes when in correct status
+        if(GameStatus == OUTER)
+        {
+            HoveredOver_HoneyComb = honeycomb;
+        }
+
     }
 
     public void Set_HoveredOver_HoneySlot(wg_ADDRESS honeycomb)

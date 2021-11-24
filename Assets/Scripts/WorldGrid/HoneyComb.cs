@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+//using UnityEngine.EventSystems;
 using static wg_ADDRESS;
 
-public class HoneyComb : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HoneyComb : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
     public wg_ADDRESS HoneyComb_Address;
     private WorldGrid WorldGridScript;
@@ -20,22 +20,22 @@ public class HoneyComb : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         Build_LocalDictionaryOfHoneySlotObjects();
     }
 
-    private void Start()
-    {
-        WorldGridScript = GetComponentInParent<WorldGrid>();
+    //private void Start()
+    //{
+    //    WorldGridScript = GetComponentInParent<WorldGrid>();
 
-    }
+    //}
 
-    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
-    {
-        WorldGridScript.Set_HoveredOver_HoneyComb(HoneyComb_Address);
-    }
+    //void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    //{
+    //    WorldGridScript.Set_HoveredOver_HoneyComb(HoneyComb_Address);
+    //}
 
-    //writing IPointerExitHander. then the function name made this work.  I think it overwrite's the base implementation written this way.
-    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
-    {
-        WorldGridScript.Set_HoveredOver_HoneyComb(NONE);
-    }
+    ////writing IPointerExitHander. then the function name made this work.  I think it overwrite's the base implementation written this way.
+    //void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    //{
+    //    WorldGridScript.Set_HoveredOver_HoneyComb(NONE);
+    //}
 
     private void Build_LocalDictionaryOfHoneySlotObjects()
     {

@@ -13,20 +13,16 @@ public class Piece : MonoBehaviour
     public fv_FACEVALUE fv_5;
     public fv_FACEVALUE fv_6;
 
-
-
-
     public void Rotate_Piece()
     {
         //increment
         Current_TriOffset++;
-
+ 
         //possible reset
         if(Current_TriOffset > 5)
         {
             Current_TriOffset = Current_TriOffset - 6;
         }
-
 
         //store this piece (My Parent's Parent)
         GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
@@ -35,7 +31,7 @@ public class Piece : MonoBehaviour
         gameObject.transform.parent = null;
 
         //rotate
-        gameObject.transform.Rotate(0.0f, 0.0f, 60.0f);
+        gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
 
         //loop children
         foreach (Transform child in gameObject.transform)
@@ -44,12 +40,8 @@ public class Piece : MonoBehaviour
             child.transform.Rotate(0.0f, 0.0f, -60.0f);
         }
 
-
-
         //re-attach to parent
         gameObject.transform.parent = HoneySlotParent.transform;
-
-
     }
 
 

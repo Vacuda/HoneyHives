@@ -56,12 +56,32 @@ public class VineValidator : MonoBehaviour
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
-        //@@@@ = = = should work.  = = = = should not
+        Debug.Log("VALUES: " + val1 + " - " + val2 + " - " + val3 + " - " + val4);
 
-
-        //if equals on the ends OR both mids are equals
-        if(val1 == v_equals || val4 == v_equals || (val2 == v_equals && val3 == v_equals))
+        //if val1 or val4 is equals
+        if (val1 == v_equals || val4 == v_equals)
         {
+            // b = = =
+            if(val1 == v_blank && val2 == v_equals && val3 == v_equals && val4 == v_equals)
+            {
+                return true;
+            }
+            // = b = =
+            if (val1 == v_equals && val2 == v_blank && val3 == v_equals && val4 == v_equals)
+            {
+                return true;
+            }
+            // = = b =
+            if (val1 == v_equals && val2 == v_equals && val3 == v_blank && val4 == v_equals)
+            {
+                return true;
+            }
+            // = = = b
+            if (val1 == v_equals && val2 == v_equals && val3 == v_equals && val4 == v_blank)
+            {
+                return true;
+            }
+
             return false;
         }
         //if val2 is equals
@@ -162,6 +182,15 @@ public class VineValidator : MonoBehaviour
                             return true;
                         }
                         //nothing else works
+                    }
+                    //LeftDigit = 0 ?
+                    if(Get_Digit(val3) == 0)
+                    {
+                        //LeftDigit = 0 RightDigit
+                        if(LeftDigit == Get_Digit(val4))
+                        {
+                            return true;
+                        }
                     }
 
                     return false;
@@ -312,6 +341,15 @@ public class VineValidator : MonoBehaviour
                             return true;
                         }
                     }
+                    // 0 ? = RightDigit
+                    if(val1 == v_0)
+                    {
+                        //0 Digit = RightDigit
+                        if(Get_Digit(val2) == RightDigit)
+                        {
+                            return true;
+                        }
+                    }
 
                     return false;
                 }
@@ -319,9 +357,25 @@ public class VineValidator : MonoBehaviour
 
         }
 
-        //@@@@ More Equal sign edge cases need to be handled right in the beginning
 
-        /* 
+    /* No EQUAL signs detected * /
+
+        5 + = 0 5 +
+
+        5, 2201, =, 5 2201
+
+        //if not same amount of shapes, false
+        //loop indexes
+        //if left[1] != right[1], false
+        //if left[2] != right[2], false
+
+
+        5, 2001, =, 5
+
+        5 = 5 = 5 =
+
+        -05-b+      
+        -5, -, +
 
         Now, we've dealt with all equals signs which had turned the validation into an equation.
 
@@ -348,19 +402,6 @@ public class VineValidator : MonoBehaviour
         --0-
 
         */
-
-
-
-
-
-            //List<string> ProcedureArray = new List<string>();
-
-            //int IntBuild = 0;
-            //bool NegativeTag = false;
-
-
-
-
 
 
 
@@ -514,7 +555,7 @@ public class VineValidator : MonoBehaviour
             case v_9:
                 return 9;
             default:
-                return 0;
+                return 99;
         }
     }
 
