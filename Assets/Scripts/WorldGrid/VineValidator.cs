@@ -5,6 +5,18 @@ using static wg_ADDRESS;
 using static t_TRI;
 using static fv_FACEVALUE;
 
+public struct VineBlock
+{
+    public VineBlock(fv_FACEVALUE val, int intval)
+    {
+        this.Value = val;
+        this.IntValue = intval;
+    }
+
+    public fv_FACEVALUE Value;
+    public int IntValue;
+}
+
 public class VineValidator : MonoBehaviour
 {
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
@@ -403,7 +415,7 @@ public class VineValidator : MonoBehaviour
 
         */
 
-
+        //  = = = = = 7
 
 
         return true;
@@ -411,9 +423,160 @@ public class VineValidator : MonoBehaviour
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
+        int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4, val5, val6);
+
+        switch (EqualsAmount)
+        {
+            case 0: 
+                return true;
+            case 1:
+                return Validate_With_1_Equals(val1, val2, val3, val4, val5, val6);
+            case 2:
+                return Validate_With_2_Equals(val1, val2, val3, val4, val5, val6);
+            case 3:
+                return Validate_With_3_Equals(val1, val2, val3, val4, val5, val6);
+            case 4:
+                return false;
+            case 5:
+                return Validate_With_5_Equals(val1, val2, val3, val4, val5, val6);
+            case 6:
+                return false;
+            default: 
+                return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // = 5 = = 5
+
+    }
+
+    private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    {
         return false;
     }
 
+    private bool Validate_With_2_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    {
+        return false;
+    }
+
+    private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    {
+        /* Of the 3, the middle equals is the divider.  Side equals are just symbols */
+
+        //put values into list
+        List<VineBlock> AllValues = new List<VineBlock>();
+        AllValues.Add(new VineBlock(val1, 0));
+        AllValues.Add(new VineBlock(val2, 0));
+        AllValues.Add(new VineBlock(val3, 0));
+        AllValues.Add(new VineBlock(val4, 0));
+        AllValues.Add(new VineBlock(val5, 0));
+        AllValues.Add(new VineBlock(val6, 0));
+
+        //create a left and right side list
+        List<VineBlock> Left_Values = new List<VineBlock>();
+        List<VineBlock> Right_Values = new List<VineBlock>();
+
+        // runner to interpret left or right side of equation
+        int EqualsTicker = 0;
+
+        //loop all 6 values
+        foreach (VineBlock vblock in AllValues)
+        {
+            //increment ticker
+            if(vblock.Value == v_equals)
+            {
+                EqualsTicker++;
+            }
+
+            // skip, if blank
+            if(vblock.Value == v_blank)
+            {
+                continue;
+            }
+
+            //before middle
+            if(EqualsTicker < 2)
+            {
+                //add to left
+                Left_Values.Add(vblock);
+            }
+            //after middle
+            if (EqualsTicker > 2)
+            {
+                //add to right
+                Right_Values.Add(vblock);
+            }
+        }
+
+        //blanks already removed
+
+        PossiblyEliminate_Zeros(ref Right_Values);
+        PossiblyEliminate_Zeros(ref Left_Values);
+        PossiblyMerge_Ints(ref Right_Values);
+        PossiblyMerge_Ints(ref Left_Values);
+        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
+
+        // = + 5 = = 5
+
+        //if equal sides
+        if (Right_Values.Count == Left_Values.Count)
+        {
+            
+        }
+
+        return false;
+
+
+
+        //remove blanks
+        //remove zeros
+        //merge ints
+        //remove plus signs, but not do math
+        //incorporate minus signs into ints, but not do math
+        //
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private bool Validate_With_5_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    {
+        // the one non-equal has to be a v_blank
+        if(val1==v_blank || val2 == v_blank || val3 == v_blank || val4 == v_blank || val5 == v_blank || val6 == v_blank)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     private bool Validate_ThisFlower(Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict, string flowername)
     {
@@ -529,7 +692,388 @@ public class VineValidator : MonoBehaviour
 
     }
 
-//Utilities
+    //Utilities
+
+    private void PossiblyMerge_Ints(ref List<VineBlock> VBlocks)
+    {
+        int IntValue = 1;
+        int DigitTracker = 0;
+
+
+        //loop Values
+        for(int i=0; i< VBlocks.Count; i++)
+        {
+            //if digit
+            if (IsDigit(VBlocks[i].Value)) {
+
+                //first time
+                if (DigitTracker == 0)
+                {
+                    //set to this first digit
+                    IntValue = Get_Digit(VBlocks[i].Value);
+
+                    //increment
+                    DigitTracker++;
+                }
+                //not first time
+                else
+                {
+                    //IntValue = 10 * previous + new digit
+                    IntValue = (10 * IntValue) + Get_Digit(VBlocks[i].Value);
+
+                    //increment
+                    DigitTracker++;
+                }
+            }
+            //if stored int
+            else if (DigitTracker != 0)
+            {
+                //copy index
+                int CopiedIndex = i - 1;
+
+                //remove all ints that make up IntValue
+                while(DigitTracker > 0)
+                {
+                    //remove
+                    VBlocks.RemoveAt(CopiedIndex);
+
+                    //decrement index and DigitTracker
+                    CopiedIndex--;
+                    DigitTracker--;
+                }
+
+                //add IntValue v_int block
+                VBlocks.Insert(CopiedIndex, new VineBlock(v_int, IntValue));
+            }
+        }
+
+    /* After looping entire List */
+
+        //if it ended on a digit that still needs to be packaged
+        if(DigitTracker != 0)
+        {
+            //copy index
+            int CopiedIndex = VBlocks.Count - 1;
+
+            //remove all ints that make up IntValue
+            while (DigitTracker > 0)
+            {
+                //remove
+                VBlocks.RemoveAt(CopiedIndex);
+
+                //decrement index and DigitTracker
+                CopiedIndex--;
+                DigitTracker--;
+            }
+
+            //add IntValue v_int block
+            VBlocks.Insert(CopiedIndex, new VineBlock(v_int, IntValue));
+        }
+    }
+
+    private void PossiblyEliminate_MinusSigns_YesMath(ref List<VineBlock> VBlocks)
+    {
+        //loop Values by index
+        for (int i = 0; i < VBlocks.Count; i++)
+        {
+            //if minus
+            if (VBlocks[i].Value == v_sub)
+            {
+                //safety -check if first index
+                if(i == 0)
+                {
+                    //safety -check if at end
+                    if(i+1 >= VBlocks.Count)
+                    {
+                        //just a minus
+                        continue;
+                    }
+                    if(VBlocks[i+1].Value == v_int)
+                    {
+                        //store OldInt
+                        int OldInt = VBlocks[i + 1].IntValue;
+
+                        //remove old v_int block
+                        VBlocks.RemoveAt(i + 1);
+
+                        //remove minus block
+                        VBlocks.RemoveAt(i);
+
+                        //multiply by -1
+                        OldInt = OldInt * -1;
+
+                        //build new VBlock
+                        VineBlock NewVineBlock = new VineBlock(v_int, OldInt);
+
+                        //add new VBlock
+                        VBlocks.Insert(i, NewVineBlock);
+
+                        //removed two, added one
+                        //no need to change i
+
+                    }
+                }
+                else
+                {
+                    //if digit on left
+                    if(VBlocks[i-1].Value == v_int)
+                    {
+                        //safety -check if at end
+                        if (i + 1 >= VBlocks.Count)
+                        {
+                            //stays symbol
+                            continue;
+                        }
+
+                        // digit - digit
+                        if(VBlocks[i+1].Value == v_int)
+                        {
+                            //get new int
+                            int NewInt = (Get_Digit(VBlocks[i - 1].Value)) - (Get_Digit(VBlocks[i + 1].Value));
+
+                            //remove left block
+                            VBlocks.RemoveAt(i - 1);
+
+                            //remove minus block
+                            VBlocks.RemoveAt(i);
+
+                            //remove right block
+                            VBlocks.RemoveAt(i + 1);
+
+                            //build new VBlock
+                            VineBlock NewVineBlock = new VineBlock(v_int, NewInt);
+
+                            //removed 3, added 1, so need to decrement i
+                            i--;
+
+                            //safety - check to see if new index is okay
+                            if(i < VBlocks.Count)
+                            {
+                                //add new VBlock
+                                VBlocks.Insert(i, NewVineBlock);
+                            }
+                            // index unsafe, add to end
+                            else
+                            {
+                                //add new VBlock
+                                VBlocks.Add(NewVineBlock);
+                            }
+                        }
+                    }
+                    //no v_int on left
+                    else
+                    {
+                        //safety -check if at end
+                        if (i + 1 >= VBlocks.Count)
+                        {
+                            //just a minus
+                            continue;
+                        }
+                        if (VBlocks[i + 1].Value == v_int)
+                        {
+                            //store OldInt
+                            int OldInt = VBlocks[i + 1].IntValue;
+
+                            //remove old v_int block
+                            VBlocks.RemoveAt(i + 1);
+
+                            //remove minus block
+                            VBlocks.RemoveAt(i);
+
+                            //multiply by -1
+                            OldInt = OldInt * -1;
+
+                            //build new VBlock
+                            VineBlock NewVineBlock = new VineBlock(v_int, OldInt);
+
+                            //@@@@ new saftery here
+
+
+                            //add new VBlock
+                            VBlocks.Insert(i, NewVineBlock);
+
+                            //removed two, added one
+                            //no need to change i
+
+                        }
+                    }
+
+
+                }
+
+
+            }
+        }
+    }
+
+    private void PossiblyEliminate_PlusSigns_NoMath(ref List<VineBlock> VBlocks)
+    {
+        //loop Values by index
+        for(int i=0; i< VBlocks.Count; i++)
+        {
+            //if plus
+            if(VBlocks[i].Value == v_add)
+            {
+                //safety -check if last index
+                if (i + 1 == VBlocks.Count)
+                {
+                    //it stays as symbol
+                    continue;
+                }
+
+                //digit on right
+                if (IsDigit(VBlocks[i + 1].Value))
+                {
+                    //safety -check if first index
+                    if(i-1 == -1)
+                    {
+                        //it is deleted, just a positive indicator
+                        VBlocks.RemoveAt(i);
+
+                        //need to deincrement index because of removal
+                        i--;
+
+                        continue;
+                    }
+                    //check prior index, if  not digit
+                    if (!IsDigit(VBlocks[i - 1].Value))
+                    {
+                        //it is deleted, just a positive indicator
+                        VBlocks.RemoveAt(i);
+
+                        //need to deincrement index because of removal
+                        i--;
+
+                        continue;
+                    }
+                    //prior digit
+                    else
+                    {
+                        /* WONT DO MATH YET */
+                    }
+                }
+            }
+        }
+    }
+
+    private void PossiblyEliminate_PlusSigns_OnlyMath(ref List<VineBlock> VBlocks)
+    {
+        //loop Values by index
+        for (int i = 0; i < VBlocks.Count; i++)
+        {
+
+
+            //if plus - won't be first index
+            if (VBlocks[i].Value == v_add)
+            {
+                //safety -check if last index
+                if (i + 1 == VBlocks.Count)
+                {
+                    //it stays as symbol
+                    continue;
+                }
+
+                //digit on right
+                if (IsDigit(VBlocks[i + 1].Value))
+                {
+                   
+                    //check prior index, if digit
+                    if (IsDigit(VBlocks[i - 1].Value))
+                    {
+                        //get new int
+                        int NewInt = (Get_Digit(VBlocks[i - 1].Value)) - (Get_Digit(VBlocks[i + 1].Value));
+
+                        //remove left block
+                        VBlocks.RemoveAt(i - 1);
+
+                        //remove minus block
+                        VBlocks.RemoveAt(i);
+
+                        //remove right block
+                        VBlocks.RemoveAt(i + 1);
+
+                        //build new VBlock
+                        VineBlock NewVineBlock = new VineBlock(v_int, NewInt);
+
+                        //removed 3, added 1, so need to decrement i
+                        i--;
+
+                        //safety - check to see if new index is okay
+                        if (i < VBlocks.Count)
+                        {
+                            //add new VBlock
+                            VBlocks.Insert(i, NewVineBlock);
+                        }
+                        // index unsafe, add to end
+                        else
+                        {
+                            //add new VBlock
+                            VBlocks.Add(NewVineBlock);
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void PossiblyEliminate_Zeros(ref List<VineBlock> VBlocks)
+    {
+        //loop Values by index
+        for(int i=0; i< VBlocks.Count; i++)
+        {
+            //if zero
+            if(VBlocks[i].Value == v_0)
+            {
+                //safety -check if last index
+                if(i+1 == VBlocks.Count)
+                {
+                    continue;
+                }
+
+                //digit on right
+                if (IsDigit(VBlocks[i + 1].Value))
+                {
+                    //safety -check if first index
+                    if(i-1 == -1)
+                    {
+                        //delete the zero
+                        VBlocks.RemoveAt(i);
+
+                        //need to deincrement index because of removal
+                        i--;
+
+                        continue;
+                    }
+                    //check prior index, if not digit
+                    if (!IsDigit(VBlocks[i - 1].Value))
+                    {
+                        //delete the zero
+                        VBlocks.RemoveAt(i);
+
+                        //need to deincrement index because of removal
+                        i--;
+                    }
+                }
+            }
+        }
+    }
+
+    private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    {
+        int EqualsAmount = 0;
+
+        if (val1 == v_equals) { EqualsAmount++; }
+        if (val2 == v_equals) { EqualsAmount++; }
+        if (val3 == v_equals) { EqualsAmount++; }
+        if (val4 == v_equals) { EqualsAmount++; }
+        if (val5 == v_equals) { EqualsAmount++; }
+        if (val6 == v_equals) { EqualsAmount++; }
+
+        return EqualsAmount;
+    }
+   
     private int Get_Digit(fv_FACEVALUE val)
     {
         switch (val)
