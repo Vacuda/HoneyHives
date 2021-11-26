@@ -24,7 +24,7 @@ public class VineValidator : MonoBehaviour
     void Start()
     {
         //copy reference
-        WGRefDict = gameObject.GetComponent<WorldGrid>().WGRefDict;
+        WGRefDict = gameObject.GetComponent<WorldGrid>().WGRefDict; 
     }
 
     public void Validate_AllHoneyCombs()
@@ -68,363 +68,33 @@ public class VineValidator : MonoBehaviour
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
-        Debug.Log("VALUES: " + val1 + " - " + val2 + " - " + val3 + " - " + val4);
+        //find amount of equals in values
+        int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4);
 
-        //if val1 or val4 is equals
-        if (val1 == v_equals || val4 == v_equals)
+        //validate according to EqualsAmount
+        switch (EqualsAmount)
         {
-            // b = = =
-            if(val1 == v_blank && val2 == v_equals && val3 == v_equals && val4 == v_equals)
-            {
+            case 0:
                 return true;
-            }
-            // = b = =
-            if (val1 == v_equals && val2 == v_blank && val3 == v_equals && val4 == v_equals)
-            {
-                return true;
-            }
-            // = = b =
-            if (val1 == v_equals && val2 == v_equals && val3 == v_blank && val4 == v_equals)
-            {
-                return true;
-            }
-            // = = = b
-            if (val1 == v_equals && val2 == v_equals && val3 == v_equals && val4 == v_blank)
-            {
-                return true;
-            }
-
-            return false;
+            case 1:
+                return Validate_With_1_Equals(val1, val2, val3, val4);
+            case 2:
+                return false;
+            case 3:
+                return Validate_With_3_Equals(val1, val2, val3, val4);
+            case 4:
+                return false;
+            default:
+                return false;
         }
-        //if val2 is equals
-        if (val2 == v_equals)
-        {
-            // + = ? ?
-            if (val1 == v_add)
-            {
-                // + = +
-                if ((val3 == v_add && val4 == v_blank) || (val3 == v_blank && val4 == v_add))
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            // - = ? ?
-            if (val1 == v_sub)
-            {
-                // - = -
-                if ((val3 == v_sub && val4 == v_blank) || (val3 == v_blank && val4 == v_sub))
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            // blank = ? ?
-            if (val1 == v_blank)
-            {
-                // blank = blank
-                if (val3 == v_blank && val4 == v_blank)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            // Non-Negative Digit = ? ?
-            {
-                int LeftDigit = Get_Digit(val1);
-
-                // LeftDigit = + ?
-                if(val3 == v_add)
-                {
-                    // LeftDigit = + Digit
-                    if (IsDigit(val4))
-                    {
-                        //LeftDigit = RightDigit
-                        if(LeftDigit == Get_Digit(val4))
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-
-                // LeftDigit = - ?
-                if(val3 == v_sub)
-                {
-                    // LeftDigit = - 0
-                    if(val4 == v_0)
-                    {
-                        // LeftDigit = 0
-                        if(LeftDigit == 0)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-
-                // LeftDigit = blank ?
-                if(val3 == v_blank)
-                {
-                    // LeftDigit = Digit
-                    if (IsDigit(val4))
-                    {
-                        // LeftDigit = RightDigit
-                        if(LeftDigit == Get_Digit(val4))
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-                // LeftDigit = Digit ?
-                {
-                    //LeftDigit = RightDigit ?
-                    if(LeftDigit == Get_Digit(val3))
-                    {
-                        // LeftDigit = RightDigit v_blank
-                        if(val4 == v_blank)
-                        {
-                            return true;
-                        }
-                        //nothing else works
-                    }
-                    //LeftDigit = 0 ?
-                    if(Get_Digit(val3) == 0)
-                    {
-                        //LeftDigit = 0 RightDigit
-                        if(LeftDigit == Get_Digit(val4))
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-            }  
-        }
-        //if val3 is equals
-        if (val3 == v_equals)
-        {
-            // ? ? = +
-            if (val4 == v_add)
-            {
-                // + ? = +
-                if (val1 == v_add)
-                {
-                    // + blank = +
-                    if (val2 == v_blank)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                // - ? = +
-                if (val1 == v_sub)
-                {
-                    return false;
-                }
-                // blank ? = +
-                if (val1 == v_blank)
-                {
-                    // + = +
-                    if (val2 == v_add)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                // Digit ? = +
-                {
-                    return false;
-                }
-            }
-            // ? ? = -
-            if (val4 == v_sub)
-            {
-                // + ? = -
-                if (val1 == v_add)
-                {
-                    return false;
-                }
-                // - ? = -
-                if (val1 == v_sub)
-                {
-                    // - blank = -
-                    if (val2 == v_blank)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                // blank ? = -
-                if (val1 == v_blank)
-                {
-                    // - = -
-                    if (val2 == v_sub)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                // Digit ? = -
-                {
-                    return false;
-                }
-            }
-            // ? ? = blank
-            if (val4 == v_blank)
-            {
-                // blank = blank
-                if (val1 == v_blank && val2 == v_blank)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            // ? ? = Non-Negative Digit
-            {
-                int RightDigit = Get_Digit(val4);
-
-                // + ? = RightDigit
-                if (val1 == v_add)
-                {
-                    // + Digit = RightDigit
-                    if (IsDigit(val2))
-                    {
-                        // LeftDigit = RightDigit
-                        if (Get_Digit(val2) == RightDigit)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-                // - ? = RightDigit
-                if (val1 == v_sub)
-                {
-                    // - 0 = RightDigit
-                    if (val2 == v_0)
-                    {
-                        // 0 == RightDigit
-                        if (RightDigit == 0)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-                // blank ? = RightDigit
-                if (val1 == v_blank)
-                {
-                    // blank Digit = RightDigit
-                    if (IsDigit(val2))
-                    {
-                        //LeftDigit = RightDigit
-                        if (Get_Digit(val2) == RightDigit)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-                // Digit ? = RightDigit
-                {
-                    // Digit blank = RightDigit
-                    if (val2 == v_blank)
-                    {
-                        //LeftDigit = RightDigit
-                        if (Get_Digit(val1) == RightDigit)
-                        {
-                            return true;
-                        }
-                    }
-                    // 0 ? = RightDigit
-                    if(val1 == v_0)
-                    {
-                        //0 Digit = RightDigit
-                        if(Get_Digit(val2) == RightDigit)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-            }
-
-        }
-
-
-    /* No EQUAL signs detected * /
-
-        5 + = 0 5 +
-
-        5, 2201, =, 5 2201
-
-        //if not same amount of shapes, false
-        //loop indexes
-        //if left[1] != right[1], false
-        //if left[2] != right[2], false
-
-
-        5, 2001, =, 5
-
-        5 = 5 = 5 =
-
-        -05-b+      
-        -5, -, +
-
-        Now, we've dealt with all equals signs which had turned the validation into an equation.
-
-        I believe, now we look for edge cases around v_sub and v_add
-
-        When v_sub and v_add are before ints, they act as positive or negative attributes to the ints.
-
-        When they are after, they are math symbols
-
-        5+ is wrong
-        + + + is okay
-
-        if (5 + = 5 +) because they turn into shapes, then this exception turns them back into shapes
-
-        5+ != 5
-
-
-        -/+                     are shapes
-        -/+ after digits        are math symbols
-        -/+ before equals       are shapes
-
-        -07
-
-        --0-
-
-        */
-
-        //  = = = = = 7
-
-
-        return true;
     }
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
+        //find amount of equals in values
         int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4, val5, val6);
 
+        //validate according to EqualsAmount
         switch (EqualsAmount)
         {
             case 0: 
@@ -432,7 +102,7 @@ public class VineValidator : MonoBehaviour
             case 1:
                 return Validate_With_1_Equals(val1, val2, val3, val4, val5, val6);
             case 2:
-                return Validate_With_2_Equals(val1, val2, val3, val4, val5, val6);
+                return false;
             case 3:
                 return Validate_With_3_Equals(val1, val2, val3, val4, val5, val6);
             case 4:
@@ -444,37 +114,254 @@ public class VineValidator : MonoBehaviour
             default: 
                 return false;
         }
+    }
+
+    private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    {
 
 
+        //separate into Left and Right lists
+        //remove blanks
+        //remove zeros
+        //merge ints
+        //remove plus signs, but not do math
+        //incorporate minus signs into ints, AND do math
+        //do plus sign math
+        //check each side for equality
+
+        //put values into list
+        List<VineBlock> AllValues = new List<VineBlock>();
+        AllValues.Add(new VineBlock(val1, 0));
+        AllValues.Add(new VineBlock(val2, 0));
+        AllValues.Add(new VineBlock(val3, 0));
+        AllValues.Add(new VineBlock(val4, 0));
+
+        //create a left and right side list
+        List<VineBlock> Left_Values = new List<VineBlock>();
+        List<VineBlock> Right_Values = new List<VineBlock>();
+
+        // runner to interpret left or right side of equation
+        bool SideTrigger = false;
+
+        //loop all 4 values, also remove blanks
+        foreach (VineBlock vblock in AllValues)
+        {
+            //set equals trigger
+            if (vblock.Value == v_equals)
+            {
+                SideTrigger = true;
+                continue;
+            }
+
+            // skip, if blank
+            if (vblock.Value == v_blank)
+            {
+                continue;
+            }
+
+            //left side
+            if (SideTrigger == false)
+            {
+                //add to left
+                Left_Values.Add(vblock);
+            }
+            //right side
+            if (SideTrigger == true)
+            {
+                //add to right
+                Right_Values.Add(vblock);
+            }
+        }
+
+        PossiblyEliminate_Zeros(ref Left_Values);
+        PossiblyEliminate_Zeros(ref Right_Values);
+
+        PossiblyMerge_Ints(ref Left_Values);
+        PossiblyMerge_Ints(ref Right_Values);
+
+        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+
+        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
 
 
+    /* Scrubbing Done.  Check If Equal Now */
 
+        //if equal side counts
+        if (Right_Values.Count == Left_Values.Count)
+        {
+            //loop indexes
+            for (int i = 0; i < Right_Values.Count; i++)
+            {
+                //if no match
+                if (Right_Values[i].Value != Left_Values[i].Value)
+                {
+                    return false;
+                }
+                //if both are v_int
+                if (Right_Values[i].Value == v_int)
+                {
+                    //if IntValues don't match
+                    if (Right_Values[i].IntValue != Right_Values[i].IntValue)
+                    {
+                        return false;
+                    }
+                }
+            }
 
+            /* Everything matches */
 
+            return true;
+        }
 
-
-
-
-
-
-
-        // = 5 = = 5
-
+        //safety
+        return false;
     }
 
     private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
-        return false;
-    }
+        //separate into Left and Right lists
+        //remove blanks
+        //remove zeros
+        //merge ints
+        //remove plus signs, but not do math
+        //incorporate minus signs into ints, AND do math
+        //do plus sign math
+        //check each side for equality
 
-    private bool Validate_With_2_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
-    {
+        //put values into list
+        List<VineBlock> AllValues = new List<VineBlock>();
+        AllValues.Add(new VineBlock(val1, 0));
+        AllValues.Add(new VineBlock(val2, 0));
+        AllValues.Add(new VineBlock(val3, 0));
+        AllValues.Add(new VineBlock(val4, 0));
+        AllValues.Add(new VineBlock(val5, 0));
+        AllValues.Add(new VineBlock(val6, 0));
+
+        //create a left and right side list
+        List<VineBlock> Left_Values = new List<VineBlock>();
+        List<VineBlock> Right_Values = new List<VineBlock>();
+
+        // runner to interpret left or right side of equation
+        bool SideTrigger = false;
+
+        //loop all 6 values, also remove blanks
+        foreach (VineBlock vblock in AllValues)
+        {
+            //set equals trigger
+            if (vblock.Value == v_equals)
+            {
+                SideTrigger = true;
+                continue;
+            }
+
+            // skip, if blank
+            if (vblock.Value == v_blank)
+            {
+                continue;
+            }
+
+            //left side
+            if (SideTrigger == false)
+            {
+                //add to left
+                Left_Values.Add(vblock);
+            }
+            //right side
+            if (SideTrigger == true)
+            {
+                //add to right
+                Right_Values.Add(vblock);
+            }
+        }
+
+
+        PossiblyEliminate_Zeros(ref Left_Values);
+        PossiblyEliminate_Zeros(ref Right_Values);
+
+        PossiblyMerge_Ints(ref Left_Values);
+        PossiblyMerge_Ints(ref Right_Values);
+
+        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+
+        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
+
+        //Debug.Log("LeftValues------ ");
+        //foreach(VineBlock block in Left_Values)
+        //{
+        //    if(block.Value == v_int)
+        //    {
+        //        Debug.Log("LeftValues: int " + block.IntValue);
+        //        continue;
+        //    }
+        //    Debug.Log("LeftValues: " + block.Value);
+        //}
+        //Debug.Log("RightValues------ ");
+        //foreach (VineBlock block in Right_Values)
+        //{
+        //    if (block.Value == v_int)
+        //    {
+        //        Debug.Log("RightValues: int " + block.IntValue);
+        //        continue;
+        //    }
+        //    Debug.Log("RightValues: " + block.Value);
+        //}
+
+
+    /* Scrubbing Done.  Check If Equal Now */
+
+        //if equal side counts
+        if (Right_Values.Count == Left_Values.Count)
+        {
+            //loop indexes
+            for (int i = 0; i < Right_Values.Count; i++)
+            {
+                //if no match
+                if (Right_Values[i].Value != Left_Values[i].Value)
+                {
+                    return false;
+                }
+                //if both are v_int
+                if (Right_Values[i].Value == v_int)
+                {
+                    //if IntValues don't match
+                    if (Left_Values[i].IntValue != Right_Values[i].IntValue)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            /* Everything matches */
+
+            return true;
+        }
+
+        //safety
         return false;
     }
 
     private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         /* Of the 3, the middle equals is the divider.  Side equals are just symbols */
+
+        //separate into Left and Right lists
+        //remove blanks
+        //remove zeros
+        //merge ints
+        //remove plus signs, but not do math
+        //incorporate minus signs into ints, AND do math
+        //do plus sign math
+        //check each side for equality
 
         //put values into list
         List<VineBlock> AllValues = new List<VineBlock>();
@@ -492,7 +379,7 @@ public class VineValidator : MonoBehaviour
         // runner to interpret left or right side of equation
         int EqualsTicker = 0;
 
-        //loop all 6 values
+        //loop all 6 values, also remove blanks
         foreach (VineBlock vblock in AllValues)
         {
             //increment ticker
@@ -521,50 +408,158 @@ public class VineValidator : MonoBehaviour
             }
         }
 
-        //blanks already removed
-
-        PossiblyEliminate_Zeros(ref Right_Values);
         PossiblyEliminate_Zeros(ref Left_Values);
-        PossiblyMerge_Ints(ref Right_Values);
-        PossiblyMerge_Ints(ref Left_Values);
-        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
-        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
-        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
-        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
-        PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
-        PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_Zeros(ref Right_Values);
 
-        // = + 5 = = 5
+        PossiblyMerge_Ints(ref Left_Values);                
+        PossiblyMerge_Ints(ref Right_Values);               
 
-        //if equal sides
+        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);                
+        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);               
+
+        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);              
+        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);             
+
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);              
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);             
+
+        
+    /* Scrubbing Done.  Check If Equal Now */
+
+        //if equal side counts
         if (Right_Values.Count == Left_Values.Count)
         {
-            
+            //loop indexes
+            for(int i=0; i<Right_Values.Count; i++)
+            {
+                //if no match
+                if(Right_Values[i].Value != Left_Values[i].Value)
+                {
+                    return false;
+                }
+                //if both are v_int
+                if(Right_Values[i].Value == v_int)
+                {
+                    //if IntValues don't match
+                    if(Right_Values[i].IntValue != Right_Values[i].IntValue)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+        /* Everything matches */
+
+            return true;
         }
 
+        //safety
         return false;
+    }
 
+    private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    {
+        /* Of the 3, the middle equals is the divider.  Side equals are just symbols */
 
-
+        //separate into Left and Right lists
         //remove blanks
         //remove zeros
         //merge ints
         //remove plus signs, but not do math
-        //incorporate minus signs into ints, but not do math
-        //
+        //incorporate minus signs into ints, AND do math
+        //do plus sign math
+        //check each side for equality
+
+        //put values into list
+        List<VineBlock> AllValues = new List<VineBlock>();
+        AllValues.Add(new VineBlock(val1, 0));
+        AllValues.Add(new VineBlock(val2, 0));
+        AllValues.Add(new VineBlock(val3, 0));
+        AllValues.Add(new VineBlock(val4, 0));
+
+        //create a left and right side list
+        List<VineBlock> Left_Values = new List<VineBlock>();
+        List<VineBlock> Right_Values = new List<VineBlock>();
+
+        // runner to interpret left or right side of equation
+        int EqualsTicker = 0;
+
+        //loop all 4 values, also remove blanks
+        foreach (VineBlock vblock in AllValues)
+        {
+            //increment ticker
+            if (vblock.Value == v_equals)
+            {
+                EqualsTicker++;
+            }
+
+            // skip, if blank
+            if (vblock.Value == v_blank)
+            {
+                continue;
+            }
+
+            //before middle
+            if (EqualsTicker < 2)
+            {
+                //add to left
+                Left_Values.Add(vblock);
+            }
+            //after middle
+            if (EqualsTicker > 2)
+            {
+                //add to right
+                Right_Values.Add(vblock);
+            }
+        }
+
+        PossiblyEliminate_Zeros(ref Left_Values);
+        PossiblyEliminate_Zeros(ref Right_Values);
+
+        PossiblyMerge_Ints(ref Left_Values);
+        PossiblyMerge_Ints(ref Right_Values);
+
+        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+
+        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
 
 
+        /* Scrubbing Done.  Check If Equal Now */
 
+        //if equal side counts
+        if (Right_Values.Count == Left_Values.Count)
+        {
+            //loop indexes
+            for (int i = 0; i < Right_Values.Count; i++)
+            {
+                //if no match
+                if (Right_Values[i].Value != Left_Values[i].Value)
+                {
+                    return false;
+                }
+                //if both are v_int
+                if (Right_Values[i].Value == v_int)
+                {
+                    //if IntValues don't match
+                    if (Right_Values[i].IntValue != Right_Values[i].IntValue)
+                    {
+                        return false;
+                    }
+                }
+            }
 
+            /* Everything matches */
 
+            return true;
+        }
 
-
-
-
-
-
-
-
+        //safety
+        return false;
     }
 
     private bool Validate_With_5_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
@@ -699,9 +694,8 @@ public class VineValidator : MonoBehaviour
         int IntValue = 1;
         int DigitTracker = 0;
 
-
         //loop Values
-        for(int i=0; i< VBlocks.Count; i++)
+        for (int i=0; i< VBlocks.Count; i++)
         {
             //if digit
             if (IsDigit(VBlocks[i].Value)) {
@@ -725,7 +719,7 @@ public class VineValidator : MonoBehaviour
                     DigitTracker++;
                 }
             }
-            //if stored int
+            //if not digit and there's stored int
             else if (DigitTracker != 0)
             {
                 //copy index
@@ -741,6 +735,9 @@ public class VineValidator : MonoBehaviour
                     CopiedIndex--;
                     DigitTracker--;
                 }
+
+                //CopiedIndex needs to reverse it's last decrement above to be right
+                CopiedIndex++;
 
                 //add IntValue v_int block
                 VBlocks.Insert(CopiedIndex, new VineBlock(v_int, IntValue));
@@ -765,6 +762,9 @@ public class VineValidator : MonoBehaviour
                 CopiedIndex--;
                 DigitTracker--;
             }
+
+            //CopiedIndex needs to reverse it's last decrement above to be right
+            CopiedIndex++;
 
             //add IntValue v_int block
             VBlocks.Insert(CopiedIndex, new VineBlock(v_int, IntValue));
@@ -813,6 +813,7 @@ public class VineValidator : MonoBehaviour
 
                     }
                 }
+                //not at first index
                 else
                 {
                     //if digit on left
@@ -829,16 +830,16 @@ public class VineValidator : MonoBehaviour
                         if(VBlocks[i+1].Value == v_int)
                         {
                             //get new int
-                            int NewInt = (Get_Digit(VBlocks[i - 1].Value)) - (Get_Digit(VBlocks[i + 1].Value));
+                            int NewInt = (VBlocks[i - 1].IntValue) - (VBlocks[i + 1].IntValue);
 
-                            //remove left block
-                            VBlocks.RemoveAt(i - 1);
+                            //remove right block
+                            VBlocks.RemoveAt(i + 1);
 
                             //remove minus block
                             VBlocks.RemoveAt(i);
 
-                            //remove right block
-                            VBlocks.RemoveAt(i + 1);
+                            //remove left block
+                            VBlocks.RemoveAt(i - 1);
 
                             //build new VBlock
                             VineBlock NewVineBlock = new VineBlock(v_int, NewInt);
@@ -846,8 +847,9 @@ public class VineValidator : MonoBehaviour
                             //removed 3, added 1, so need to decrement i
                             i--;
 
+
                             //safety - check to see if new index is okay
-                            if(i < VBlocks.Count)
+                            if (i < VBlocks.Count)
                             {
                                 //add new VBlock
                                 VBlocks.Insert(i, NewVineBlock);
@@ -909,7 +911,7 @@ public class VineValidator : MonoBehaviour
     private void PossiblyEliminate_PlusSigns_NoMath(ref List<VineBlock> VBlocks)
     {
         //loop Values by index
-        for(int i=0; i< VBlocks.Count; i++)
+        for (int i=0; i< VBlocks.Count; i++)
         {
             //if plus
             if(VBlocks[i].Value == v_add)
@@ -961,8 +963,6 @@ public class VineValidator : MonoBehaviour
         //loop Values by index
         for (int i = 0; i < VBlocks.Count; i++)
         {
-
-
             //if plus - won't be first index
             if (VBlocks[i].Value == v_add)
             {
@@ -981,16 +981,16 @@ public class VineValidator : MonoBehaviour
                     if (IsDigit(VBlocks[i - 1].Value))
                     {
                         //get new int
-                        int NewInt = (Get_Digit(VBlocks[i - 1].Value)) - (Get_Digit(VBlocks[i + 1].Value));
+                        int NewInt = (VBlocks[i - 1].IntValue) + (VBlocks[i + 1].IntValue);
 
-                        //remove left block
-                        VBlocks.RemoveAt(i - 1);
+                        //remove right block
+                        VBlocks.RemoveAt(i + 1);
 
                         //remove minus block
                         VBlocks.RemoveAt(i);
 
-                        //remove right block
-                        VBlocks.RemoveAt(i + 1);
+                        //remove left block
+                        VBlocks.RemoveAt(i - 1);
 
                         //build new VBlock
                         VineBlock NewVineBlock = new VineBlock(v_int, NewInt);
@@ -1060,6 +1060,18 @@ public class VineValidator : MonoBehaviour
         }
     }
 
+    private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    {
+        int EqualsAmount = 0;
+
+        if (val1 == v_equals) { EqualsAmount++; }
+        if (val2 == v_equals) { EqualsAmount++; }
+        if (val3 == v_equals) { EqualsAmount++; }
+        if (val4 == v_equals) { EqualsAmount++; }
+
+        return EqualsAmount;
+    }
+
     private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         int EqualsAmount = 0;
@@ -1105,15 +1117,389 @@ public class VineValidator : MonoBehaviour
 
     private bool IsDigit(fv_FACEVALUE val)
     {
-        if (val == v_0 || val == v_1 || val == v_2 || val == v_3 || val == v_4 || val == v_5 || val == v_6 || val == v_7 || val == v_8 || val == v_9)
+        switch (val)
         {
-            return true;
+            case v_0:
+                return true;
+            case v_1:
+                return true;
+            case v_2:
+                return true;
+            case v_3:
+                return true;
+            case v_4:
+                return true;
+            case v_5:
+                return true;
+            case v_6:
+                return true;
+            case v_7:
+                return true;
+            case v_8:
+                return true;
+            case v_9:
+                return true;
+            case v_int:
+                return true;
+            default:
+                return false;
         }
-
-        return false;  
     }
 
+    //private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    //{
+    //    Debug.Log("VALUES: " + val1 + " - " + val2 + " - " + val3 + " - " + val4);
 
+    //    //if val1 or val4 is equals
+    //    if (val1 == v_equals || val4 == v_equals)
+    //    {
+    //        // b = = =
+    //        if (val1 == v_blank && val2 == v_equals && val3 == v_equals && val4 == v_equals)
+    //        {
+    //            return true;
+    //        }
+    //        // = b = =
+    //        if (val1 == v_equals && val2 == v_blank && val3 == v_equals && val4 == v_equals)
+    //        {
+    //            return true;
+    //        }
+    //        // = = b =
+    //        if (val1 == v_equals && val2 == v_equals && val3 == v_blank && val4 == v_equals)
+    //        {
+    //            return true;
+    //        }
+    //        // = = = b
+    //        if (val1 == v_equals && val2 == v_equals && val3 == v_equals && val4 == v_blank)
+    //        {
+    //            return true;
+    //        }
+
+    //        return false;
+    //    }
+    //    //if val2 is equals
+    //    if (val2 == v_equals)
+    //    {
+    //        // + = ? ?
+    //        if (val1 == v_add)
+    //        {
+    //            // + = +
+    //            if ((val3 == v_add && val4 == v_blank) || (val3 == v_blank && val4 == v_add))
+    //            {
+    //                return true;
+    //            }
+
+    //            return false;
+    //        }
+    //        // - = ? ?
+    //        if (val1 == v_sub)
+    //        {
+    //            // - = -
+    //            if ((val3 == v_sub && val4 == v_blank) || (val3 == v_blank && val4 == v_sub))
+    //            {
+    //                return true;
+    //            }
+
+    //            return false;
+    //        }
+    //        // blank = ? ?
+    //        if (val1 == v_blank)
+    //        {
+    //            // blank = blank
+    //            if (val3 == v_blank && val4 == v_blank)
+    //            {
+    //                return true;
+    //            }
+
+    //            return false;
+    //        }
+    //        // Non-Negative Digit = ? ?
+    //        {
+    //            int LeftDigit = Get_Digit(val1);
+
+    //            // LeftDigit = + ?
+    //            if (val3 == v_add)
+    //            {
+    //                // LeftDigit = + Digit
+    //                if (IsDigit(val4))
+    //                {
+    //                    //LeftDigit = RightDigit
+    //                    if (LeftDigit == Get_Digit(val4))
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+
+    //            // LeftDigit = - ?
+    //            if (val3 == v_sub)
+    //            {
+    //                // LeftDigit = - 0
+    //                if (val4 == v_0)
+    //                {
+    //                    // LeftDigit = 0
+    //                    if (LeftDigit == 0)
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+
+    //            // LeftDigit = blank ?
+    //            if (val3 == v_blank)
+    //            {
+    //                // LeftDigit = Digit
+    //                if (IsDigit(val4))
+    //                {
+    //                    // LeftDigit = RightDigit
+    //                    if (LeftDigit == Get_Digit(val4))
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+    //            // LeftDigit = Digit ?
+    //            {
+    //                //LeftDigit = RightDigit ?
+    //                if (LeftDigit == Get_Digit(val3))
+    //                {
+    //                    // LeftDigit = RightDigit v_blank
+    //                    if (val4 == v_blank)
+    //                    {
+    //                        return true;
+    //                    }
+    //                    //nothing else works
+    //                }
+    //                //LeftDigit = 0 ?
+    //                if (Get_Digit(val3) == 0)
+    //                {
+    //                    //LeftDigit = 0 RightDigit
+    //                    if (LeftDigit == Get_Digit(val4))
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //    //if val3 is equals
+    //    if (val3 == v_equals)
+    //    {
+    //        // ? ? = +
+    //        if (val4 == v_add)
+    //        {
+    //            // + ? = +
+    //            if (val1 == v_add)
+    //            {
+    //                // + blank = +
+    //                if (val2 == v_blank)
+    //                {
+    //                    return true;
+    //                }
+
+    //                return false;
+    //            }
+    //            // - ? = +
+    //            if (val1 == v_sub)
+    //            {
+    //                return false;
+    //            }
+    //            // blank ? = +
+    //            if (val1 == v_blank)
+    //            {
+    //                // + = +
+    //                if (val2 == v_add)
+    //                {
+    //                    return true;
+    //                }
+
+    //                return false;
+    //            }
+    //            // Digit ? = +
+    //            {
+    //                return false;
+    //            }
+    //        }
+    //        // ? ? = -
+    //        if (val4 == v_sub)
+    //        {
+    //            // + ? = -
+    //            if (val1 == v_add)
+    //            {
+    //                return false;
+    //            }
+    //            // - ? = -
+    //            if (val1 == v_sub)
+    //            {
+    //                // - blank = -
+    //                if (val2 == v_blank)
+    //                {
+    //                    return true;
+    //                }
+
+    //                return false;
+    //            }
+    //            // blank ? = -
+    //            if (val1 == v_blank)
+    //            {
+    //                // - = -
+    //                if (val2 == v_sub)
+    //                {
+    //                    return true;
+    //                }
+
+    //                return false;
+    //            }
+    //            // Digit ? = -
+    //            {
+    //                return false;
+    //            }
+    //        }
+    //        // ? ? = blank
+    //        if (val4 == v_blank)
+    //        {
+    //            // blank = blank
+    //            if (val1 == v_blank && val2 == v_blank)
+    //            {
+    //                return true;
+    //            }
+
+    //            return false;
+    //        }
+    //        // ? ? = Non-Negative Digit
+    //        {
+    //            int RightDigit = Get_Digit(val4);
+
+    //            // + ? = RightDigit
+    //            if (val1 == v_add)
+    //            {
+    //                // + Digit = RightDigit
+    //                if (IsDigit(val2))
+    //                {
+    //                    // LeftDigit = RightDigit
+    //                    if (Get_Digit(val2) == RightDigit)
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+    //            // - ? = RightDigit
+    //            if (val1 == v_sub)
+    //            {
+    //                // - 0 = RightDigit
+    //                if (val2 == v_0)
+    //                {
+    //                    // 0 == RightDigit
+    //                    if (RightDigit == 0)
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+    //            // blank ? = RightDigit
+    //            if (val1 == v_blank)
+    //            {
+    //                // blank Digit = RightDigit
+    //                if (IsDigit(val2))
+    //                {
+    //                    //LeftDigit = RightDigit
+    //                    if (Get_Digit(val2) == RightDigit)
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+    //            // Digit ? = RightDigit
+    //            {
+    //                // Digit blank = RightDigit
+    //                if (val2 == v_blank)
+    //                {
+    //                    //LeftDigit = RightDigit
+    //                    if (Get_Digit(val1) == RightDigit)
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+    //                // 0 ? = RightDigit
+    //                if (val1 == v_0)
+    //                {
+    //                    //0 Digit = RightDigit
+    //                    if (Get_Digit(val2) == RightDigit)
+    //                    {
+    //                        return true;
+    //                    }
+    //                }
+
+    //                return false;
+    //            }
+    //        }
+
+    //    }
+
+
+    //    /* No EQUAL signs detected * /
+
+    //        5 + = 0 5 +
+
+    //        5, 2201, =, 5 2201
+
+    //        //if not same amount of shapes, false
+    //        //loop indexes
+    //        //if left[1] != right[1], false
+    //        //if left[2] != right[2], false
+
+
+    //        5, 2001, =, 5
+
+    //        5 = 5 = 5 =
+
+    //        -05-b+      
+    //        -5, -, +
+
+    //        Now, we've dealt with all equals signs which had turned the validation into an equation.
+
+    //        I believe, now we look for edge cases around v_sub and v_add
+
+    //        When v_sub and v_add are before ints, they act as positive or negative attributes to the ints.
+
+    //        When they are after, they are math symbols
+
+    //        5+ is wrong
+    //        + + + is okay
+
+    //        if (5 + = 5 +) because they turn into shapes, then this exception turns them back into shapes
+
+    //        5+ != 5
+
+
+    //        -/+                     are shapes
+    //        -/+ after digits        are math symbols
+    //        -/+ before equals       are shapes
+
+    //        -07
+
+    //        --0-
+
+    //        */
+
+    //    //  = = = = = 7
+
+
+    //    return true;
+    //}
 
 
 }
