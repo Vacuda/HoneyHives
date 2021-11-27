@@ -33,6 +33,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""3212862f-2e12-4f9d-b298-9f1acb568d96"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Spin"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51364316-db85-4a18-a9b4-8a94b0d55cec"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_GameLevel_Outer = asset.FindActionMap("GameLevel_Outer", throwIfNotFound: true);
         m_GameLevel_Outer_Interact = m_GameLevel_Outer.FindAction("Interact", throwIfNotFound: true);
         m_GameLevel_Outer_Spin = m_GameLevel_Outer.FindAction("Spin", throwIfNotFound: true);
+        m_GameLevel_Outer_MousePointer = m_GameLevel_Outer.FindAction("MousePointer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private IGameLevel_OuterActions m_GameLevel_OuterActionsCallbackInterface;
     private readonly InputAction m_GameLevel_Outer_Interact;
     private readonly InputAction m_GameLevel_Outer_Spin;
+    private readonly InputAction m_GameLevel_Outer_MousePointer;
     public struct GameLevel_OuterActions
     {
         private @PlayerControls m_Wrapper;
         public GameLevel_OuterActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_GameLevel_Outer_Interact;
         public InputAction @Spin => m_Wrapper.m_GameLevel_Outer_Spin;
+        public InputAction @MousePointer => m_Wrapper.m_GameLevel_Outer_MousePointer;
         public InputActionMap Get() { return m_Wrapper.m_GameLevel_Outer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Spin.started -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnSpin;
                 @Spin.performed -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnSpin;
                 @Spin.canceled -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnSpin;
+                @MousePointer.started -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnMousePointer;
+                @MousePointer.performed -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnMousePointer;
+                @MousePointer.canceled -= m_Wrapper.m_GameLevel_OuterActionsCallbackInterface.OnMousePointer;
             }
             m_Wrapper.m_GameLevel_OuterActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Spin.started += instance.OnSpin;
                 @Spin.performed += instance.OnSpin;
                 @Spin.canceled += instance.OnSpin;
+                @MousePointer.started += instance.OnMousePointer;
+                @MousePointer.performed += instance.OnMousePointer;
+                @MousePointer.canceled += instance.OnMousePointer;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnInteract(InputAction.CallbackContext context);
         void OnSpin(InputAction.CallbackContext context);
+        void OnMousePointer(InputAction.CallbackContext context);
     }
 }

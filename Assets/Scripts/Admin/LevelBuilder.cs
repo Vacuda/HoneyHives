@@ -9,6 +9,8 @@ public class LevelBuilder : MonoBehaviour
     LevelHouse LevelHouseScript;
     public WorldGrid WorldGridObject;
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
+    public PlayerController Controller;
+    public Camera MainCamera;
 
     public Material M_Piece_Full;
     public Material M_Piece_None;
@@ -45,13 +47,22 @@ public class LevelBuilder : MonoBehaviour
             //make piece
             GameObject Piece = Instantiate(PF_Piece);
 
+            //condense
+            Piece PieceScript = Piece.GetComponent<Piece>();
+
             //change all six face values
-            Piece.GetComponent<Piece>().fv_1 = slot.fv_1;
-            Piece.GetComponent<Piece>().fv_2 = slot.fv_2;
-            Piece.GetComponent<Piece>().fv_3 = slot.fv_3;
-            Piece.GetComponent<Piece>().fv_4 = slot.fv_4;
-            Piece.GetComponent<Piece>().fv_5 = slot.fv_5;
-            Piece.GetComponent<Piece>().fv_6 = slot.fv_6;
+            PieceScript.fv_1 = slot.fv_1;
+            PieceScript.fv_2 = slot.fv_2;
+            PieceScript.fv_3 = slot.fv_3;
+            PieceScript.fv_4 = slot.fv_4;
+            PieceScript.fv_5 = slot.fv_5;
+            PieceScript.fv_6 = slot.fv_6;
+
+            //transfer attributes
+            PieceScript.IsMovable = slot.IsMovable;
+            PieceScript.IsSpinnable = slot.IsSpinnable;
+            PieceScript.Controller = Controller;
+            PieceScript.MainCamera = MainCamera;
 
             //change all six face values - TEXT
             Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);

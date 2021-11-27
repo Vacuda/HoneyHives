@@ -13,6 +13,42 @@ public class Piece : MonoBehaviour
     public fv_FACEVALUE fv_5;
     public fv_FACEVALUE fv_6;
 
+    public bool IsMovable;
+    public bool IsSpinnable;
+    private bool IsInHand = false;
+    public Camera MainCamera;
+    public PlayerController Controller;
+    private PlayerControls Controls;
+    
+
+//ADMIN
+
+    public void Start()
+    {
+        Controls = Controller.Get_Controls();
+    } 
+
+    public void Update()
+    {
+        if (IsInHand)
+        {
+            //get mouse position
+            Vector2 MousePosition = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>();
+
+            //convert MousePosition to Vector 3
+            Vector3 MouseVector3 = new Vector3(MousePosition.x, MousePosition.y, 1.3f);
+
+            //get WorldPosition
+            Vector3 WorldPosition = MainCamera.ScreenToWorldPoint(MouseVector3);
+
+            //set to new position
+            gameObject.transform.position = WorldPosition;
+        }
+    }
+
+
+//ACTIONS
+
     public void Rotate_Piece()
     {
         //increment
@@ -24,26 +60,75 @@ public class Piece : MonoBehaviour
             Current_TriOffset = Current_TriOffset - 6;
         }
 
-        //store this piece (My Parent's Parent)
-        GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
-
-        //detach from parent
-        gameObject.transform.parent = null;
-
-        //rotate
-        gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
-
-        //loop children
-        foreach (Transform child in gameObject.transform)
+        //if on WorldGrid
+        if(gameObject.transform.parent != null)
         {
-            //rotate upwards 
-            child.transform.Rotate(0.0f, 0.0f, -60.0f);
+            //store this piece (My Parent's Parent)
+            GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
+
+            //detach from parent
+            gameObject.transform.parent = null;
+
+            //rotate
+            gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
+
+            //loop children
+            foreach (Transform child in gameObject.transform)
+            {
+                //rotate upwards 
+                child.transform.Rotate(0.0f, 0.0f, -60.0f);
+            }
+
+            //re-attach to parent
+            gameObject.transform.parent = HoneySlotParent.transform;
+        }
+        //if in hand
+        else
+        {
+            //rotate
+            gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
+
+            //loop children
+            foreach (Transform child in gameObject.transform)
+            {
+                //rotate upwards 
+                child.transform.Rotate(0.0f, 0.0f, -60.0f);
+            }
         }
 
-        //re-attach to parent
-        gameObject.transform.parent = HoneySlotParent.transform;
+
+       
     }
 
+    public void Pickup_Piece()
+    {
+        //place in hand
+        IsInHand = true;
+
+        //remove parenting
+        gameObject.transform.parent = null;
+
+        //scale object down so it can get closer
+        gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+    }
+
+    public void Place_Piece(GameObject HoneySlotObject)
+    {
+        //scale back object to original
+        gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+        //set position to HoneySlotObject
+        gameObject.transform.position = HoneySlotObject.transform.position;
+
+        //set piece parent to HoneySlot
+        gameObject.transform.parent = HoneySlotObject.transform;
+
+        //remove from in hand status
+        IsInHand = false;
+    }
+
+
+//UTILITIES
 
     public fv_FACEVALUE Get_FaceValue_WithOffset(t_TRI tri)
     {
