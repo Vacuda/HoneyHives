@@ -68,6 +68,12 @@ public class VineValidator : MonoBehaviour
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
+        ////missing piece check
+        //if (Check_ForNulls(val1, val2, val3, val4))
+        //{
+        //    return false;
+        //}
+
         //find amount of equals in values
         int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4);
 
@@ -91,6 +97,12 @@ public class VineValidator : MonoBehaviour
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
+        ////missing piece check
+        //if (Check_ForNulls(val1, val2, val3, val4, val5, val6))
+        //{
+        //    return false;
+        //}
+
         //find amount of equals in values
         int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4, val5, val6);
 
@@ -584,6 +596,12 @@ public class VineValidator : MonoBehaviour
         {
             case "FlowerIndicator_1":
                 {
+                    //null check
+                    if(HoneySlotRefDict[GG].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[FF].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[GG].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
                     fv_FACEVALUE val2 = HoneySlotRefDict[GG].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
                     fv_FACEVALUE val3 = HoneySlotRefDict[FF].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
@@ -592,6 +610,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_2":
                 {
+                    //null check
+                    if (HoneySlotRefDict[EE].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[DD].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[CC].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[EE].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
                     fv_FACEVALUE val2 = HoneySlotRefDict[EE].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
                     fv_FACEVALUE val3 = HoneySlotRefDict[DD].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
@@ -602,6 +626,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_3":
                 {
+                    //null check
+                    if (HoneySlotRefDict[BB].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[AA].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[BB].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
                     fv_FACEVALUE val2 = HoneySlotRefDict[BB].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
                     fv_FACEVALUE val3 = HoneySlotRefDict[AA].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
@@ -610,6 +640,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_4":
                 {
+                    //null check
+                    if (HoneySlotRefDict[EE].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[GG].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[EE].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_5);
                     fv_FACEVALUE val2 = HoneySlotRefDict[EE].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_2);
                     fv_FACEVALUE val3 = HoneySlotRefDict[GG].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_5);
@@ -618,6 +654,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_5":
                 {
+                    //null check
+                    if (HoneySlotRefDict[BB].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[DD].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[FF].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[BB].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_5);
                     fv_FACEVALUE val2 = HoneySlotRefDict[BB].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_2);
                     fv_FACEVALUE val3 = HoneySlotRefDict[DD].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_5);
@@ -628,6 +670,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_6":
                 {
+                    //null check
+                    if (HoneySlotRefDict[AA].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[CC].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[AA].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_5);
                     fv_FACEVALUE val2 = HoneySlotRefDict[AA].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_2);
                     fv_FACEVALUE val3 = HoneySlotRefDict[CC].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_5);
@@ -636,6 +684,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_7":
                 {
+                    //null check
+                    if (HoneySlotRefDict[BB].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[EE].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[BB].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_4);
                     fv_FACEVALUE val2 = HoneySlotRefDict[BB].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_1);
                     fv_FACEVALUE val3 = HoneySlotRefDict[EE].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_4);
@@ -644,6 +698,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_8":
                 {
+                    //null check
+                    if (HoneySlotRefDict[AA].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[DD].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[GG].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[AA].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_4);
                     fv_FACEVALUE val2 = HoneySlotRefDict[AA].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_1);
                     fv_FACEVALUE val3 = HoneySlotRefDict[DD].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_4);
@@ -654,6 +714,12 @@ public class VineValidator : MonoBehaviour
                 }
             case "FlowerIndicator_9":
                 {
+                    //null check
+                    if (HoneySlotRefDict[CC].GetComponentInChildren<Piece>() == null || HoneySlotRefDict[FF].GetComponentInChildren<Piece>() == null)
+                    {
+                        return false;
+                    }
+
                     fv_FACEVALUE val1 = HoneySlotRefDict[CC].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_4);
                     fv_FACEVALUE val2 = HoneySlotRefDict[CC].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_1);
                     fv_FACEVALUE val3 = HoneySlotRefDict[FF].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_4);
@@ -663,28 +729,6 @@ public class VineValidator : MonoBehaviour
             default:
                 return false;
         }
-
-
-
-
-
-
-        //switch (flower)
-        //{
-        //    case 1:
-        //        {
-        //            fv_FACEVALUE val1 = WGRefDict[addresses[0]].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
-        //            fv_FACEVALUE val2 = WGRefDict[addresses[0]].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
-        //            fv_FACEVALUE val3 = WGRefDict[addresses[1]].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
-        //            fv_FACEVALUE val4 = WGRefDict[addresses[1]].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
-
-        //            Debug.Log("ORDER:    " + val1 + " " + val2 + " " + val3 + " " + val4);
-
-        //            return DoesThisValidate(val1, val2, val3, val4);
-        //        }
-
-        //}
-
     }
 
     //Utilities
@@ -1145,6 +1189,8 @@ public class VineValidator : MonoBehaviour
                 return false;
         }
     }
+
+
 
     //private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     //{

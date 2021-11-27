@@ -27,9 +27,7 @@ public class WorldGrid : MonoBehaviour
     public GameObject AdminObject;
     private GameLevel GameLevelScript;
 
-    int Tracker = 0;
-
-    //public GameObject Admin;
+    //int Tracker = 0;
 
     public Dictionary<wg_ADDRESS,GameObject> WGRefDict = new Dictionary<wg_ADDRESS, GameObject>();
 
@@ -343,11 +341,11 @@ public class WorldGrid : MonoBehaviour
 
     void Move_WorldGridTowardsTargetPosition()
     {
-        Tracker++;
+        //Tracker++;
 
         Vector3 CurrentPosition = gameObject.transform.position;
 
-        float test = Vector3.Distance(CurrentPosition, TargetPosition);
+        //float test = Vector3.Distance(CurrentPosition, TargetPosition);
 
         //Debug.Log(test);
 
@@ -359,7 +357,7 @@ public class WorldGrid : MonoBehaviour
         }
         else
         {
-            //Debug.Log(Tracker);
+
             gameObject.transform.position = TargetPosition;
             ActiveMovement = false;
             ActiveFlotation = true;

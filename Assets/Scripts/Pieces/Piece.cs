@@ -116,25 +116,25 @@ public class Piece : MonoBehaviour
         }
     }
 
-    t_TRI Convert_IntToTri(int interger)
-    {
-        switch (interger)
-        {
-            case 1:
-                return TRI_1;
-            case 2:
-                return TRI_2;
-            case 3:
-                return TRI_3;
-            case 4:
-                return TRI_4;
-            case 5:
-                return TRI_5;
-            case 6:
-                return TRI_6;
-            default:
-                return TRI_1;
-        }
-    }
+    //t_TRI Convert_IntToTri(int interger)
+    //{
+    //    switch (interger)
+    //    {
+    //        case 1:
+    //            return TRI_1;
+    //        case 2:
+    //            return TRI_2;
+    //        case 3:
+    //            return TRI_3;
+    //        case 4:
+    //            return TRI_4;
+    //        case 5:
+    //            return TRI_5;
+    //        case 6:
+    //            return TRI_6;
+    //        default:
+    //            return TRI_1;
+    //    }
+    //}
 
 }

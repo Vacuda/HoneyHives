@@ -5,10 +5,10 @@ using static wg_ADDRESS;
 
 public struct HoneySlotInfo
 {
-    public HoneySlotInfo(wg_ADDRESS address, bool occupied, bool movable, bool spinnable, fv_FACEVALUE fv_1, fv_FACEVALUE fv_2, fv_FACEVALUE fv_3, fv_FACEVALUE fv_4, fv_FACEVALUE fv_5, fv_FACEVALUE fv_6)
+    public HoneySlotInfo(wg_ADDRESS address, bool movable, bool spinnable, fv_FACEVALUE fv_1, fv_FACEVALUE fv_2, fv_FACEVALUE fv_3, fv_FACEVALUE fv_4, fv_FACEVALUE fv_5, fv_FACEVALUE fv_6)
     {
         this.Address = address;
-        this.IsOccupied = occupied;
+        //this.IsOccupied = occupied;
         this.IsMovable = movable;
         this.IsSpinnable = spinnable;
         this.fv_1 = fv_1;
@@ -20,7 +20,7 @@ public struct HoneySlotInfo
     }
 
     public readonly wg_ADDRESS Address;
-    public readonly bool IsOccupied;
+    //public readonly bool IsOccupied;
     public readonly bool IsMovable;
     public readonly bool IsSpinnable;
     public readonly fv_FACEVALUE fv_1;

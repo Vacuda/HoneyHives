@@ -45,6 +45,7 @@ public enum ln_LEVELNAME
 
 public enum fv_FACEVALUE
 {
+    v_null,
     v_0, v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8, v_9,
     v_add, v_sub, v_blank, v_equals,
     v_int

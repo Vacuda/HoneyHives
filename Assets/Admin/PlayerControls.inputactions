@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "CancelBack",
+                    "name": "Spin",
                     "type": "Button",
                     "id": "058d5d1a-94d8-416a-ab26-1e8dd9d59096",
                     "expectedControlType": "Button",
@@ -41,7 +41,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "CancelBack",
+                    "action": "Spin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

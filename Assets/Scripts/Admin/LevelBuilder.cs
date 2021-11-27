@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static fv_FACEVALUE;
+using TMPro;
 
 public class LevelBuilder : MonoBehaviour
 {
     LevelHouse LevelHouseScript;
     public WorldGrid WorldGridObject;
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
+
+    public Material M_Piece_Full;
+    public Material M_Piece_None;
+    public Material M_Piece_Move;
+    public Material M_Piece_Spin;
+
 
     public GameObject PF_Piece;
 
@@ -35,49 +42,69 @@ public class LevelBuilder : MonoBehaviour
             //find location
             Transform Location = WGRefDict[slot.Address].transform;
 
-            //if occupied
-            if (slot.IsOccupied)
+            //make piece
+            GameObject Piece = Instantiate(PF_Piece);
+
+            //change all six face values
+            Piece.GetComponent<Piece>().fv_1 = slot.fv_1;
+            Piece.GetComponent<Piece>().fv_2 = slot.fv_2;
+            Piece.GetComponent<Piece>().fv_3 = slot.fv_3;
+            Piece.GetComponent<Piece>().fv_4 = slot.fv_4;
+            Piece.GetComponent<Piece>().fv_5 = slot.fv_5;
+            Piece.GetComponent<Piece>().fv_6 = slot.fv_6;
+
+            //change all six face values - TEXT
+            Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
+            Piece.transform.Find("FaceValue_2").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_2);
+            Piece.transform.Find("FaceValue_3").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_3);
+            Piece.transform.Find("FaceValue_4").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_4);
+            Piece.transform.Find("FaceValue_5").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_5);
+            Piece.transform.Find("FaceValue_6").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_6);
+
+            //get renderer
+            MeshRenderer Renderer = Piece.GetComponent<MeshRenderer>();
+
+            //copy material info
+            Material[] MatArray = Renderer.materials;
+
+            //change piece face texture
+            if (slot.IsMovable)
             {
-                //make piece
-                GameObject Piece = Instantiate(PF_Piece);
+                if (slot.IsSpinnable)
+                {
+                    //full
+                    MatArray[1] = M_Piece_Full;
+                }
+                else
+                {
+                    //mov
+                    MatArray[1] = M_Piece_Move;
+                }
 
-                //change all six face values
-                Piece.GetComponent<Piece>().fv_1 = slot.fv_1;
-                Piece.GetComponent<Piece>().fv_2 = slot.fv_2;
-                Piece.GetComponent<Piece>().fv_3 = slot.fv_3;
-                Piece.GetComponent<Piece>().fv_4 = slot.fv_4;
-                Piece.GetComponent<Piece>().fv_5 = slot.fv_5;
-                Piece.GetComponent<Piece>().fv_6 = slot.fv_6;
-
-                //change all six face values - TEXT
-                Piece.transform.Find("FaceValue_1").GetComponent<TextMesh>().text = Convert_FaceValueToString(slot.fv_1);
-                Piece.transform.Find("FaceValue_2").GetComponent<TextMesh>().text = Convert_FaceValueToString(slot.fv_2);
-                Piece.transform.Find("FaceValue_3").GetComponent<TextMesh>().text = Convert_FaceValueToString(slot.fv_3);
-                Piece.transform.Find("FaceValue_4").GetComponent<TextMesh>().text = Convert_FaceValueToString(slot.fv_4);
-                Piece.transform.Find("FaceValue_5").GetComponent<TextMesh>().text = Convert_FaceValueToString(slot.fv_5);
-                Piece.transform.Find("FaceValue_6").GetComponent<TextMesh>().text = Convert_FaceValueToString(slot.fv_6);
-
-
-                //set position to HoneySlot
-                Piece.transform.position = Location.position;
-
-                //set parent to HoneySlot
-                Piece.transform.parent = WGRefDict[slot.Address].transform;
+            }
+            else
+            {
+                if (slot.IsSpinnable)
+                {
+                    //spin
+                    MatArray[1] = M_Piece_Spin;
+                }
+                else
+                {
+                    //none - at default, no need to change
+                }
             }
 
-            
+            //set to use altered MatArray
+            Renderer.materials = MatArray;
 
+            //set position to HoneySlot
+            Piece.transform.position = Location.position;
 
-
+            //set parent to HoneySlot
+            Piece.transform.parent = WGRefDict[slot.Address].transform;
+           
         }
-
-
-
-
-
-
-
-
     }
 
     string Convert_FaceValueToString(fv_FACEVALUE fv)
