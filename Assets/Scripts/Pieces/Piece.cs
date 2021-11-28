@@ -13,6 +13,9 @@ public class Piece : MonoBehaviour
     public fv_FACEVALUE fv_5;
     public fv_FACEVALUE fv_6;
 
+    private float GrabbedPiece_LengthAwayFromCamera = 1.36f;
+    private float GrabbedPiece_ScaleRate = 0.17f;
+
     public bool IsMovable;
     public bool IsSpinnable;
     private bool IsInHand = false;
@@ -36,7 +39,7 @@ public class Piece : MonoBehaviour
             Vector2 MousePosition = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>();
 
             //convert MousePosition to Vector 3
-            Vector3 MouseVector3 = new Vector3(MousePosition.x, MousePosition.y, 1.3f);
+            Vector3 MouseVector3 = new Vector3(MousePosition.x, MousePosition.y, GrabbedPiece_LengthAwayFromCamera);
 
             //get WorldPosition
             Vector3 WorldPosition = MainCamera.ScreenToWorldPoint(MouseVector3);
@@ -109,7 +112,7 @@ public class Piece : MonoBehaviour
         gameObject.transform.parent = null;
 
         //scale object down so it can get closer
-        gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+        gameObject.transform.localScale = new Vector3(GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate);
     }
 
     public void Place_Piece(GameObject HoneySlotObject)
