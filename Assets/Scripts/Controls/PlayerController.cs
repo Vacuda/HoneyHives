@@ -8,7 +8,7 @@ using static gs_GAMESTATUS;
 public class PlayerController : MonoBehaviour
 {
 
-    /*MEMBERS*/
+/*MEMBERS*/
 
     //place to store controls
     private PlayerControls Controls;
@@ -23,13 +23,17 @@ public class PlayerController : MonoBehaviour
     public GameObject BeeBoxObject;
     private BeeBox BeeBoxScript;
 
-    VineValidator ValidatorScript;
-
+    private VineValidator ValidatorScript;
     private GameLevel GameLevelScript;
 
+    public Camera MainCameraObject;
+    private MainCamera MainCameraScript;
+
+
+    //Piece In Hand - Reference
     public GameObject PieceInHand;
 
-    /*ADMIN FUNCTIONS*/
+/*ADMIN FUNCTIONS*/
 
     //called before Start
     private void Awake()
@@ -44,6 +48,8 @@ public class PlayerController : MonoBehaviour
         ValidatorScript = WorldGridObject.GetComponent<VineValidator>();
 
         BeeBoxScript = BeeBoxObject.GetComponent<BeeBox>();
+
+        MainCameraScript = MainCameraObject.GetComponent<MainCamera>();
     }
 
     //enables controls when this script is active
@@ -66,15 +72,36 @@ public class PlayerController : MonoBehaviour
         //sets up event listener to call functions upon input
         Controls.GameLevel_Outer.Interact.performed += _ => Interact();
         Controls.GameLevel_Outer.Spin.performed += _ => Spin();
-        //Controls.GameLevel_Outer.MousePointer.ReadValue < Vector2 > += _ => Lava();
     }
 
-    //private void Update()
-    //{
-    //    Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>();
-    //}
+    private void Update()
+    {
+        float Mouse_X = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>().x;
 
-    /*METHODS*/
+        if (MainCameraScript.IsAtMainPosition)
+        {
+            if(Mouse_X > 1860.0f)
+            {
+                MainCameraScript.Goto_SidePosition();
+
+            }
+
+        }
+        else
+        {
+            if (Mouse_X < 120.0f)
+            {
+                MainCameraScript.Goto_MainPosition();
+
+            }
+        }
+
+
+
+        //1720
+    }
+
+/*METHODS*/
 
     void Interact()
     {

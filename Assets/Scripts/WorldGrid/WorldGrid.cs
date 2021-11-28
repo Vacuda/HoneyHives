@@ -8,20 +8,21 @@ using static gs_GAMESTATUS;
 public class WorldGrid : MonoBehaviour
 {
     //grid positions
-    private Vector3 StartPosition;
+    //private Vector3 StartPosition = new Vector3(-12.34f, 0.8f, 26.33f);
+    private Vector3 StartPosition = new Vector3(-15.04f, 0.8f, 26.33f);
     private Vector3 TargetPosition;
     //float TimeToTarget = 3.0f;
 
     float z_set = -.18f;
 
-    float x1_set = 8.41f;
-    float x2_set = -2.85f;
+    float x1_set = 7.53f;
+    float x2_set = -3.5f;
     float x3_set = -14f;
 
     float y1_set = -11.4f;
     float y2_set = -5.29f;
     float y3_set = 1.13f;
-    float y4_set = 7.08f;
+    float y4_set = 7.18f;
     float y5_set = 13.4f;
 
     public GameObject AdminObject;
@@ -48,7 +49,6 @@ public class WorldGrid : MonoBehaviour
     void Start()
     {
         //set a start position to move around
-        StartPosition = transform.position;
         TargetPosition = StartPosition;
 
         GameLevelScript = AdminObject.GetComponent<GameLevel>();
