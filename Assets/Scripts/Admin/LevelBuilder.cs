@@ -114,7 +114,10 @@ public class LevelBuilder : MonoBehaviour
 
             //set parent to HoneySlot
             Piece.transform.parent = WGRefDict[slot.Address].transform;
-           
+
+            PieceScript.Change_SortingLayer_ToBack();
+
+
         }
     }
 

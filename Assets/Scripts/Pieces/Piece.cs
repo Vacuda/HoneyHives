@@ -15,6 +15,7 @@ public class Piece : MonoBehaviour
 
     private float GrabbedPiece_LengthAwayFromCamera = 1.36f;
     private float GrabbedPiece_ScaleRate = 0.17f;
+    private float BeeBoxPiece_ScaleRate = 0.16f;
 
     public bool IsMovable;
     public bool IsSpinnable;
@@ -22,9 +23,27 @@ public class Piece : MonoBehaviour
     public Camera MainCamera;
     public PlayerController Controller;
     private PlayerControls Controls;
-    
 
-//ADMIN
+    MeshRenderer Rend_0;
+    MeshRenderer Rend_1;
+    MeshRenderer Rend_2;
+    MeshRenderer Rend_3;
+    MeshRenderer Rend_4;
+    MeshRenderer Rend_5;
+    MeshRenderer Rend_6;
+
+    public void Awake()
+    {
+        Rend_0 = gameObject.GetComponent<MeshRenderer>();
+        Rend_1 = gameObject.transform.Find("FaceValue_1").gameObject.GetComponent<MeshRenderer>();
+        Rend_2 = gameObject.transform.Find("FaceValue_2").gameObject.GetComponent<MeshRenderer>();
+        Rend_3 = gameObject.transform.Find("FaceValue_3").gameObject.GetComponent<MeshRenderer>();
+        Rend_4 = gameObject.transform.Find("FaceValue_4").gameObject.GetComponent<MeshRenderer>();
+        Rend_5 = gameObject.transform.Find("FaceValue_5").gameObject.GetComponent<MeshRenderer>();
+        Rend_6 = gameObject.transform.Find("FaceValue_6").gameObject.GetComponent<MeshRenderer>();
+    }
+
+    //ADMIN
 
     public void Start()
     {
@@ -46,6 +65,7 @@ public class Piece : MonoBehaviour
 
             //set to new position
             gameObject.transform.position = WorldPosition;
+
         }
     }
 
@@ -113,18 +133,36 @@ public class Piece : MonoBehaviour
 
         //scale object down so it can get closer
         gameObject.transform.localScale = new Vector3(GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate);
+
+        //change sorting layer
+        Change_SortingLayer_ToFront();
     }
 
-    public void Place_Piece(GameObject HoneySlotObject)
+    public void Place_Piece(GameObject LocationObject, bool IsPlacedOnWorldGrid)
     {
-        //scale back object to original
-        gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        //if on WorldGrid
+        if (IsPlacedOnWorldGrid)
+        {
+            //scale back object to original
+            gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-        //set position to HoneySlotObject
-        gameObject.transform.position = HoneySlotObject.transform.position;
+            //change sorting layer
+            Change_SortingLayer_ToBack();
+        }
+        else
+        {
+            //scale back object to original
+            gameObject.transform.localScale = new Vector3(BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate);
 
-        //set piece parent to HoneySlot
-        gameObject.transform.parent = HoneySlotObject.transform;
+            //change sorting layer
+            Change_SortingLayer_ToMid();
+        }
+
+        //set position to LocationObject
+        gameObject.transform.position = LocationObject.transform.position;
+
+        //set piece parent to LocationObject
+        gameObject.transform.parent = LocationObject.transform;
 
         //remove from in hand status
         IsInHand = false;
@@ -203,6 +241,40 @@ public class Piece : MonoBehaviour
                 return 0;
         }
     }
+
+    public void Change_SortingLayer_ToBack()
+    {
+        Rend_0.sortingOrder = 0;
+        Rend_1.sortingOrder = 1;
+        Rend_2.sortingOrder = 1;
+        Rend_3.sortingOrder = 1;
+        Rend_4.sortingOrder = 1;
+        Rend_5.sortingOrder = 1;
+        Rend_6.sortingOrder = 1;
+    }
+
+    public void Change_SortingLayer_ToMid()
+    {
+        Rend_0.sortingOrder = 80;
+        Rend_1.sortingOrder = 81;
+        Rend_2.sortingOrder = 81;
+        Rend_3.sortingOrder = 81;
+        Rend_4.sortingOrder = 81;
+        Rend_5.sortingOrder = 81;
+        Rend_6.sortingOrder = 81;
+    }
+
+    public void Change_SortingLayer_ToFront()
+    {
+        Rend_0.sortingOrder = 90;
+        Rend_1.sortingOrder = 91;
+        Rend_2.sortingOrder = 91;
+        Rend_3.sortingOrder = 91;
+        Rend_4.sortingOrder = 91;
+        Rend_5.sortingOrder = 91;
+        Rend_6.sortingOrder = 91;
+    }
+
 
     //t_TRI Convert_IntToTri(int interger)
     //{

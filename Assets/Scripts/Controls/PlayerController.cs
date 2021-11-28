@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject BackButtonObject;
     private BackButton BackButtonScript;
+
+    public GameObject BeeBoxObject;
+    private BeeBox BeeBoxScript;
+
     VineValidator ValidatorScript;
 
     private GameLevel GameLevelScript;
@@ -38,6 +42,8 @@ public class PlayerController : MonoBehaviour
         BackButtonScript = BackButtonObject.GetComponent<BackButton>();
 
         ValidatorScript = WorldGridObject.GetComponent<VineValidator>();
+
+        BeeBoxScript = BeeBoxObject.GetComponent<BeeBox>();
     }
 
     //enables controls when this script is active
@@ -75,9 +81,63 @@ public class PlayerController : MonoBehaviour
         //condense
         wg_ADDRESS HoveredOver_HoneyComb = WorldGridScript.HoveredOver_HoneyComb;
         wg_ADDRESS HoveredOver_HoneySlot = WorldGridScript.HoveredOver_HoneySlot;
+        wg_ADDRESS HoveredOver_Area = BeeBoxScript.HoveredOver_Area;
         bool IsBackButton_HoveredOver = BackButtonScript.IsBackButton_HoveredOver;
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
         
+        //if HoveredOver_Area
+        if(HoveredOver_Area != NONE)
+        {
+            //find AreaObject
+            GameObject AreaObject = WorldGridScript.WGRefDict[HoveredOver_Area];
+
+            //check if occupied
+            if (AreaObject.GetComponentInChildren<Piece>() != null)
+            {
+                //if piece in hand
+                if (PieceInHand != null)
+                {
+                    //trigger negative feedback
+                }
+                else
+                {
+                    //condense
+                    Piece PieceScript = AreaObject.GetComponentInChildren<Piece>();
+
+                    //check if movable
+                    if (PieceScript.IsMovable)
+                    {
+                        //pick up piece
+                        PieceScript.Pickup_Piece();
+
+                        //put piece in hand
+                        PieceInHand = PieceScript.gameObject;
+                    }
+                    //not movable
+                    else
+                    {
+                        //trigger negative feedback
+                    }
+                }
+            }
+            //not occupied
+            else
+            {
+                //if piece in hand
+                if (PieceInHand != null)
+                {
+                    //put piece down
+                    PieceInHand.GetComponent<Piece>().Place_Piece(AreaObject, false);
+
+                    //remove piece from hand
+                    PieceInHand = null;
+                }
+                else
+                {
+                    //do nothing
+                }
+            }
+        }
 
         //if OUTER
         if (GameStatus == OUTER)
@@ -162,7 +222,7 @@ public class PlayerController : MonoBehaviour
                     if (PieceInHand != null)
                     {
                         //put piece down
-                        PieceInHand.GetComponent<Piece>().Place_Piece(HoneySlotObject);
+                        PieceInHand.GetComponent<Piece>().Place_Piece(HoneySlotObject, true);
 
                         //remove piece from hand
                         PieceInHand = null;
@@ -184,10 +244,11 @@ public class PlayerController : MonoBehaviour
         //condense
         wg_ADDRESS HoveredOver_HoneyComb = WorldGridScript.HoveredOver_HoneyComb;
         wg_ADDRESS HoveredOver_HoneySlot = WorldGridScript.HoveredOver_HoneySlot;
+        wg_ADDRESS HoveredOver_Area = BeeBoxScript.HoveredOver_Area;
         //gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
 
         //if piece in hand
-        if(PieceInHand != null)
+        if (PieceInHand != null)
         {
             //condense
             Piece PieceScript = PieceInHand.GetComponent<Piece>();
@@ -208,6 +269,34 @@ public class PlayerController : MonoBehaviour
         }
 
     /* No Piece In Hand */
+
+        //if HoveredOver_Area
+        if(HoveredOver_Area != NONE)
+        {
+            //find AreaObject
+            GameObject AreaObject = WorldGridScript.WGRefDict[HoveredOver_Area];
+
+            //check if occupied
+            if (AreaObject.GetComponentInChildren<Piece>() != null)
+            {
+                //condense
+                Piece PieceScript = AreaObject.GetComponentInChildren<Piece>();
+
+                //if spinnable
+                if (PieceScript.IsSpinnable)
+                {
+                    //rotate piece attached
+                    PieceScript.Rotate_Piece();
+                }
+                else
+                {
+                    //trigger negative feedback
+                }
+            }
+
+            //exit spin function
+            return;
+        }
 
         //no HoveredOver_HoneySlot
         if (HoveredOver_HoneySlot == NONE)

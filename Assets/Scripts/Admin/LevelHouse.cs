@@ -62,13 +62,13 @@ public class LevelHouse : MonoBehaviour
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_GG, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
 
         //honeycomb DD
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_BB, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_CC, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_DD, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_EE, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_AA, true, false, v_1, v_7, v_1, v_3, v_1, v_5));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_BB, false, true, v_equals, v_3, v_1, v_9, v_sub, v_1));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_CC, false, false, v_2, v_1, v_blank, v_8, v_equals, v_1));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_DD, true, true, v_9, v_2, v_blank, v_1, v_1, v_1));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_EE, true, false, v_1, v_equals, v_1, v_blank, v_1, v_1));
         //LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_FF, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_GG, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_GG, false, true, v_1, v_1, v_add, v_sub, v_1, v_1));
 
         //honeycomb EE
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
