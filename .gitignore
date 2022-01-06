@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # TextMeshPro package
 /Assets/TextMesh Pro
+
+# Git Ignore Folder
+/GitIgnored/*

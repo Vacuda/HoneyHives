@@ -24,6 +24,10 @@ public class Piece : MonoBehaviour
     public PlayerController Controller;
     private PlayerControls Controls;
 
+    bool ActiveSpin = false;
+    float TargetSpinTotal = 0.0f;
+    float SpinSpeed = 0.03f;
+
     MeshRenderer Rend_0;
     MeshRenderer Rend_1;
     MeshRenderer Rend_2;
@@ -67,6 +71,63 @@ public class Piece : MonoBehaviour
             gameObject.transform.position = WorldPosition;
 
         }
+
+        if (ActiveSpin)
+        {
+            //if in hand
+            if (IsInHand)
+            {
+                /* Don't need to unparent and reattach */
+
+                float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, SpinSpeed);
+
+                // -60 = -60 - -2
+
+                TargetSpinTotal -= NewRotateAmount;
+
+                //rotate
+                gameObject.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+
+                //loop children
+                foreach (Transform child in gameObject.transform)
+                {
+                    //rotate upwards 
+                    child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+                }
+            }
+            else
+            {
+                //store this piece (My Parent's Parent)
+                GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
+
+                //detach from parent
+                gameObject.transform.parent = null;
+
+                float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, SpinSpeed);
+
+                // -60 = -60 - -2
+
+                TargetSpinTotal -= NewRotateAmount;
+
+                //rotate
+                gameObject.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+
+                //loop children
+                foreach (Transform child in gameObject.transform)
+                {
+                    //rotate upwards 
+                    child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+                }
+
+                //re-attach to parent
+                gameObject.transform.parent = HoneySlotParent.transform;
+
+            }
+
+
+
+
+        }
     }
 
 
@@ -86,24 +147,29 @@ public class Piece : MonoBehaviour
         //if on WorldGrid
         if(gameObject.transform.parent != null)
         {
-            //store this piece (My Parent's Parent)
-            GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
+            ////store this piece (My Parent's Parent)
+            //GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
 
-            //detach from parent
-            gameObject.transform.parent = null;
+            ////detach from parent
+            //gameObject.transform.parent = null;
 
-            //rotate
-            gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
+            //add to target
+            TargetSpinTotal += -60.0f;
 
-            //loop children
-            foreach (Transform child in gameObject.transform)
-            {
-                //rotate upwards 
-                child.transform.Rotate(0.0f, 0.0f, -60.0f);
-            }
+            ActiveSpin = true;
 
-            //re-attach to parent
-            gameObject.transform.parent = HoneySlotParent.transform;
+            ////rotate
+            //gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
+
+            ////loop children
+            //foreach (Transform child in gameObject.transform)
+            //{
+            //    //rotate upwards 
+            //    child.transform.Rotate(0.0f, 0.0f, -60.0f);
+            //}
+
+            ////re-attach to parent
+            //gameObject.transform.parent = HoneySlotParent.transform;
         }
         //if in hand
         else

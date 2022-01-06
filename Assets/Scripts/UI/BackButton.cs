@@ -6,8 +6,8 @@ public class BackButton : MonoBehaviour
 {
     public bool IsBackButton_HoveredOver = false;
     private Vector3 TargetPosition;
-    private Vector3 OutPosition = new Vector3(-1.2f, -0.20f, -8.6f);
-    private Vector3 InPosition = new Vector3(-1.2f, 0.15f, -8.6f);
+    private Vector3 OutPosition = new Vector3(-1.32f, -0.26f, -8.6f);
+    private Vector3 InPosition = new Vector3(-1.32f, 0.12f, -8.6f);
     private bool ActiveMovement = false;
 
 

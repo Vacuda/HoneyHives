@@ -130,8 +130,6 @@ public class VineValidator : MonoBehaviour
 
     private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
-
-
         //separate into Left and Right lists
         //remove blanks
         //remove zeros
@@ -200,8 +198,29 @@ public class VineValidator : MonoBehaviour
         PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
         PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
 
+        //Debug.Log("LeftValues------ ");
+        //foreach (VineBlock block in Left_Values)
+        //{
+        //    if (block.Value == v_int)
+        //    {
+        //        Debug.Log("LeftValues: int " + block.IntValue);
+        //        continue;
+        //    }
+        //    Debug.Log("LeftValues: " + block.Value);
+        //}
+        //Debug.Log("RightValues------ ");
+        //foreach (VineBlock block in Right_Values)
+        //{
+        //    if (block.Value == v_int)
+        //    {
+        //        Debug.Log("RightValues: int " + block.IntValue);
+        //        continue;
+        //    }
+        //    Debug.Log("RightValues: " + block.Value);
+        //}
 
-    /* Scrubbing Done.  Check If Equal Now */
+
+        /* Scrubbing Done.  Check If Equal Now */
 
         //if equal side counts
         if (Right_Values.Count == Left_Values.Count)
@@ -218,7 +237,7 @@ public class VineValidator : MonoBehaviour
                 if (Right_Values[i].Value == v_int)
                 {
                     //if IntValues don't match
-                    if (Right_Values[i].IntValue != Right_Values[i].IntValue)
+                    if (Right_Values[i].IntValue != Left_Values[i].IntValue)
                     {
                         return false;
                     }
@@ -453,7 +472,7 @@ public class VineValidator : MonoBehaviour
                 if(Right_Values[i].Value == v_int)
                 {
                     //if IntValues don't match
-                    if(Right_Values[i].IntValue != Right_Values[i].IntValue)
+                    if(Left_Values[i].IntValue != Right_Values[i].IntValue)
                     {
                         return false;
                     }
@@ -558,7 +577,7 @@ public class VineValidator : MonoBehaviour
                 if (Right_Values[i].Value == v_int)
                 {
                     //if IntValues don't match
-                    if (Right_Values[i].IntValue != Right_Values[i].IntValue)
+                    if (Left_Values[i].IntValue != Right_Values[i].IntValue)
                     {
                         return false;
                     }
