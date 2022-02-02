@@ -13,9 +13,15 @@ public class Piece : MonoBehaviour
     public fv_FACEVALUE fv_5;
     public fv_FACEVALUE fv_6;
 
+    //@@@@ these should be more globally scoped.
     private float GrabbedPiece_LengthAwayFromCamera = 1.36f;
     private float GrabbedPiece_ScaleRate = 0.17f;
     private float BeeBoxPiece_ScaleRate = 0.16f;
+    private float HoneyJarPiece_ScaleRate = 0.12f;
+    private Vector3 Scale_GrabbedPiece;
+    private Vector3 Scale_BeeBoxPiece;
+    private Vector3 Scale_HoneyJarPiece;
+    private Vector3 Scale_WorldGridPiece;
 
     public bool IsMovable;
     public bool IsSpinnable;
@@ -27,6 +33,8 @@ public class Piece : MonoBehaviour
     bool ActiveSpin = false;
     float TargetSpinTotal = 0.0f;
     float SpinSpeed = 0.03f;
+
+    Transform OffsiteLocation;
 
     MeshRenderer Rend_0;
     MeshRenderer Rend_1;
@@ -45,6 +53,11 @@ public class Piece : MonoBehaviour
         Rend_4 = gameObject.transform.Find("FaceValue_4").gameObject.GetComponent<MeshRenderer>();
         Rend_5 = gameObject.transform.Find("FaceValue_5").gameObject.GetComponent<MeshRenderer>();
         Rend_6 = gameObject.transform.Find("FaceValue_6").gameObject.GetComponent<MeshRenderer>();
+
+        Scale_GrabbedPiece = new Vector3(GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate);
+        Scale_BeeBoxPiece = new Vector3(BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate);
+        Scale_HoneyJarPiece = new Vector3(HoneyJarPiece_ScaleRate, HoneyJarPiece_ScaleRate, HoneyJarPiece_ScaleRate);
+        Scale_WorldGridPiece = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
     //ADMIN
@@ -198,7 +211,7 @@ public class Piece : MonoBehaviour
         gameObject.transform.parent = null;
 
         //scale object down so it can get closer
-        gameObject.transform.localScale = new Vector3(GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate);
+        gameObject.transform.localScale = Scale_GrabbedPiece;
 
         //change sorting layer
         Change_SortingLayer_ToFront();
@@ -210,7 +223,7 @@ public class Piece : MonoBehaviour
         if (IsPlacedOnWorldGrid)
         {
             //scale back object to original
-            gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            gameObject.transform.localScale = Scale_WorldGridPiece;
 
             //change sorting layer
             Change_SortingLayer_ToBack();
@@ -218,7 +231,7 @@ public class Piece : MonoBehaviour
         else
         {
             //scale back object to original
-            gameObject.transform.localScale = new Vector3(BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate);
+            gameObject.transform.localScale = Scale_BeeBoxPiece;
 
             //change sorting layer
             Change_SortingLayer_ToMid();
@@ -339,6 +352,11 @@ public class Piece : MonoBehaviour
         Rend_4.sortingOrder = 91;
         Rend_5.sortingOrder = 91;
         Rend_6.sortingOrder = 91;
+    }
+
+    public void Change_Scale_ToHoneyJar()
+    {
+        gameObject.transform.localScale = Scale_HoneyJarPiece;
     }
 
 

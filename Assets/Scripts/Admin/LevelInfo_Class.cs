@@ -5,8 +5,17 @@ using static wg_ADDRESS;
 
 public struct HoneySlotInfo
 {
+    //CONSTRUCTOR
     public HoneySlotInfo(wg_ADDRESS address, bool movable, bool spinnable, fv_FACEVALUE fv_1, fv_FACEVALUE fv_2, fv_FACEVALUE fv_3, fv_FACEVALUE fv_4, fv_FACEVALUE fv_5, fv_FACEVALUE fv_6)
     {
+        //determine whether HoneyJar_Originated
+        if (address == AA || address == BB || address == CC || address == DD || address == EE || address == FF || address == GG){
+            this.HoneyJar_Originated = true;
+        }
+        else{
+            this.HoneyJar_Originated = false;
+        }
+        
         this.Address = address;
         //this.IsOccupied = occupied;
         this.IsMovable = movable;
@@ -19,6 +28,9 @@ public struct HoneySlotInfo
         this.fv_6 = fv_6;
     }
 
+    //MEMBERS
+
+    public readonly bool HoneyJar_Originated;
     public readonly wg_ADDRESS Address;
     //public readonly bool IsOccupied;
     public readonly bool IsMovable;

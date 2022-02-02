@@ -42,6 +42,7 @@ public class LevelHouse : MonoBehaviour
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
+        LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA, true, true, v_3, v_blank, v_blank, v_3, v_blank, v_3));
 
         //honeycomb BB
         LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_AA, true, true, v_0, v_1, v_1, v_1, v_1, v_1));

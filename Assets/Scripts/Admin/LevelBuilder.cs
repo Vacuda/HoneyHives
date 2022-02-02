@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static fv_FACEVALUE;
+using static wg_ADDRESS;
 using TMPro;
 
 public class LevelBuilder : MonoBehaviour
@@ -38,11 +39,14 @@ public class LevelBuilder : MonoBehaviour
         //get LevelInfo from LevelHouse
         LevelInfo info = LevelHouseScript.Retrieve_ThisLevel(level);
 
+        //build temp location
+        Transform Location;
+
         //loop HoneySlots
-        foreach(HoneySlotInfo slot in info.HoneySlots)
+        foreach (HoneySlotInfo slot in info.HoneySlots)
         {
             //find location
-            Transform Location = WGRefDict[slot.Address].transform;
+            Location = WGRefDict[slot.Address].transform;
 
             //make piece
             GameObject Piece = Instantiate(PF_Piece);
@@ -112,12 +116,30 @@ public class LevelBuilder : MonoBehaviour
             //set position to HoneySlot
             Piece.transform.position = Location.position;
 
-            //set parent to HoneySlot
-            Piece.transform.parent = WGRefDict[slot.Address].transform;
 
-            PieceScript.Change_SortingLayer_ToBack();
+            //if HoneyJar Piece
+            if (slot.HoneyJar_Originated){
 
+                //change scale
+                PieceScript.Change_Scale_ToHoneyJar();
 
+                //change sorting layer
+                PieceScript.Change_SortingLayer_ToMid();
+
+                //change position
+                Piece.transform.position = new Vector3(0.0199999996f, 0.330000013f, -8.39999962f);
+            }
+            else
+            {
+                //set position to HoneySlot
+                Piece.transform.position = Location.position;
+
+                //set parent to HoneySlot
+                Piece.transform.parent = WGRefDict[slot.Address].transform;
+
+                PieceScript.Change_SortingLayer_ToBack();
+            }
+                
         }
     }
 
