@@ -39,6 +39,11 @@ public class FlowerIndicator : MonoBehaviour
 
     public void Update()
     {
+
+        //@@@@ This shouldn't happen every tick.  Should be a shut off mechanism when its done.
+        //How to compare colors/vector4?  
+        //Or put a time trigger on it?
+
         Update_FlowerIndicatorColors();
     }
 

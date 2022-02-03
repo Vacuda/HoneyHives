@@ -398,6 +398,7 @@ public class WorldGrid : MonoBehaviour
 
     }
 
+
     Vector3 GetNewPosition(wg_ADDRESS pos)
     {
         //set return vector

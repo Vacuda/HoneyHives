@@ -41,13 +41,25 @@ public class VineValidator : MonoBehaviour
 
     public void Validate_ThisHoneyComb(wg_ADDRESS HoneyCombAddress)
     {
+        //condense
+        HoneyComb ThisHoneyComb = WGRefDict[HoneyCombAddress].GetComponent<HoneyComb>();
+
+        //finalized check
+        if (ThisHoneyComb.IsHoneyComb_Finalized())
+        {
+            return;
+        }
+
         //get truncated ref dictionary
-        Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict = WGRefDict[HoneyCombAddress].GetComponent<HoneyComb>().HoneySlotRefDict;
+        Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict = ThisHoneyComb.HoneySlotRefDict;
+
+        //start counter
+        int ValidFlowerCounter = 0;
 
         //loop through nine flowers
         for (int i=1; i<=9; i++)
         {
-            //string FlowerName = Convert_IntToFlowerName(i);
+            //build FlowerName
             string FlowerName = "FlowerIndicator_" + i;
 
             //if flower is good
@@ -55,14 +67,22 @@ public class VineValidator : MonoBehaviour
             {
                 //activate
                 WGRefDict[HoneyCombAddress].transform.Find(FlowerName).GetComponent<FlowerIndicator>().Activate_Flower();
+
+                //increment counter
+                ValidFlowerCounter++;
             }
             //if flower is bad
             else
             {
                 //deactivate
                 WGRefDict[HoneyCombAddress].transform.Find(FlowerName).GetComponent<FlowerIndicator>().Deactivate_Flower();
-
             }
+        }
+
+        //if all 9 Flowers are valid
+        if(ValidFlowerCounter == 9){
+            //finalize honeycomb
+            ThisHoneyComb.Finalize_ThisHoneyComb();
         }
     }
 
@@ -1208,363 +1228,5 @@ public class VineValidator : MonoBehaviour
                 return false;
         }
     }
-
-
-
-    //private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
-    //{
-    //    Debug.Log("VALUES: " + val1 + " - " + val2 + " - " + val3 + " - " + val4);
-
-    //    //if val1 or val4 is equals
-    //    if (val1 == v_equals || val4 == v_equals)
-    //    {
-    //        // b = = =
-    //        if (val1 == v_blank && val2 == v_equals && val3 == v_equals && val4 == v_equals)
-    //        {
-    //            return true;
-    //        }
-    //        // = b = =
-    //        if (val1 == v_equals && val2 == v_blank && val3 == v_equals && val4 == v_equals)
-    //        {
-    //            return true;
-    //        }
-    //        // = = b =
-    //        if (val1 == v_equals && val2 == v_equals && val3 == v_blank && val4 == v_equals)
-    //        {
-    //            return true;
-    //        }
-    //        // = = = b
-    //        if (val1 == v_equals && val2 == v_equals && val3 == v_equals && val4 == v_blank)
-    //        {
-    //            return true;
-    //        }
-
-    //        return false;
-    //    }
-    //    //if val2 is equals
-    //    if (val2 == v_equals)
-    //    {
-    //        // + = ? ?
-    //        if (val1 == v_add)
-    //        {
-    //            // + = +
-    //            if ((val3 == v_add && val4 == v_blank) || (val3 == v_blank && val4 == v_add))
-    //            {
-    //                return true;
-    //            }
-
-    //            return false;
-    //        }
-    //        // - = ? ?
-    //        if (val1 == v_sub)
-    //        {
-    //            // - = -
-    //            if ((val3 == v_sub && val4 == v_blank) || (val3 == v_blank && val4 == v_sub))
-    //            {
-    //                return true;
-    //            }
-
-    //            return false;
-    //        }
-    //        // blank = ? ?
-    //        if (val1 == v_blank)
-    //        {
-    //            // blank = blank
-    //            if (val3 == v_blank && val4 == v_blank)
-    //            {
-    //                return true;
-    //            }
-
-    //            return false;
-    //        }
-    //        // Non-Negative Digit = ? ?
-    //        {
-    //            int LeftDigit = Get_Digit(val1);
-
-    //            // LeftDigit = + ?
-    //            if (val3 == v_add)
-    //            {
-    //                // LeftDigit = + Digit
-    //                if (IsDigit(val4))
-    //                {
-    //                    //LeftDigit = RightDigit
-    //                    if (LeftDigit == Get_Digit(val4))
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-
-    //            // LeftDigit = - ?
-    //            if (val3 == v_sub)
-    //            {
-    //                // LeftDigit = - 0
-    //                if (val4 == v_0)
-    //                {
-    //                    // LeftDigit = 0
-    //                    if (LeftDigit == 0)
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-
-    //            // LeftDigit = blank ?
-    //            if (val3 == v_blank)
-    //            {
-    //                // LeftDigit = Digit
-    //                if (IsDigit(val4))
-    //                {
-    //                    // LeftDigit = RightDigit
-    //                    if (LeftDigit == Get_Digit(val4))
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-    //            // LeftDigit = Digit ?
-    //            {
-    //                //LeftDigit = RightDigit ?
-    //                if (LeftDigit == Get_Digit(val3))
-    //                {
-    //                    // LeftDigit = RightDigit v_blank
-    //                    if (val4 == v_blank)
-    //                    {
-    //                        return true;
-    //                    }
-    //                    //nothing else works
-    //                }
-    //                //LeftDigit = 0 ?
-    //                if (Get_Digit(val3) == 0)
-    //                {
-    //                    //LeftDigit = 0 RightDigit
-    //                    if (LeftDigit == Get_Digit(val4))
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-    //        }
-    //    }
-    //    //if val3 is equals
-    //    if (val3 == v_equals)
-    //    {
-    //        // ? ? = +
-    //        if (val4 == v_add)
-    //        {
-    //            // + ? = +
-    //            if (val1 == v_add)
-    //            {
-    //                // + blank = +
-    //                if (val2 == v_blank)
-    //                {
-    //                    return true;
-    //                }
-
-    //                return false;
-    //            }
-    //            // - ? = +
-    //            if (val1 == v_sub)
-    //            {
-    //                return false;
-    //            }
-    //            // blank ? = +
-    //            if (val1 == v_blank)
-    //            {
-    //                // + = +
-    //                if (val2 == v_add)
-    //                {
-    //                    return true;
-    //                }
-
-    //                return false;
-    //            }
-    //            // Digit ? = +
-    //            {
-    //                return false;
-    //            }
-    //        }
-    //        // ? ? = -
-    //        if (val4 == v_sub)
-    //        {
-    //            // + ? = -
-    //            if (val1 == v_add)
-    //            {
-    //                return false;
-    //            }
-    //            // - ? = -
-    //            if (val1 == v_sub)
-    //            {
-    //                // - blank = -
-    //                if (val2 == v_blank)
-    //                {
-    //                    return true;
-    //                }
-
-    //                return false;
-    //            }
-    //            // blank ? = -
-    //            if (val1 == v_blank)
-    //            {
-    //                // - = -
-    //                if (val2 == v_sub)
-    //                {
-    //                    return true;
-    //                }
-
-    //                return false;
-    //            }
-    //            // Digit ? = -
-    //            {
-    //                return false;
-    //            }
-    //        }
-    //        // ? ? = blank
-    //        if (val4 == v_blank)
-    //        {
-    //            // blank = blank
-    //            if (val1 == v_blank && val2 == v_blank)
-    //            {
-    //                return true;
-    //            }
-
-    //            return false;
-    //        }
-    //        // ? ? = Non-Negative Digit
-    //        {
-    //            int RightDigit = Get_Digit(val4);
-
-    //            // + ? = RightDigit
-    //            if (val1 == v_add)
-    //            {
-    //                // + Digit = RightDigit
-    //                if (IsDigit(val2))
-    //                {
-    //                    // LeftDigit = RightDigit
-    //                    if (Get_Digit(val2) == RightDigit)
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-    //            // - ? = RightDigit
-    //            if (val1 == v_sub)
-    //            {
-    //                // - 0 = RightDigit
-    //                if (val2 == v_0)
-    //                {
-    //                    // 0 == RightDigit
-    //                    if (RightDigit == 0)
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-    //            // blank ? = RightDigit
-    //            if (val1 == v_blank)
-    //            {
-    //                // blank Digit = RightDigit
-    //                if (IsDigit(val2))
-    //                {
-    //                    //LeftDigit = RightDigit
-    //                    if (Get_Digit(val2) == RightDigit)
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-    //            // Digit ? = RightDigit
-    //            {
-    //                // Digit blank = RightDigit
-    //                if (val2 == v_blank)
-    //                {
-    //                    //LeftDigit = RightDigit
-    //                    if (Get_Digit(val1) == RightDigit)
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-    //                // 0 ? = RightDigit
-    //                if (val1 == v_0)
-    //                {
-    //                    //0 Digit = RightDigit
-    //                    if (Get_Digit(val2) == RightDigit)
-    //                    {
-    //                        return true;
-    //                    }
-    //                }
-
-    //                return false;
-    //            }
-    //        }
-
-    //    }
-
-
-    //    /* No EQUAL signs detected * /
-
-    //        5 + = 0 5 +
-
-    //        5, 2201, =, 5 2201
-
-    //        //if not same amount of shapes, false
-    //        //loop indexes
-    //        //if left[1] != right[1], false
-    //        //if left[2] != right[2], false
-
-
-    //        5, 2001, =, 5
-
-    //        5 = 5 = 5 =
-
-    //        -05-b+      
-    //        -5, -, +
-
-    //        Now, we've dealt with all equals signs which had turned the validation into an equation.
-
-    //        I believe, now we look for edge cases around v_sub and v_add
-
-    //        When v_sub and v_add are before ints, they act as positive or negative attributes to the ints.
-
-    //        When they are after, they are math symbols
-
-    //        5+ is wrong
-    //        + + + is okay
-
-    //        if (5 + = 5 +) because they turn into shapes, then this exception turns them back into shapes
-
-    //        5+ != 5
-
-
-    //        -/+                     are shapes
-    //        -/+ after digits        are math symbols
-    //        -/+ before equals       are shapes
-
-    //        -07
-
-    //        --0-
-
-    //        */
-
-    //    //  = = = = = 7
-
-
-    //    return true;
-    //}
-
 
 }
