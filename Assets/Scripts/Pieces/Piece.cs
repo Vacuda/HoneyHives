@@ -34,7 +34,7 @@ public class Piece : MonoBehaviour
     float TargetSpinTotal = 0.0f;
     float SpinSpeed = 0.03f;
 
-    Transform OffsiteLocation;
+    public Vector3 OffsiteLocation;
 
     MeshRenderer Rend_0;
     MeshRenderer Rend_1;

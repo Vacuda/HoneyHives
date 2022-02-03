@@ -8,7 +8,9 @@ using TMPro;
 public class LevelBuilder : MonoBehaviour
 {
     LevelHouse LevelHouseScript;
-    public WorldGrid WorldGridObject;
+    public WorldGrid WorldGridScript;
+    public HoneyLock HoneyLockScript;
+
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
     public PlayerController Controller;
     public Camera MainCamera;
@@ -18,6 +20,7 @@ public class LevelBuilder : MonoBehaviour
     public Material M_Piece_Move;
     public Material M_Piece_Spin;
 
+    Dictionary<wg_ADDRESS, GameObject> HLPieceDict;
 
     public GameObject PF_Piece;
 
@@ -26,7 +29,9 @@ public class LevelBuilder : MonoBehaviour
         //find LevelHouseScript
         LevelHouseScript = gameObject.GetComponent<LevelHouse>();
 
-        WGRefDict = WorldGridObject.GetComponent<WorldGrid>().WGRefDict;
+        WGRefDict = WorldGridScript.WGRefDict;
+
+
     }
 
     private void Start()
@@ -126,8 +131,11 @@ public class LevelBuilder : MonoBehaviour
                 //change sorting layer
                 PieceScript.Change_SortingLayer_ToMid();
 
-                //change position
-                Piece.transform.position = new Vector3(0.0199999996f, 0.330000013f, -8.39999962f);
+                //change position - offscreen
+                PieceScript.OffsiteLocation = new Vector3(0.0199999996f, -0.239999995f, -8.39999962f);
+                Piece.transform.position = PieceScript.OffsiteLocation;
+
+                HoneyLockScript.AddTo_HoneyLockPieceDictionary(slot.Address, Piece);
             }
             else
             {

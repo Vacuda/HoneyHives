@@ -26,8 +26,9 @@ public class WorldGrid : MonoBehaviour
     float y5_set = 13.4f;
 
     public GameObject AdminObject;
-    private GameLevel GameLevelScript;
+    public GameObject HoneyLockObject;
     public GameObject BeeBoxPanel;
+    private GameLevel GameLevelScript;
 
     //int Tracker = 0;
 

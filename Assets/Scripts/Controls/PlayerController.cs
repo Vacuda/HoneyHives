@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     public Camera MainCameraObject;
     private MainCamera MainCameraScript;
 
+    public HoneyLock HoneyLockScript;
+
 
     //Piece In Hand - Reference
     public GameObject PieceInHand;
@@ -386,6 +388,8 @@ public class PlayerController : MonoBehaviour
 
         //move back button
         BackButtonScript.Move_OutOfFrame();
+
+        HoneyLockScript.BringDown_HoneyLock();
 
     }
 
