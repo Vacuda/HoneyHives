@@ -61,6 +61,11 @@ public enum t_TRI
     TRI_1, TRI_2, TRI_3, TRI_4, TRI_5, TRI_6
 }
 
+public enum c_ACTCOLOR
+{
+    c_CENTER, c_PETALS, c_VINE, c_HONEYCOMB
+}
+
 
 public class CustomEnums : MonoBehaviour
 {

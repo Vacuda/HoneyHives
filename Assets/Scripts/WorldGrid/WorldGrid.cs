@@ -7,6 +7,8 @@ using static gs_GAMESTATUS;
 
 public class WorldGrid : MonoBehaviour
 {
+    public ColorChanger ColorChangerScript;
+
     //grid positions
     //private Vector3 StartPosition = new Vector3(-12.34f, 0.8f, 26.33f);
     private Vector3 StartPosition = new Vector3(-15.04f, 0.8f, 26.33f);

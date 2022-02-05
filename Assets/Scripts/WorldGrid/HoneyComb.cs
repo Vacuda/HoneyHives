@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.EventSystems;
 using static wg_ADDRESS;
+using static c_ACTCOLOR;
 
 public class HoneyComb : MonoBehaviour
 {
     public wg_ADDRESS HoneyComb_Address;
-    private WorldGrid WorldGridScript;
+    //private WorldGrid WorldGridScript;
     private bool bIsFinaled = false;
+    private ColorChanger ColorChangerScript;
 
     private MaterialPropertyBlock HC_WireframeMaterial;
     private Renderer HC_WireFrameRenderer;
@@ -21,14 +23,15 @@ public class HoneyComb : MonoBehaviour
     private void Awake()
     {
         Build_LocalDictionaryOfHoneySlotObjects();
+
+        ColorChangerScript = gameObject.transform.parent.GetComponent<WorldGrid>().ColorChangerScript;
+
+        HC_WireFrameRenderer = gameObject.GetComponent<MeshRenderer>();
+        HC_WireframeMaterial = new MaterialPropertyBlock();
     }
     private void Start()
     {
-        HC_WireFrameRenderer = gameObject.GetComponent<MeshRenderer>();
-        HC_WireframeMaterial = new MaterialPropertyBlock();
-
-        HC_WireFrameRenderer.GetPropertyBlock(HC_WireframeMaterial);
-        HC_WireFrameRenderer.SetPropertyBlock(HC_WireframeMaterial, 1);
+        Inform_ColorChanger_OfActivationChange_Instant(true);
     }
 
     private void Build_LocalDictionaryOfHoneySlotObjects()
@@ -60,17 +63,12 @@ public class HoneyComb : MonoBehaviour
 
     private void Finalize_HC_WireframeMaterial()
     {
-        HC_WireFrameRenderer.GetPropertyBlock(HC_WireframeMaterial);
+        ColorChangerScript.ChangeColorActivation_Linear(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, false, 1);
 
-        //get new color
-        Color NewColor = Color.green;
+    }
 
-        ////store new color
-        //Current_PetalColor = NewColor;
-
-        //set new color
-        HC_WireframeMaterial.SetColor("_Color", NewColor);
-
-        HC_WireFrameRenderer.SetPropertyBlock(HC_WireframeMaterial, 1);
+    private void Inform_ColorChanger_OfActivationChange_Instant(bool activation)
+    {
+        ColorChangerScript.ChangeColorActivation_Instant(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, activation, 1);
     }
 }
