@@ -230,7 +230,7 @@ public class Piece : MonoBehaviour
         IsSpinnable = false;
 
         //deactivate piece material
-        //colorchanger.ChangeColor_PieceDeactivation(GameObject);
+        materialchanger.MaterialChange_Lerp(gameObject);
 
     }
 

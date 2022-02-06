@@ -37,7 +37,7 @@ public class ColorChanger : MonoBehaviour
     void Update()
     {
         //tracker
-        Debug.Log("amount: " + JobDict.Count);
+        //Debug.Log("amount: " + JobDict.Count);
 
         //perform all color changes
         Perform_AllColorChanges();

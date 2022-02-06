@@ -82,3 +82,20 @@ public struct ColorChangeJob
 }
 
 
+public struct MaterialChangeJob
+{
+    //CONSTRUCTOR
+    public MaterialChangeJob(Renderer rend, float duration)
+    {
+        this.rend = rend;
+        this.duration = duration;
+        //this.color_start = color_start;
+        //this.color_finish = color_finish;
+        //this.mat_index = mat_index;
+        this.time_start = Time.time;
+    }
+
+    public Renderer rend;
+    public float duration;
+    public float time_start;
+}

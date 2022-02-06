@@ -66,6 +66,11 @@ public enum c_ACTCOLOR
     c_CENTER, c_PETALS, c_VINE, c_HONEYCOMB
 }
 
+public enum m_MATERIAL
+{
+    m_
+}
+
 
 public class CustomEnums : MonoBehaviour
 {
