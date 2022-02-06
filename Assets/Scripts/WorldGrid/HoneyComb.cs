@@ -51,7 +51,7 @@ public class HoneyComb : MonoBehaviour
         Debug.Log("This honeycomb is finalized: " + HoneyComb_Address);
 
         Finalize_HC_WireframeMaterial();
-
+        Finalize_DeactivatedPieceMaterials();
 
 
     }
@@ -63,12 +63,37 @@ public class HoneyComb : MonoBehaviour
 
     private void Finalize_HC_WireframeMaterial()
     {
-        ColorChangerScript.ChangeColorActivation_Linear(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, false, 1);
+        ColorChangerScript.ChangeColorActivation_Lerp(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, false, 1);
 
     }
 
     private void Inform_ColorChanger_OfActivationChange_Instant(bool activation)
     {
         ColorChangerScript.ChangeColorActivation_Instant(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, activation, 1);
+    }
+
+    private void Finalize_DeactivatedPieceMaterials()
+    {
+        //loop honey slots
+        foreach(var honeyslot in HoneySlotRefDict){
+
+            //condense
+            GameObject slot = honeyslot.Value;
+
+            //if piece in slot
+            if(slot.transform.childCount == 3){
+
+                //condense
+                Piece PieceScript = slot.transform.GetChild(2).gameObject.GetComponent<Piece>();
+
+                //if piece is unmovable
+                if (!PieceScript.IsMovable){
+
+                    //deactivate
+                    PieceScript.Deactivate_Piece();
+                }
+            }
+
+        }
     }
 }

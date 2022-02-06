@@ -17128,6 +17128,7 @@ GameObject:
   - component: {fileID: 1045452749}
   - component: {fileID: 1045452748}
   - component: {fileID: 1045452750}
+  - component: {fileID: 1045452751}
   m_Layer: 0
   m_Name: Admin
   m_TagString: Untagged
@@ -17206,6 +17207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WorldGridScript: {fileID: 1350614151}
   HoneyLockScript: {fileID: 1597231255}
+  PieceGlobalsScript: {fileID: 1045452751}
+  ColorChangerScript: {fileID: 1045452750}
   Controller: {fileID: 1045452747}
   MainCamera: {fileID: 1637530305}
   M_Piece_Full: {fileID: 2100000, guid: 84a2280fcca791f4cb7863b5c2597e31, type: 2}
@@ -17225,6 +17228,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de63a52a528419e468ee972f6919baef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1045452751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045452744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f292e5a59bad6cd49947eac8962b077f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrabbedPiece_LengthAwayFromCamera: 1.36
+  Scale_GrabbedPiece: {x: 0, y: 0, z: 0}
+  Scale_BeeBoxPiece: {x: 0, y: 0, z: 0}
+  Scale_HoneyJarPiece: {x: 0, y: 0, z: 0}
+  Scale_WorldGridPiece: {x: 0, y: 0, z: 0}
+  SpinSpeed: 0.03
+  OffsiteLocation: {x: 0, y: 0, z: 0}
+  DeactivatedMaterial: {fileID: 0}
 --- !u!1 &1080507329
 GameObject:
   m_ObjectHideFlags: 0

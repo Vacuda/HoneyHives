@@ -61,18 +61,24 @@ public struct LevelInfo
 public struct ColorChangeJob
 {
     //CONSTRUCTOR
-    public ColorChangeJob(MaterialPropertyBlock matblock, float speed, Color32 color, int mat_index)
+    public ColorChangeJob(Color32 color_start, Color32 color_finish, float duration, MaterialPropertyBlock matblock, int mat_index)
     {
         this.matblock = matblock;
-        this.speed = speed;
-        this.color = color;
+        this.duration = duration;
+        this.color_start = color_start;
+        this.color_finish = color_finish;
         this.mat_index = mat_index;
+        this.time_start = Time.time;
     }
 
     //MEMBERS
-    public readonly MaterialPropertyBlock matblock;
-    public readonly float speed;
-    public readonly Color32 color;
-    public readonly int mat_index;
+    public Color32 color_start;
+    public Color32 color_finish;
+    public float duration;
+    public MaterialPropertyBlock matblock;
+    public int mat_index;
+    public float time_start;
 
 }
+
+

@@ -10,6 +10,8 @@ public class LevelBuilder : MonoBehaviour
     LevelHouse LevelHouseScript;
     public WorldGrid WorldGridScript;
     public HoneyLock HoneyLockScript;
+    public PieceGlobals PieceGlobalsScript;
+    public ColorChanger ColorChangerScript;
 
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
     public PlayerController Controller;
@@ -72,6 +74,9 @@ public class LevelBuilder : MonoBehaviour
             PieceScript.IsSpinnable = slot.IsSpinnable;
             PieceScript.Controller = Controller;
             PieceScript.MainCamera = MainCamera;
+            PieceScript.pg = PieceGlobalsScript;
+            PieceScript.colorchanger = ColorChangerScript;
+
 
             //change all six face values - TEXT
             Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
@@ -111,6 +116,9 @@ public class LevelBuilder : MonoBehaviour
                 }
                 else
                 {
+
+
+
                     //none - at default, no need to change
                 }
             }
@@ -132,8 +140,7 @@ public class LevelBuilder : MonoBehaviour
                 PieceScript.Change_SortingLayer_ToMid();
 
                 //change position - offscreen
-                PieceScript.OffsiteLocation = new Vector3(0.0199999996f, -0.239999995f, -8.39999962f);
-                Piece.transform.position = PieceScript.OffsiteLocation;
+                Piece.transform.position = PieceGlobalsScript.OffsiteLocation;
 
                 HoneyLockScript.AddTo_HoneyLockPieceDictionary(slot.Address, Piece);
             }

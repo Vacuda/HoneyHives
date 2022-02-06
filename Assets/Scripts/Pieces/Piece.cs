@@ -5,6 +5,15 @@ using static t_TRI;
 
 public class Piece : MonoBehaviour
 {
+    //REFERENCES
+    public Camera MainCamera;
+    public PlayerController Controller;
+    private PlayerControls Controls;
+    public PieceGlobals pg;
+    public ColorChanger colorchanger;
+
+    //MEMBERS
+
     int Current_TriOffset = 0;
     public fv_FACEVALUE fv_1;
     public fv_FACEVALUE fv_2;
@@ -13,28 +22,12 @@ public class Piece : MonoBehaviour
     public fv_FACEVALUE fv_5;
     public fv_FACEVALUE fv_6;
 
-    //@@@@ these should be more globally scoped.
-    private float GrabbedPiece_LengthAwayFromCamera = 1.36f;
-    private float GrabbedPiece_ScaleRate = 0.17f;
-    private float BeeBoxPiece_ScaleRate = 0.16f;
-    private float HoneyJarPiece_ScaleRate = 0.12f;
-    private Vector3 Scale_GrabbedPiece;
-    private Vector3 Scale_BeeBoxPiece;
-    private Vector3 Scale_HoneyJarPiece;
-    private Vector3 Scale_WorldGridPiece;
-
     public bool IsMovable;
     public bool IsSpinnable;
+    //private bool IsDeactivated = false;
     private bool IsInHand = false;
-    public Camera MainCamera;
-    public PlayerController Controller;
-    private PlayerControls Controls;
-
     bool ActiveSpin = false;
     float TargetSpinTotal = 0.0f;
-    float SpinSpeed = 0.03f;
-
-    public Vector3 OffsiteLocation;
 
     MeshRenderer Rend_0;
     MeshRenderer Rend_1;
@@ -53,11 +46,6 @@ public class Piece : MonoBehaviour
         Rend_4 = gameObject.transform.Find("FaceValue_4").gameObject.GetComponent<MeshRenderer>();
         Rend_5 = gameObject.transform.Find("FaceValue_5").gameObject.GetComponent<MeshRenderer>();
         Rend_6 = gameObject.transform.Find("FaceValue_6").gameObject.GetComponent<MeshRenderer>();
-
-        Scale_GrabbedPiece = new Vector3(GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate, GrabbedPiece_ScaleRate);
-        Scale_BeeBoxPiece = new Vector3(BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate, BeeBoxPiece_ScaleRate);
-        Scale_HoneyJarPiece = new Vector3(HoneyJarPiece_ScaleRate, HoneyJarPiece_ScaleRate, HoneyJarPiece_ScaleRate);
-        Scale_WorldGridPiece = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
     //ADMIN
@@ -71,75 +59,12 @@ public class Piece : MonoBehaviour
     {
         if (IsInHand)
         {
-            //get mouse position
-            Vector2 MousePosition = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>();
-
-            //convert MousePosition to Vector 3
-            Vector3 MouseVector3 = new Vector3(MousePosition.x, MousePosition.y, GrabbedPiece_LengthAwayFromCamera);
-
-            //get WorldPosition
-            Vector3 WorldPosition = MainCamera.ScreenToWorldPoint(MouseVector3);
-
-            //set to new position
-            gameObject.transform.position = WorldPosition;
-
+            Move_Piece_ToMousePointerPosition();
         }
 
         if (ActiveSpin)
         {
-            //if in hand
-            if (IsInHand)
-            {
-                /* Don't need to unparent and reattach */
-
-                float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, SpinSpeed);
-
-                // -60 = -60 - -2
-
-                TargetSpinTotal -= NewRotateAmount;
-
-                //rotate
-                gameObject.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
-
-                //loop children
-                foreach (Transform child in gameObject.transform)
-                {
-                    //rotate upwards 
-                    child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
-                }
-            }
-            else
-            {
-                //store this piece (My Parent's Parent)
-                GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
-
-                //detach from parent
-                gameObject.transform.parent = null;
-
-                float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, SpinSpeed);
-
-                // -60 = -60 - -2
-
-                TargetSpinTotal -= NewRotateAmount;
-
-                //rotate
-                gameObject.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
-
-                //loop children
-                foreach (Transform child in gameObject.transform)
-                {
-                    //rotate upwards 
-                    child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
-                }
-
-                //re-attach to parent
-                gameObject.transform.parent = HoneySlotParent.transform;
-
-            }
-
-
-
-
+            Handle_PieceRotation();
         }
     }
 
@@ -160,29 +85,10 @@ public class Piece : MonoBehaviour
         //if on WorldGrid
         if(gameObject.transform.parent != null)
         {
-            ////store this piece (My Parent's Parent)
-            //GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
-
-            ////detach from parent
-            //gameObject.transform.parent = null;
-
-            //add to target
+            //add to targetspin
             TargetSpinTotal += -60.0f;
 
             ActiveSpin = true;
-
-            ////rotate
-            //gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
-
-            ////loop children
-            //foreach (Transform child in gameObject.transform)
-            //{
-            //    //rotate upwards 
-            //    child.transform.Rotate(0.0f, 0.0f, -60.0f);
-            //}
-
-            ////re-attach to parent
-            //gameObject.transform.parent = HoneySlotParent.transform;
         }
         //if in hand
         else
@@ -211,7 +117,7 @@ public class Piece : MonoBehaviour
         gameObject.transform.parent = null;
 
         //scale object down so it can get closer
-        gameObject.transform.localScale = Scale_GrabbedPiece;
+        gameObject.transform.localScale = pg.Scale_GrabbedPiece;
 
         //change sorting layer
         Change_SortingLayer_ToFront();
@@ -223,7 +129,7 @@ public class Piece : MonoBehaviour
         if (IsPlacedOnWorldGrid)
         {
             //scale back object to original
-            gameObject.transform.localScale = Scale_WorldGridPiece;
+            gameObject.transform.localScale = pg.Scale_WorldGridPiece;
 
             //change sorting layer
             Change_SortingLayer_ToBack();
@@ -231,7 +137,7 @@ public class Piece : MonoBehaviour
         else
         {
             //scale back object to original
-            gameObject.transform.localScale = Scale_BeeBoxPiece;
+            gameObject.transform.localScale = pg.Scale_BeeBoxPiece;
 
             //change sorting layer
             Change_SortingLayer_ToMid();
@@ -247,8 +153,88 @@ public class Piece : MonoBehaviour
         IsInHand = false;
     }
 
+    private void Move_Piece_ToMousePointerPosition()
+    {
+        //get mouse position
+        Vector2 MousePosition = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>();
 
-//UTILITIES
+        //convert MousePosition to Vector 3
+        Vector3 MouseVector3 = new Vector3(MousePosition.x, MousePosition.y, pg.GrabbedPiece_LengthAwayFromCamera);
+
+        //get WorldPosition
+        Vector3 WorldPosition = MainCamera.ScreenToWorldPoint(MouseVector3);
+
+        //set to new position
+        gameObject.transform.position = WorldPosition;
+    }
+
+    private void Handle_PieceRotation()
+    {
+        //if in hand
+        if (IsInHand)
+        {
+            /* Don't need to unparent and reattach */
+
+            float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, pg.SpinSpeed);
+
+            // -60 = -60 - -2
+
+            TargetSpinTotal -= NewRotateAmount;
+
+            //rotate
+            gameObject.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+
+            //loop children
+            foreach (Transform child in gameObject.transform)
+            {
+                //rotate upwards 
+                child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+            }
+        }
+        else
+        {
+            //store this piece (My Parent's Parent)
+            GameObject HoneySlotParent = gameObject.transform.parent.gameObject;
+
+            //detach from parent
+            gameObject.transform.parent = null;
+
+            float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, pg.SpinSpeed);
+
+            // -60 = -60 - -2
+
+            TargetSpinTotal -= NewRotateAmount;
+
+            //rotate
+            gameObject.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+
+            //loop children
+            foreach (Transform child in gameObject.transform)
+            {
+                //rotate upwards 
+                child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+            }
+
+            //re-attach to parent
+            gameObject.transform.parent = HoneySlotParent.transform;
+
+        }
+    }
+    public void Deactivate_Piece()
+    {
+        //set to deactive
+        //IsDeactivated = true;
+
+        //stop ability to spin
+        IsSpinnable = false;
+
+        //deactivate piece material
+        //colorchanger.ChangeColor_PieceDeactivation(GameObject);
+
+    }
+
+
+    //UTILITIES
 
     public fv_FACEVALUE Get_FaceValue_WithOffset(t_TRI tri)
     {
@@ -356,7 +342,7 @@ public class Piece : MonoBehaviour
 
     public void Change_Scale_ToHoneyJar()
     {
-        gameObject.transform.localScale = Scale_HoneyJarPiece;
+        gameObject.transform.localScale = pg.Scale_HoneyJarPiece;
     }
 
 
