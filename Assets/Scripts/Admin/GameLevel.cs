@@ -8,13 +8,12 @@ using static ln_LEVELNAME;
 public class GameLevel : MonoBehaviour
 {
     private gs_GAMESTATUS GameStatus;
-    LevelBuilder Builder;
+    public LevelBuilder Builder;
     public WorldGrid WorldGridObject;
 
     private void Awake()
     {
-        //find builder
-        Builder = gameObject.GetComponent<LevelBuilder>();
+
 
     }
 
@@ -29,9 +28,19 @@ public class GameLevel : MonoBehaviour
 
         GameStatus = OUTER;
 
+        //starts the CoRoutine below
+        StartCoroutine(DelayedValidation());
+
     }
 
+    IEnumerator DelayedValidation()
+    {
+        //pause 
+        yield return new WaitForSeconds(1);
 
+        //Verify each HoneyComb
+        WorldGridObject.GetComponent<VineValidator>().Validate_AllHoneyCombs();
+    }
 
     public void Set_GameStatus(gs_GAMESTATUS status)
     {

@@ -11,6 +11,7 @@ public class Piece : MonoBehaviour
     private PlayerControls Controls;
     public PieceGlobals pg;
     public ColorChanger colorchanger;
+    public MaterialChanger materialchanger;
 
     //MEMBERS
 

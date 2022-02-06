@@ -27,10 +27,10 @@ public class WorldGrid : MonoBehaviour
     float y4_set = 7.18f;
     float y5_set = 13.4f;
 
-    public GameObject AdminObject;
+    //public GameObject AdminObject;
     public GameObject HoneyLockObject;
     public GameObject BeeBoxPanel;
-    private GameLevel GameLevelScript;
+    public GameLevel GameLevelScript;
 
     //int Tracker = 0;
 
@@ -54,7 +54,7 @@ public class WorldGrid : MonoBehaviour
         //set a start position to move around
         TargetPosition = StartPosition;
 
-        GameLevelScript = AdminObject.GetComponent<GameLevel>();
+        //GameLevelScript = AdminObject.GetComponent<GameLevel>();
     }
 
 

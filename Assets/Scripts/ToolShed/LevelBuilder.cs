@@ -7,11 +7,12 @@ using TMPro;
 
 public class LevelBuilder : MonoBehaviour
 {
-    LevelHouse LevelHouseScript;
+    public LevelHouse LevelHouseScript;
     public WorldGrid WorldGridScript;
     public HoneyLock HoneyLockScript;
     public PieceGlobals PieceGlobalsScript;
     public ColorChanger ColorChangerScript;
+    public MaterialChanger MaterialChangerScript;
 
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
     public PlayerController Controller;
@@ -28,8 +29,6 @@ public class LevelBuilder : MonoBehaviour
 
     private void Awake()
     {
-        //find LevelHouseScript
-        LevelHouseScript = gameObject.GetComponent<LevelHouse>();
 
         WGRefDict = WorldGridScript.WGRefDict;
 
@@ -76,6 +75,7 @@ public class LevelBuilder : MonoBehaviour
             PieceScript.MainCamera = MainCamera;
             PieceScript.pg = PieceGlobalsScript;
             PieceScript.colorchanger = ColorChangerScript;
+            PieceScript.materialchanger = MaterialChangerScript;
 
 
             //change all six face values - TEXT
