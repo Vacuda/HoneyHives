@@ -17,7 +17,7 @@ public class MaterialChanger : MonoBehaviour
     void Update()
     {
         //tracker
-        Debug.Log("amount: " + JobList.Count);
+        //Debug.Log("amount: " + JobList.Count);
 
         //perform all color changes
         Perform_AllMaterialChanges();
@@ -39,14 +39,34 @@ public class MaterialChanger : MonoBehaviour
             //get precentage
             float percentage_complete = timechange / duration;
 
-            rend.materials[0].Lerp(Piece_UnmovableMat, Piece_DeactivatedMaterial, percentage_complete);
-            rend.materials[1].Lerp(Piece_UnmovableMat, Piece_DeactivatedMaterial, percentage_complete);
+            //Debug.Log(percentage_complete);
 
-            Fade_PieceNumbers(rend);
+            var mats = rend.materials;
+            Texture text = rend.materials[1].mainTexture;
+
+            
+
+            mats[0].Lerp(Piece_UnmovableMat, Piece_DeactivatedMaterial, percentage_complete);
+            mats[1].Lerp(Piece_UnmovableMat, Piece_DeactivatedMaterial, percentage_complete);
+
+            rend.materials = mats;
+
+            //Fade_PieceNumbers(rend);
 
             //finish check
             if (percentage_complete >= 1.0f)
             {
+                //var mats2 = rend.materials;
+
+                //mats2[0] = Piece_DeactivatedMaterial;
+                //mats2[1] = Piece_DeactivatedMaterial;
+
+                //rend.materials = mats2;
+
+                //Destroy(rend.gameObject);
+
+                //Debug.Log("got here");
+
                 //add to list to remove job
                 JobList.RemoveAt(i);
 

@@ -92,6 +92,15 @@ public class HoneyComb : MonoBehaviour
                     //deactivate
                     PieceScript.Deactivate_Piece();
                 }
+                else
+                {
+                    PieceScript.DuplicateAndDeactivate_Piece();
+                }
+
+                //@@@@ will delete following
+
+                //deactivate
+                //PieceScript.Deactivate_Piece();
             }
 
         }
