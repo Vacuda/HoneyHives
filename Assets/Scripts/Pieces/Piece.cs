@@ -12,6 +12,7 @@ public class Piece : MonoBehaviour
     public PieceGlobals pg;
     public ColorChanger colorchanger;
     public MaterialChanger materialchanger;
+    public GameObject BeeBoxPanel;
 
     //MEMBERS
 
@@ -83,30 +84,10 @@ public class Piece : MonoBehaviour
             Current_TriOffset = Current_TriOffset - 6;
         }
 
-        //if on WorldGrid
-        if(gameObject.transform.parent != null)
-        {
-            //add to targetspin
-            TargetSpinTotal += -60.0f;
+        //add to targetspin
+        TargetSpinTotal += 60.0f;
 
-            ActiveSpin = true;
-        }
-        //if in hand
-        else
-        {
-            //rotate
-            gameObject.transform.Rotate(0.0f, 0.0f, -60.0f);
-
-            //loop children
-            foreach (Transform child in gameObject.transform)
-            {
-                //rotate upwards 
-                child.transform.Rotate(0.0f, 0.0f, -60.0f);
-            }
-        }
-
-
-       
+        ActiveSpin = true; 
     }
 
     public void Pickup_Piece()
@@ -119,6 +100,13 @@ public class Piece : MonoBehaviour
 
         //scale object down so it can get closer
         gameObject.transform.localScale = pg.Scale_GrabbedPiece;
+
+        //Quaternion test = gameObject.transform.localRotation;
+
+        gameObject.transform.rotation = Quaternion.Euler(0.0f, gameObject.transform.rotation.eulerAngles.y, gameObject.transform.rotation.eulerAngles.z);
+
+        //correct rotation
+        //Quaternion rotation = gameObject.transform.rotation;
 
         //change sorting layer
         Change_SortingLayer_ToFront();
@@ -178,7 +166,7 @@ public class Piece : MonoBehaviour
 
             float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, pg.SpinSpeed);
 
-            // -60 = -60 - -2
+            // 60 = 60 - 2
 
             TargetSpinTotal -= NewRotateAmount;
 
@@ -188,8 +176,8 @@ public class Piece : MonoBehaviour
             //loop children
             foreach (Transform child in gameObject.transform)
             {
-                //rotate upwards 
-                child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+                //rotate clockwise, negative
+                child.transform.Rotate(0.0f, 0.0f, -NewRotateAmount);
             }
         }
         else
@@ -202,7 +190,7 @@ public class Piece : MonoBehaviour
 
             float NewRotateAmount = Mathf.Lerp(0.0f, TargetSpinTotal, pg.SpinSpeed);
 
-            // -60 = -60 - -2
+            // 60 = 60 - 2
 
             TargetSpinTotal -= NewRotateAmount;
 
@@ -212,13 +200,25 @@ public class Piece : MonoBehaviour
             //loop children
             foreach (Transform child in gameObject.transform)
             {
-                //rotate upwards 
-                child.transform.Rotate(0.0f, 0.0f, NewRotateAmount);
+                //rotate clockwise, negative
+                child.transform.Rotate(0.0f, 0.0f, -NewRotateAmount);
             }
 
             //re-attach to parent
             gameObject.transform.parent = HoneySlotParent.transform;
 
+        }
+
+        //if spinning almost done
+        if(TargetSpinTotal <= 0.003f)
+        {
+            //stop spinning
+            ActiveSpin = false;
+
+            //Small amount of rotation still exists here, but it is not lost in the TargetSpinTotal.
+            //Next time it spins, it adds 60 to the TargetSpinTotal.
+            //So, 60 + small amount
+            //There's no build up of small amounts of spin not done.  It carries over.
         }
     }
     public void Deactivate_Piece()
@@ -229,9 +229,43 @@ public class Piece : MonoBehaviour
         //stop ability to spin
         IsSpinnable = false;
 
+        //@@@@ will delete
+        IsMovable = false;
+
+
         //deactivate piece material
         materialchanger.MaterialChange_Lerp(gameObject);
 
+    }
+
+    public void DuplicateAndDeactivate_Piece()
+    {
+
+        GameObject NewPiece = Instantiate(this.gameObject);
+
+        NewPiece.transform.rotation = this.transform.rotation;
+
+        FindNewHome(NewPiece);
+
+        Deactivate_Piece();
+    }
+
+    private void FindNewHome(GameObject NewPiece)
+    {
+        //loop BeeBoxPanel
+        for(int i=0; i<BeeBoxPanel.transform.childCount; i++)
+        {
+            GameObject AreaThing = BeeBoxPanel.transform.GetChild(i).gameObject;
+
+            //if empty
+            if(AreaThing.transform.childCount == 2)
+            {
+                Debug.Log("got here");
+                NewPiece.GetComponent<Piece>().Place_Piece(AreaThing, false);
+
+                break;
+            }
+        } 
     }
 
 

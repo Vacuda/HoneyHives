@@ -13,6 +13,7 @@ public class LevelBuilder : MonoBehaviour
     public PieceGlobals PieceGlobalsScript;
     public ColorChanger ColorChangerScript;
     public MaterialChanger MaterialChangerScript;
+    public GameObject BeeBoxPanel;
 
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
     public PlayerController Controller;
@@ -76,6 +77,7 @@ public class LevelBuilder : MonoBehaviour
             PieceScript.pg = PieceGlobalsScript;
             PieceScript.colorchanger = ColorChangerScript;
             PieceScript.materialchanger = MaterialChangerScript;
+            PieceScript.BeeBoxPanel = BeeBoxPanel;
 
 
             //change all six face values - TEXT
