@@ -268,6 +268,14 @@ public class Piece : MonoBehaviour
         } 
     }
 
+    public void NegativeFeedback_PieceRotation()
+    {
+        Animation anim = gameObject.GetComponent<Animation>();
+
+
+
+        anim.Play("Hex_NoSpinFeedback");
+    }
 
     //UTILITIES
 

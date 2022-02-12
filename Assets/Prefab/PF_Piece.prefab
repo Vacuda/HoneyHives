@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5688759580676011885}
   - component: {fileID: 8591186638431569250}
   - component: {fileID: 190705917847092653}
+  - component: {fileID: 6240642416982448964}
   m_Layer: 0
   m_Name: PF_Piece
   m_TagString: Untagged
@@ -115,6 +116,21 @@ MonoBehaviour:
   fv_6: 0
   IsMovable: 0
   IsSpinnable: 0
+--- !u!111 &6240642416982448964
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478484813434926450}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 6470f7a5dcda6134994e3bf470888c71, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4274782743947400276
 GameObject:
   m_ObjectHideFlags: 0

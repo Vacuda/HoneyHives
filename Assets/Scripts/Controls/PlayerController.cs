@@ -291,6 +291,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //trigger negative feedback
+                PieceScript.NegativeFeedback_PieceRotation();
             }
 
             //leave spin function
@@ -320,6 +321,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     //trigger negative feedback
+                    PieceScript.NegativeFeedback_PieceRotation();
                 }
             }
 
