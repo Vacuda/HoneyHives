@@ -63,7 +63,7 @@ public enum t_TRI
 
 public enum c_ACTCOLOR
 {
-    c_CENTER, c_PETALS, c_VINE, c_HONEYCOMB
+    c_CENTER, c_PETALS, c_VINE, c_HC_WIRE, c_HC_BACK
 }
 
 public enum m_MATERIAL

@@ -27,11 +27,11 @@ public class Piece : MonoBehaviour
     public bool IsMovable;
     public bool IsSpinnable;
     //private bool IsDeactivated = false;
-    private bool IsInHand = false;
-    bool ActiveSpin = false;
-    float TargetSpinTotal = 0.0f;
+    public bool IsInHand = false;
+    public bool ActiveSpin = false;
+    public float TargetSpinTotal = 0.0f;
 
-    MeshRenderer Rend_0;
+    public MeshRenderer Rend_0;
     MeshRenderer Rend_1;
     MeshRenderer Rend_2;
     MeshRenderer Rend_3;
@@ -238,19 +238,33 @@ public class Piece : MonoBehaviour
 
     }
 
-    public void DuplicateAndDeactivate_Piece()
+    public void SetSettledRotation()
     {
+        //When a piece is copied after a finalization, it may be in the throws of a rotation
+        //This function completes the rotation so it will start fixed, and not in the middle of a rotation
 
-        GameObject NewPiece = Instantiate(this.gameObject);
+        if (ActiveSpin)
+        {
+            //set rotation to remaining TargetSpinTotal
+            gameObject.transform.Rotate(0.0f, 0.0f, TargetSpinTotal);
 
-        NewPiece.transform.rotation = this.transform.rotation;
+            //loop children
+            foreach (Transform child in gameObject.transform)
+            {
+                //rotate clockwise, negative
+                child.transform.Rotate(0.0f, 0.0f, -TargetSpinTotal);
+            }
 
-        FindNewHome(NewPiece);
+            //reset TargetSpinTotal
+            TargetSpinTotal = 0.0f;
 
-        Deactivate_Piece();
+            //reset ActiveSpin
+            ActiveSpin = false;
+        }
     }
 
-    private void FindNewHome(GameObject NewPiece)
+   
+    public void FindNewHome()
     {
         //loop BeeBoxPanel
         for(int i=0; i<BeeBoxPanel.transform.childCount; i++)
@@ -260,8 +274,7 @@ public class Piece : MonoBehaviour
             //if empty
             if(AreaThing.transform.childCount == 2)
             {
-                Debug.Log("got here");
-                NewPiece.GetComponent<Piece>().Place_Piece(AreaThing, false);
+                this.GetComponent<Piece>().Place_Piece(AreaThing, false);
 
                 break;
             }

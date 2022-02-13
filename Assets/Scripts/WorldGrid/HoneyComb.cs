@@ -7,13 +7,22 @@ using static c_ACTCOLOR;
 
 public class HoneyComb : MonoBehaviour
 {
+    private HoneyLock HoneyLockScript;
+
+
+
+
+
+
     public wg_ADDRESS HoneyComb_Address;
     //private WorldGrid WorldGridScript;
-    private bool bIsFinaled = false;
+    private bool bIsFinalized = false;
     private ColorChanger ColorChangerScript;
 
     private MaterialPropertyBlock HC_WireframeMaterial;
+    private MaterialPropertyBlock HC_BackgroundMaterial;
     private Renderer HC_WireFrameRenderer;
+    private Renderer HC_BackgroundRenderer;
 
     //this Dict uses truncated addresses for ease of programing
     public Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict = new Dictionary<wg_ADDRESS, GameObject>();
@@ -27,7 +36,13 @@ public class HoneyComb : MonoBehaviour
         ColorChangerScript = gameObject.transform.parent.GetComponent<WorldGrid>().ColorChangerScript;
 
         HC_WireFrameRenderer = gameObject.GetComponent<MeshRenderer>();
+        HC_BackgroundRenderer = gameObject.transform.Find("BG").GetComponent<MeshRenderer>();
         HC_WireframeMaterial = new MaterialPropertyBlock();
+        HC_BackgroundMaterial = new MaterialPropertyBlock();
+
+        HoneyLockScript = gameObject.transform.parent.GetComponent<WorldGrid>().HoneyLockObject.GetComponent<HoneyLock>();
+
+
     }
     private void Start()
     {
@@ -47,29 +62,90 @@ public class HoneyComb : MonoBehaviour
 
     public void Finalize_ThisHoneyComb()
     {
-        bIsFinaled = true;
+        bIsFinalized = true;
         Debug.Log("This honeycomb is finalized: " + HoneyComb_Address);
 
+        Finalize_CopyAndPlaceRelevantPieces();
+
+        Finalize_HC_BackgroundMaterial();
         Finalize_HC_WireframeMaterial();
         Finalize_DeactivatedPieceMaterials();
-
-
+        Finalize_FreeHoneyLockedPiece();
     }
 
     public bool IsHoneyComb_Finalized()
     {
-        return bIsFinaled;
+        return bIsFinalized;
     }
 
     private void Finalize_HC_WireframeMaterial()
     {
-        ColorChangerScript.ChangeColorActivation_Lerp(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, false, 1);
+        ColorChangerScript.ChangeColorActivation_Lerp(HC_WireFrameRenderer, HC_WireframeMaterial, c_HC_WIRE, false);
 
+    }
+
+    private void Finalize_HC_BackgroundMaterial()
+    {
+        ColorChangerScript.ChangeColorActivation_Lerp(HC_BackgroundRenderer, HC_BackgroundMaterial, c_HC_BACK, false);
     }
 
     private void Inform_ColorChanger_OfActivationChange_Instant(bool activation)
     {
-        ColorChangerScript.ChangeColorActivation_Instant(HC_WireFrameRenderer, HC_WireframeMaterial, c_HONEYCOMB, activation, 1);
+
+        ColorChangerScript.ChangeColorActivation_Instant(HC_WireFrameRenderer, HC_WireframeMaterial, c_HC_WIRE, activation);
+        ColorChangerScript.ChangeColorActivation_Instant(HC_BackgroundRenderer, HC_BackgroundMaterial, c_HC_BACK, activation);
+    }
+
+    private void Finalize_CopyAndPlaceRelevantPieces()
+    {
+        //loop honey slots
+        foreach (var honeyslot in HoneySlotRefDict)
+        {
+
+            //condense
+            GameObject slot = honeyslot.Value;
+
+            //if piece in slot
+            if (slot.transform.childCount == 3)
+            {
+
+                //condense
+                GameObject OriginalPiece = slot.transform.GetChild(2).gameObject;
+                Piece PieceScript = OriginalPiece.GetComponent<Piece>();
+
+                //if (PieceScript.ActiveSpin)
+                //{
+                //    Debug.Log(PieceScript.TargetSpinTotal);
+                //}
+
+                //if piece is unmovable
+                if (PieceScript.IsMovable)
+                {
+
+                    //duplicate piece
+                    GameObject NewPiece = Instantiate(OriginalPiece);
+
+                    //find renderer
+                    MeshRenderer rend = NewPiece.GetComponent<MeshRenderer>();
+
+                    //@@@@ I don't know why this works.  It copies the old material, making a new one.
+                    //@@@@ but never sets the new one back on this new object?
+
+                    //get material
+                    Material blop = new Material(rend.material);
+
+                    NewPiece.GetComponent<Piece>().SetSettledRotation();
+
+
+                    //set same rotation
+                    //NewPiece.transform.rotation = this.transform.rotation;
+
+                    //find new home for piece
+                    NewPiece.GetComponent<Piece>().FindNewHome();
+
+                }
+            }
+        }
     }
 
     private void Finalize_DeactivatedPieceMaterials()
@@ -86,23 +162,15 @@ public class HoneyComb : MonoBehaviour
                 //condense
                 Piece PieceScript = slot.transform.GetChild(2).gameObject.GetComponent<Piece>();
 
-                //if piece is unmovable
-                if (!PieceScript.IsMovable){
-
-                    //deactivate
-                    PieceScript.Deactivate_Piece();
-                }
-                else
-                {
-                    PieceScript.DuplicateAndDeactivate_Piece();
-                }
-
-                //@@@@ will delete following
-
                 //deactivate
-                //PieceScript.Deactivate_Piece();
+                PieceScript.Deactivate_Piece();
             }
-
         }
+    }
+
+    private void Finalize_FreeHoneyLockedPiece()
+    {
+        //find 
+        HoneyLockScript.Release_FromThisHoneyComb(HoneyComb_Address);
     }
 }

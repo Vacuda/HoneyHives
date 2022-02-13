@@ -129,4 +129,16 @@ public class HoneyLock : MonoBehaviour
     {
         HLPieceDict.Add(address, obj);
     }
+
+    public void Release_FromThisHoneyComb(wg_ADDRESS address)
+    {
+        //find locked piece
+        GameObject LockedPiece = HLPieceDict[address];
+
+        //remove from Honey Locked Piece RefDict
+        HLPieceDict.Remove(address);
+
+        //put piece on BeeBox
+        LockedPiece.GetComponent<Piece>().FindNewHome();
+    }
 }
