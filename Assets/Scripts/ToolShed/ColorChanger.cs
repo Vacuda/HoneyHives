@@ -12,7 +12,9 @@ public class ColorChanger : MonoBehaviour
     Color VineColor_GOOD = new Color32(48, 120, 43, 255);
     Color PetalsColor_GOOD = new Color32(231, 231, 231, 255);
     Color CenterColor_GOOD = new Color32(231, 186, 24, 255);
-    Color HCColor_GOOD = new Color32(231, 39, 24, 255);
+    Color HCWIREColor_GOOD = new Color32(231, 39, 24, 255);
+    Color HCBACKColor_GOOD = new Color32(231, 231, 231, 255);
+
 
     Color VineColor_BAD = new Color32(55, 72, 54, 255);
     Color CenterColor_BAD = new Color32(99, 99, 99, 255);
@@ -20,9 +22,10 @@ public class ColorChanger : MonoBehaviour
     //Color HCColor_BAD = new Color32(89, 48, 45, 255);
     //Color HCColor_BAD = new Color32(231, 186, 76, 255); //back yellow
     //Color HCColor_BAD = new Color32(181, 154, 58, 255); //darker yellow
-    Color HCColor_BAD = new Color32(171, 143, 75, 255); //even darker yellow
+    Color HCWIREColor_BAD = new Color32(171, 143, 75, 255); //even darker yellow
     //Color HCColor_BAD = new Color32(24, 24, 24, 255);
 
+    Color HCBACKColor_BAD = new Color32(231, 186, 76, 255);
 
     float HoneyComb_Duration = 2.0f;
     float Indicator_Duration = 0.2f;
@@ -201,7 +204,8 @@ public class ColorChanger : MonoBehaviour
             case c_CENTER: return bToActivated ? CenterColor_GOOD : CenterColor_BAD;
             case c_PETALS: return bToActivated ? PetalsColor_GOOD : PetalsColor_BAD;
             case c_VINE: return bToActivated ? VineColor_GOOD : VineColor_BAD;
-            case c_HONEYCOMB: return bToActivated ? HCColor_GOOD : HCColor_BAD;
+            case c_HC_WIRE: return bToActivated ? HCWIREColor_GOOD : HCWIREColor_BAD;
+            case c_HC_BACK: return bToActivated ? HCBACKColor_GOOD : HCBACKColor_BAD;
             default: return CenterColor_GOOD;
         }
     }
@@ -213,7 +217,8 @@ public class ColorChanger : MonoBehaviour
             //case c_CENTER: return IndicatorSpeed;
             //case c_PETALS: return IndicatorSpeed;
             //case c_VINE: return IndicatorSpeed;
-            case c_HONEYCOMB: return HoneyComb_Duration;
+            case c_HC_WIRE: return HoneyComb_Duration;
+            case c_HC_BACK: return HoneyComb_Duration;
             default: return Indicator_Duration;
         }
     }
