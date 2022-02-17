@@ -173,4 +173,9 @@ public class HoneyComb : MonoBehaviour
         //find 
         HoneyLockScript.Release_FromThisHoneyComb(HoneyComb_Address);
     }
+
 }
+
+
+
+

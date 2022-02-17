@@ -140,5 +140,15 @@ public class HoneyLock : MonoBehaviour
 
         //put piece on BeeBox
         LockedPiece.GetComponent<Piece>().FindNewHome();
+
+        //find lid
+        GameObject Lid = gameObject.transform.Find("Lid").gameObject;
+
+        //unparent
+        //Lid.transform.parent = null;
+
+        Animation anim = Lid.GetComponent<Animation>();
+
+        anim.Play("anim_HoneyJar_Lid_Release");
     }
 }

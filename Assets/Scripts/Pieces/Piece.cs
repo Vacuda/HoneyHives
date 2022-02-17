@@ -287,7 +287,7 @@ public class Piece : MonoBehaviour
 
 
 
-        anim.Play("Hex_NoSpinFeedback");
+        anim.Play("anim_Hex_NoSpinFeedback");
     }
 
     //UTILITIES

@@ -23971,6 +23971,7 @@ GameObject:
   - component: {fileID: 1429745676}
   - component: {fileID: 1429745678}
   - component: {fileID: 1429745677}
+  - component: {fileID: 1429745679}
   m_Layer: 0
   m_Name: Lid
   m_TagString: Untagged
@@ -24040,7 +24041,26 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429745675}
-  m_Mesh: {fileID: 3315988838967425065, guid: 9f8da267eb9547c4badc3d71c272e4af, type: 3}
+  m_Mesh: {fileID: 5924849932822166440, guid: 5c137725c8533b5408df7a7a99efef4a, type: 3}
+--- !u!111 &1429745679
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429745675}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 73c3f04c3cfbb434f92ecef5894c7775, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b2793fa577386b14eb7d44b5a986b5da, type: 2}
+  - {fileID: 7400000, guid: af3c461ee49f4cb4d8798cdd67d9857d, type: 2}
+  - {fileID: 7400000, guid: 90b2814d12264794f8352e601dbaac6c, type: 2}
+  - {fileID: 7400000, guid: 73c3f04c3cfbb434f92ecef5894c7775, type: 2}
+  m_WrapMode: 2
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1430991125
 GameObject:
   m_ObjectHideFlags: 0
@@ -27159,7 +27179,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597231253}
-  m_LocalRotation: {x: 0, y: 0.6572437, z: 0.75367814, w: 0}
+  m_LocalRotation: {x: 0.06975647, y: 0, z: 0, w: 0.9975641}
   m_LocalPosition: {x: 0.02, y: 0.17, z: -8.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -27170,7 +27190,7 @@ Transform:
   - {fileID: 2012119459}
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: -82.18, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 8, y: 0, z: 0}
 --- !u!114 &1597231255
 MonoBehaviour:
   m_ObjectHideFlags: 0

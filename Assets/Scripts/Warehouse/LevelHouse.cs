@@ -157,3 +157,43 @@ public class LevelHouse : MonoBehaviour
 
 
 }
+
+
+
+//Initially, I made the level house thinking I would hand craft each LEVEL
+
+//I think I'm struggling to see how I design all those levels.
+//especially since it's not supposed to be a level design assignment
+
+
+
+
+//so, why not procedural?
+
+//options:
+//EVERYTHING handmade
+    //honestly, I'll never do this
+    //this may be the better feeling game solution, though
+
+//EVERYTHING procedural
+    //this means less handmade work
+    //honeycombs may be difficult to generate in an interesting fashion
+
+//Honeycomb solutions are handmade, but procedurally mixed up
+    //magnifies handmade work
+    //focuses handmade work
+    //Honeycombs don't relate to each other at all
+    //one honeycomb solution may be able to spun into three directions
+    //there is a scenario where a puzzle is unsolvable, I think
+    //if completely random, it's where keys locked in honey jars mean you can't solve any, to start the cascade of solvability
+    //maybe if you ensure that 4 of 7 are free to solve without locks
+    //but what if two honeycombs unlock each other
+    //so, what if I ensure a->b->c->d->e->f->g
+    //a is without locks
+    //this assumes only one piece would be locked for each
+    //what if, 6 are free solved
+
+//regardless
+
+    //if I build honeycomb solutions
+    //there could be multiple ways, some more difficult possibly, that I could choose the locked pieces
