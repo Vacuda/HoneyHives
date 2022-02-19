@@ -110,15 +110,15 @@ public class PlayerController : MonoBehaviour
         //condense
         wg_ADDRESS HoneyComb_Hover = WorldGridScript.HoneyComb_Hover;
         wg_ADDRESS HoneySlot_Hover = WorldGridScript.HoneySlot_Hover;
-        wg_ADDRESS HoveredOver_Area = BeeBoxScript.HoveredOver_Area;
+        wg_ADDRESS Area_Hover = BeeBoxScript.Area_Hover;
         bool IsBackButton_HoveredOver = BackButtonScript.IsBackButton_HoveredOver;
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
         
-        //if HoveredOver_Area
-        if(HoveredOver_Area != NONE)
+        //if Area_Hover
+        if(Area_Hover != NONE)
         {
             //find AreaObject
-            GameObject AreaObject = WorldGridScript.WGRefDict[HoveredOver_Area];
+            GameObject AreaObject = WorldGridScript.WGRefDict[Area_Hover];
 
             //check if occupied
             if (AreaObject.GetComponentInChildren<Piece>() != null)
@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
         //condense
         wg_ADDRESS HoneyComb_Hover = WorldGridScript.HoneyComb_Hover;
         wg_ADDRESS HoneySlot_Hover = WorldGridScript.HoneySlot_Hover;
-        wg_ADDRESS HoveredOver_Area = BeeBoxScript.HoveredOver_Area;
+        wg_ADDRESS Area_Hover = BeeBoxScript.Area_Hover;
         //gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
 
         //if piece in hand
@@ -300,11 +300,11 @@ public class PlayerController : MonoBehaviour
 
     /* No Piece In Hand */
 
-        //if HoveredOver_Area
-        if(HoveredOver_Area != NONE)
+        //if Area_Hover
+        if(Area_Hover != NONE)
         {
             //find AreaObject
-            GameObject AreaObject = WorldGridScript.WGRefDict[HoveredOver_Area];
+            GameObject AreaObject = WorldGridScript.WGRefDict[Area_Hover];
 
             //check if occupied
             if (AreaObject.GetComponentInChildren<Piece>() != null)

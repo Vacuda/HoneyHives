@@ -5,7 +5,7 @@ using static c_ACTCOLOR;
 
 public class FlowerIndicator : MonoBehaviour
 {
-    public wg_ADDRESS FlowerAddress;
+    //public wg_ADDRESS FlowerAddress;
     private bool IsValidated = false;
     private ColorChanger ColorChangerScript;
 

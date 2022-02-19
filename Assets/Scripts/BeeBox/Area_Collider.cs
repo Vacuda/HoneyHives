@@ -19,12 +19,12 @@ public class Area_Collider : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        BeeBoxScript.Set_HoveredOver_Area(AreaAddress);
+        BeeBoxScript.Set_Area_Hover(AreaAddress);
     }
 
     //writing IPointerExitHander. then the function name made this work.  I think it overwrite's the base implementation written this way.
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        BeeBoxScript.Set_HoveredOver_Area(NONE);
+        BeeBoxScript.Set_Area_Hover(NONE);
     }
 }

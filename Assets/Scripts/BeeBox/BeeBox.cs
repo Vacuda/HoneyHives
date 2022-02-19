@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeeBox : MonoBehaviour
 {
-    public wg_ADDRESS HoveredOver_Area;
+    public wg_ADDRESS Area_Hover;
 
 
     //// Start is called before the first frame update
@@ -19,10 +19,10 @@ public class BeeBox : MonoBehaviour
 
     //}
 
-    public void Set_HoveredOver_Area(wg_ADDRESS address)
+    public void Set_Area_Hover(wg_ADDRESS address)
     {
-        HoveredOver_Area = address;
+        Area_Hover = address;
 
-        //Debug.Log(HoveredOver_AreaAddress);
+        //Debug.Log(Area_HoverAddress);
     }
 }

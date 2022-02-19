@@ -194,12 +194,6 @@ public class WorldGrid : MonoBehaviour
     {
         Debug.Log(honeycomb);
 
-        if (WGRefDict.ContainsKey(honeycomb))
-        {
-            Debug.Log("houuoh");
-        }
-
-
         //find HoneySlots array
         wg_ADDRESS[] HoneySlots = WGRefDict[honeycomb].GetComponent<HoneyComb>().HoneySlots;
 

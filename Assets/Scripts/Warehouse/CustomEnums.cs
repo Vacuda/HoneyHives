@@ -60,10 +60,10 @@ public enum c_ACTCOLOR
     c_CENTER, c_PETALS, c_VINE, c_HC_WIRE, c_HC_BACK
 }
 
-public enum m_MATERIAL
-{
-    m_
-}
+//public enum m_MATERIAL
+//{
+    
+//}
 
 
 public class CustomEnums : MonoBehaviour
