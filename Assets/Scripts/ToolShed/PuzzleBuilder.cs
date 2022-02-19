@@ -10,39 +10,26 @@ static public class PuzzleBuilder
         //build new honeycomb list
         List<List<HoneySlotInfo>> hc_list = new List<List<HoneySlotInfo>>();
 
-
         //populate with seven raw honeycombs
         LevelHouse.Get_SevenHoneyCombs(ref hc_list);
 
-
         //spin relative pieces
-
+        Spin_SpinablePieces(ref hc_list);
 
         //place into honeycombs
         Place_IntoHoneyCombs(ref hc_list);
 
+        //initialize list of vacant spots
+        List<wg_ADDRESS> vacant_list;
 
         //@@@@ if a setting, use this method
         if (true)
         {
-            UseLinearMethod_ToDetermineHoneyLockedPieces(ref hc_list);
+            vacant_list = UseLinearMethod_ToDetermineHoneyLockedPieces(ref hc_list);
         }
 
-
-
-
-        //move around all pieces
-
-
-
-
-
-
-
-
-
-
-
+        //shuffle movable pieces
+        Shuffle_MovablePieces(ref hc_list, vacant_list);
 
     /* at this point, we just need to combine the lists of honeycombs into the new object */
 
@@ -53,6 +40,9 @@ static public class PuzzleBuilder
         {
             foreach(var slot in honeycomblist)
             {
+                Debug.Log("address: " + slot.Address);
+
+
                 //add to new list
                 puz.HoneySlots.Add(slot);
             }
@@ -90,8 +80,11 @@ static public class PuzzleBuilder
         }
     }
 
-    static private void UseLinearMethod_ToDetermineHoneyLockedPieces(ref List<List<HoneySlotInfo>> hc_list)
+    static private List<wg_ADDRESS> UseLinearMethod_ToDetermineHoneyLockedPieces(ref List<List<HoneySlotInfo>> hc_list)
     {
+        //initialize list to retrun
+        List<wg_ADDRESS> returnlist = new List<wg_ADDRESS>();
+
         //initialize array for order of honeycomb line
         int[] order_array = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
@@ -130,6 +123,9 @@ static public class PuzzleBuilder
 
                 //get prev honeycomb first address
                 wg_ADDRESS prev_address = hc_list[proper_prev_index][0].Address;
+
+                //store old address for returnlist
+                returnlist.Add(slotinfo.Address);
 
                 //change this address to prev honeycomb honey-locked spot
                 slotinfo.Address = Get_HoneyLockedAddress(prev_address);
@@ -187,9 +183,81 @@ static public class PuzzleBuilder
         LevelHouse.MakeAndAdd_DummyPiece(hc_address, ref hc_list);
 
 
-            //change address
 
-        
+        return returnlist;
+
+    }
+
+    static private void Shuffle_MovablePieces(ref List<List<HoneySlotInfo>> hc_list, List<wg_ADDRESS> prev_vacant_list)
+    {
+        //initialize list of vacant_list
+        List<wg_ADDRESS> vacant_list = new List<wg_ADDRESS>();
+
+        //build vacant_list
+        {
+            //loop through 7 honeycombs
+            foreach (var honeycomb in hc_list)
+            {
+                //loop slots
+                foreach (var slot in honeycomb)
+                {
+                    //if movable
+                    if(slot.IsMovable){
+
+                        //if not honey lock originated
+                        if (!slot.HoneyJar_Originated)
+                        {
+                            //add address
+                            vacant_list.Add(slot.Address);
+                        }
+                    }
+                }
+            }
+        }
+
+        //combine vacant_list and prev_vacant_list
+        foreach(var item in prev_vacant_list)
+        {
+            //add
+            vacant_list.Add(item);
+        }
+
+        //shuffle list
+        ShuffleList(ref vacant_list);
+
+        //use vacant_list as guide to move all movable pieces by changing address
+        {
+            //start index
+            int index = 0;
+
+            //loop through 7 honeycombs
+            foreach (var honeycomb in hc_list)
+            {
+                //loop slots
+                foreach (var slot in honeycomb)
+                {
+                    //if movable
+                    if (slot.IsMovable)
+                    {
+                        //if not honey lock originated
+                        if (!slot.HoneyJar_Originated)
+                        {
+                            //change address
+                            slot.Address = vacant_list[index];
+
+                            //increment through movables
+                            index++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static private void Spin_SpinablePieces(ref List<List<HoneySlotInfo>> hc_list)
+    {
+        //so, we can't just apply rotation
+        //because then, you can just rotate everything to an UP arrow
 
 
 
@@ -205,6 +273,17 @@ static public class PuzzleBuilder
             int rand = Random.Range(i, 7); //inclusive, exclusive
             array[i] = array[rand];
             array[rand] = temp;
+        }
+    }
+
+    static private void ShuffleList(ref List<wg_ADDRESS> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            wg_ADDRESS temp = list[i];
+            int rand = Random.Range(i, list.Count); //inclusive, exclusive
+            list[i] = list[rand];
+            list[rand] = temp;
         }
     }
 
@@ -242,4 +321,5 @@ static public class PuzzleBuilder
 
         return GG;
     }
+
 }
