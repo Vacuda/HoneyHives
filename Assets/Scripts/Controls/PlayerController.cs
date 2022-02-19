@@ -108,8 +108,8 @@ public class PlayerController : MonoBehaviour
     void Interact()
     {
         //condense
-        wg_ADDRESS HoveredOver_HoneyComb = WorldGridScript.HoveredOver_HoneyComb;
-        wg_ADDRESS HoveredOver_HoneySlot = WorldGridScript.HoveredOver_HoneySlot;
+        wg_ADDRESS HoneyComb_Hover = WorldGridScript.HoneyComb_Hover;
+        wg_ADDRESS HoneySlot_Hover = WorldGridScript.HoneySlot_Hover;
         wg_ADDRESS HoveredOver_Area = BeeBoxScript.HoveredOver_Area;
         bool IsBackButton_HoveredOver = BackButtonScript.IsBackButton_HoveredOver;
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
@@ -171,8 +171,8 @@ public class PlayerController : MonoBehaviour
         //if OUTER
         if (GameStatus == OUTER)
         {
-            //no HoveredOver_HoneyComb
-            if (HoveredOver_HoneyComb == NONE)
+            //no HoneyComb_Hover
+            if (HoneyComb_Hover == NONE)
             {
                 //do nothing
             }
@@ -185,10 +185,10 @@ public class PlayerController : MonoBehaviour
                 GameLevelScript.Set_GameStatus(INNER);
 
                 //set movement to new HoneyComb
-                WorldGridScript.Move_ToThisPosition(HoveredOver_HoneyComb);
+                WorldGridScript.Move_ToThisPosition(HoneyComb_Hover);
 
                 //turn on HoneySlot colliders
-                WorldGridScript.Modify_ThisHoneyCombs_HoneySlotColliders(HoveredOver_HoneyComb, true);
+                WorldGridScript.Modify_ThisHoneyCombs_HoneySlotColliders(HoneyComb_Hover, true);
 
                 //move back button
                 BackButtonScript.Move_IntoFrame();
@@ -199,8 +199,8 @@ public class PlayerController : MonoBehaviour
         //if INNER
         if (GameStatus == INNER)
         {
-            //no HoveredOver_HoneySlot
-            if (HoveredOver_HoneySlot == NONE)
+            //no HoneySlot_Hover
+            if (HoneySlot_Hover == NONE)
             {
                 if (IsBackButton_HoveredOver)
                 {
@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //find HoneySlotObject
-                GameObject HoneySlotObject = WorldGridScript.WGRefDict[HoveredOver_HoneySlot];
+                GameObject HoneySlotObject = WorldGridScript.WGRefDict[HoneySlot_Hover];
 
                 //check if occupied
                 if (HoneySlotObject.GetComponentInChildren<Piece>() != null)
@@ -235,7 +235,7 @@ public class PlayerController : MonoBehaviour
                             PieceInHand = PieceScript.gameObject;
 
                             //validate all indicators in this honeycomb
-                            ValidatorScript.Validate_ThisHoneyComb(HoveredOver_HoneyComb);
+                            ValidatorScript.Validate_ThisHoneyComb(HoneyComb_Hover);
                         }
                         //not movable
                         else
@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
                         PieceInHand = null;
 
                         //validate all indicators in this honeycomb
-                        ValidatorScript.Validate_ThisHoneyComb(HoveredOver_HoneyComb);
+                        ValidatorScript.Validate_ThisHoneyComb(HoneyComb_Hover);
                     }
                     else
                     {
@@ -271,8 +271,8 @@ public class PlayerController : MonoBehaviour
     void Spin()
     {
         //condense
-        wg_ADDRESS HoveredOver_HoneyComb = WorldGridScript.HoveredOver_HoneyComb;
-        wg_ADDRESS HoveredOver_HoneySlot = WorldGridScript.HoveredOver_HoneySlot;
+        wg_ADDRESS HoneyComb_Hover = WorldGridScript.HoneyComb_Hover;
+        wg_ADDRESS HoneySlot_Hover = WorldGridScript.HoneySlot_Hover;
         wg_ADDRESS HoveredOver_Area = BeeBoxScript.HoveredOver_Area;
         //gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
 
@@ -329,15 +329,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //no HoveredOver_HoneySlot
-        if (HoveredOver_HoneySlot == NONE)
+        //no HoneySlot_Hover
+        if (HoneySlot_Hover == NONE)
         {
             //do nothing
         }
         else
         {
             //find HoneySlotObject
-            GameObject HoneySlotObject = WorldGridScript.WGRefDict[HoveredOver_HoneySlot];
+            GameObject HoneySlotObject = WorldGridScript.WGRefDict[HoneySlot_Hover];
 
             //check if occupied
             if (HoneySlotObject.GetComponentInChildren<Piece>() != null)
@@ -352,7 +352,7 @@ public class PlayerController : MonoBehaviour
                     PieceScript.Rotate_Piece();
 
                     //validate all indicators in this honeycomb
-                    ValidatorScript.Validate_ThisHoneyComb(HoveredOver_HoneyComb);
+                    ValidatorScript.Validate_ThisHoneyComb(HoneyComb_Hover);
                 }
                 else
                 {
@@ -371,13 +371,13 @@ public class PlayerController : MonoBehaviour
     {
 
         //store HoneyComb
-        wg_ADDRESS HoveredOver_HoneyComb = WorldGridScript.HoveredOver_HoneyComb;
+        wg_ADDRESS HoneyComb_Hover = WorldGridScript.HoneyComb_Hover;
 
         //remove current honeycomb
-        WorldGridScript.Set_HoveredOver_HoneyComb(NONE);
+        WorldGridScript.Set_HoneyComb_Hover(NONE);
 
         //turn off colliders for past honeycomb
-        WorldGridScript.Modify_ThisHoneyCombs_HoneySlotColliders(HoveredOver_HoneyComb, false);
+        WorldGridScript.Modify_ThisHoneyCombs_HoneySlotColliders(HoneyComb_Hover, false);
 
         //turn on honeycomb colliders
         WorldGridScript.Modify_AllHoneyCombColliders(true);

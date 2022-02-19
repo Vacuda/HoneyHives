@@ -90,7 +90,7 @@ public class HoneyLock : MonoBehaviour
     public void BringUp_HoneyLock()
     {
         //condense
-        wg_ADDRESS address = WorldGridScript.HoveredOver_HoneyComb;
+        wg_ADDRESS address = WorldGridScript.HoneyComb_Hover;
 
         //check
         if (HLPieceDict.ContainsKey(address)){

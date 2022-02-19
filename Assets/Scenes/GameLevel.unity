@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoneyComb_Address: 2
-  HoneySlots: 0f000000100000001100000012000000130000001400000015000000
+  HoneySlots: 0a0000000b0000000c0000000d0000000e0000000f00000010000000
 --- !u!23 &103424236
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6680,7 +6680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoneyComb_Address: 6
-  HoneySlots: 2b0000002c0000002d0000002e0000002f0000003000000031000000
+  HoneySlots: 2a0000002b0000002c0000002d0000002e0000002f00000030000000
 --- !u!23 &389408575
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7400,7 +7400,6 @@ GameObject:
   m_Component:
   - component: {fileID: 426414580}
   - component: {fileID: 426414579}
-  - component: {fileID: 426414578}
   m_Layer: 0
   m_Name: Warehouse
   m_TagString: Untagged
@@ -7408,18 +7407,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &426414578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426414577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf82b1258eb7554caba707b3241fdc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &426414579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8889,7 +8876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoneyComb_Address: 3
-  HoneySlots: 160000001700000018000000190000001a0000001b0000001c000000
+  HoneySlots: 12000000130000001400000015000000160000001700000018000000
 --- !u!23 &504575820
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10242,7 +10229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoneyComb_Address: 5
-  HoneySlots: 2400000025000000260000002700000028000000290000002a000000
+  HoneySlots: 22000000230000002400000025000000260000002700000028000000
 --- !u!23 &598467048
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16215,7 +16202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96754ac8082f6c747b5e290bded0fec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelHouseScript: {fileID: 426414578}
   WorldGridScript: {fileID: 1350614151}
   HoneyLockScript: {fileID: 1597231255}
   PieceGlobalsScript: {fileID: 426414579}
@@ -24051,13 +24037,10 @@ Animation:
   m_GameObject: {fileID: 1429745675}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 73c3f04c3cfbb434f92ecef5894c7775, type: 2}
+  m_Animation: {fileID: 7400000, guid: f8d2500bee9c49943ac99f2e1eab1971, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: b2793fa577386b14eb7d44b5a986b5da, type: 2}
-  - {fileID: 7400000, guid: af3c461ee49f4cb4d8798cdd67d9857d, type: 2}
-  - {fileID: 7400000, guid: 90b2814d12264794f8352e601dbaac6c, type: 2}
-  - {fileID: 7400000, guid: 73c3f04c3cfbb434f92ecef5894c7775, type: 2}
-  m_WrapMode: 2
+  - {fileID: 7400000, guid: f8d2500bee9c49943ac99f2e1eab1971, type: 2}
+  m_WrapMode: 1
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
@@ -31493,7 +31476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoneyComb_Address: 1
-  HoneySlots: 08000000090000000a0000000b0000000c0000000d0000000e000000
+  HoneySlots: 02000000030000000400000005000000060000000700000008000000
 --- !u!33 &1834069089
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33563,7 +33546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoneyComb_Address: 4
-  HoneySlots: 1d0000001e0000001f00000020000000210000002200000023000000
+  HoneySlots: 1a0000001b0000001c0000001d0000001e0000001f00000020000000
 --- !u!23 &1951514580
 MeshRenderer:
   m_ObjectHideFlags: 0

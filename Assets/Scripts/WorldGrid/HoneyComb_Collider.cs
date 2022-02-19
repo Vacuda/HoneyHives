@@ -24,7 +24,7 @@ public class HoneyComb_Collider : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        WorldGridScript.Set_HoveredOver_HoneyComb(HoneyComb_Address);
+        WorldGridScript.Set_HoneyComb_Hover(HoneyComb_Address);
 
 
         HoneyLockScript.BringUp_HoneyLock();
@@ -33,7 +33,7 @@ public class HoneyComb_Collider : MonoBehaviour, IPointerEnterHandler, IPointerE
     //writing IPointerExitHander. then the function name made this work.  I think it overwrite's the base implementation written this way.
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        WorldGridScript.Set_HoveredOver_HoneyComb(NONE);
+        WorldGridScript.Set_HoneyComb_Hover(NONE);
 
         HoneyLockScript.BringDown_HoneyLock();
     }

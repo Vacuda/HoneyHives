@@ -10,19 +10,19 @@ public enum gs_GAMESTATUS
 public enum wg_ADDRESS
 {
     //none
-    NONE, 
+    NONE = 0, 
     
     //honeycomb address
-    AA, BB, CC, DD, EE, FF, GG,
+    //AA, BB, CC, DD, EE, FF, GG,
 
     //honeyslot address
-    AA_AA, AA_BB, AA_CC, AA_DD, AA_EE, AA_FF, AA_GG,
-    BB_AA, BB_BB, BB_CC, BB_DD, BB_EE, BB_FF, BB_GG,
-    CC_AA, CC_BB, CC_CC, CC_DD, CC_EE, CC_FF, CC_GG,
-    DD_AA, DD_BB, DD_CC, DD_DD, DD_EE, DD_FF, DD_GG,
-    EE_AA, EE_BB, EE_CC, EE_DD, EE_EE, EE_FF, EE_GG,
-    FF_AA, FF_BB, FF_CC, FF_DD, FF_EE, FF_FF, FF_GG,
-    GG_AA, GG_BB, GG_CC, GG_DD, GG_EE, GG_FF, GG_GG,
+    AA, AA_AA, AA_BB, AA_CC, AA_DD, AA_EE, AA_FF, AA_GG, // 1-8
+    BB, BB_AA, BB_BB, BB_CC, BB_DD, BB_EE, BB_FF, BB_GG, // 9-16
+    CC, CC_AA, CC_BB, CC_CC, CC_DD, CC_EE, CC_FF, CC_GG, // 17-24
+    DD, DD_AA, DD_BB, DD_CC, DD_DD, DD_EE, DD_FF, DD_GG, // 25-32
+    EE, EE_AA, EE_BB, EE_CC, EE_DD, EE_EE, EE_FF, EE_GG, // 33-40
+    FF, FF_AA, FF_BB, FF_CC, FF_DD, FF_EE, FF_FF, FF_GG, // 41-48
+    GG, GG_AA, GG_BB, GG_CC, GG_DD, GG_EE, GG_FF, GG_GG, // 49-56
 
     //area address
     a_1, a_2, a_3, a_4, a_5, a_6, a_7, a_8, a_9, a_10,
@@ -76,4 +76,6 @@ public class CustomEnums : MonoBehaviour
 {
 
 }
+
+
 

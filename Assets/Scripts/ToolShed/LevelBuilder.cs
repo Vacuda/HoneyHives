@@ -7,7 +7,7 @@ using TMPro;
 
 public class LevelBuilder : MonoBehaviour
 {
-    public LevelHouse LevelHouseScript;
+    //public LevelHouse LevelHouseScript;
     public WorldGrid WorldGridScript;
     public HoneyLock HoneyLockScript;
     public PieceGlobals PieceGlobalsScript;
@@ -41,16 +41,16 @@ public class LevelBuilder : MonoBehaviour
         
     }
 
-    public void Build_ThisLevel(ln_LEVELNAME level)
+    public void BuildOut_ThisPuzzle(PuzzleInfo puz_info)
     {
-        //get LevelInfo from LevelHouse
-        LevelInfo info = LevelHouseScript.Retrieve_ThisLevel(level);
+        ////get LevelInfo from LevelHouse
+        //LevelInfo info = LevelHouseScript.Retrieve_ThisLevel(level);
 
         //build temp location
         Transform Location;
 
         //loop HoneySlots
-        foreach (HoneySlotInfo slot in info.HoneySlots)
+        foreach (HoneySlotInfo slot in puz_info.HoneySlots)
         {
             //find location
             Location = WGRefDict[slot.Address].transform;

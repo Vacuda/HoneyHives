@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static gs_GAMESTATUS;
-using static ln_LEVELNAME;
+//using static ln_LEVELNAME;
 
 
 public class GameLevel : MonoBehaviour
@@ -19,11 +19,18 @@ public class GameLevel : MonoBehaviour
 
     void Start()
     {
-        //find current level
-        ln_LEVELNAME CurrentLevel = Find_CurrentLevel();
+        //@@@@ should receive from main menu instead
+        PuzzleSettings settings = new PuzzleSettings();
+
+
+        PuzzleInfo puz_info = PuzzleBuilder.Build_Puzzle(settings);
+
+
+        ////find current level
+        //ln_LEVELNAME CurrentLevel = Find_CurrentLevel();
 
         //build out level
-        Builder.Build_ThisLevel(CurrentLevel);
+        Builder.BuildOut_ThisPuzzle(puz_info);
 
 
         GameStatus = OUTER;
@@ -52,13 +59,13 @@ public class GameLevel : MonoBehaviour
         return GameStatus;
     }
 
-    ln_LEVELNAME Find_CurrentLevel()
-    {
-        //@@@@ here we'll have to figure out the level that is supposed to be built
+    //ln_LEVELNAME Find_CurrentLevel()
+    //{
+    //    //@@@@ here we'll have to figure out the level that is supposed to be built
 
-        return LEVEL_001;
+    //    return LEVEL_001;
 
-    }
+    //}
 
 
 }
