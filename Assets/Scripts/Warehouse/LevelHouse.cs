@@ -1,69 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEngine;
+using UnityEngine;
 using static ln_LEVELNAME;
 using static wg_ADDRESS;
 using static fv_FACEVALUE;
 
 static public class LevelHouse
 {
-    //static public List<List<HoneySlotInfo>> Get_SevenHoneyCombs()
-    //{
-    //    List<List<HoneySlotInfo>> list = new List<List<HoneySlotInfo>>();
-
-    //    //get random number
-
-
-    //    list.Add(Retrieve_HoneyComb(1));
-    //    list.Add(Retrieve_HoneyComb(2));
-    //    list.Add(Retrieve_HoneyComb(3));
-    //    list.Add(Retrieve_HoneyComb(4));
-    //    list.Add(Retrieve_HoneyComb(5));
-    //    list.Add(Retrieve_HoneyComb(6));
-    //    list.Add(Retrieve_HoneyComb(7));
-
-
-
-    //    return list;
-    //}
+    static int HoneyComb_Total = 7;
 
     static public void Get_SevenHoneyCombs(ref List<List<HoneySlotInfo>> hc_list)
     {
+        //total amount of honeycombs in here
+        //int HoneyComb_Total = 7;
 
-        //get 7 random numbers
+        //fixed array
+        int[] array = new int[7] {0,0,0,0,0,0,0};
 
-        //loop through numbers to add honeycomb to list
-        Add_ThisHoneyComb(1, ref hc_list);
-        Add_ThisHoneyComb(2, ref hc_list);
-        Add_ThisHoneyComb(3, ref hc_list);
-        Add_ThisHoneyComb(4, ref hc_list);
-        Add_ThisHoneyComb(5, ref hc_list);
-        Add_ThisHoneyComb(6, ref hc_list);
-        Add_ThisHoneyComb(7, ref hc_list);
+        //start indexcounter
+        int index_counter = 0;
 
-        //hc_list.Add(Retrieve_HoneyComb(1));
-        //hc_list.Add(Retrieve_HoneyComb(2));
-        //hc_list.Add(Retrieve_HoneyComb(3));
-        //hc_list.Add(Retrieve_HoneyComb(4));
-        //hc_list.Add(Retrieve_HoneyComb(5));
-        //hc_list.Add(Retrieve_HoneyComb(6));
-        //hc_list.Add(Retrieve_HoneyComb(7));
+        //safety counter
+        int counter = 0;
+        
+        //build array in while loop
+        while(index_counter < 7)
+        {
+            //get random number
+            int rand = GetRandom_HoneyCombSolution();
 
+            //if unique
+            if (CheckUniqueness(rand, ref array))
+            {
+                //change number
+                array[index_counter] = rand;
 
+                //increment
+                index_counter++;
+            }
 
+            //safety
+            counter++;
+            if(counter > 1000)
+            {
+                Debug.Log("Somethings wrong with Get_SevenHoneyCombs while loop");
+                index_counter = 8;
+            }
+        }
 
+        //rand num array is built.  Now, we'll use this to take each unique honeycomb and put it into the list
+
+        //loop array 0-6
+        for(int i=0; i<=6; i++)
+        {
+            //add to list
+            Add_ThisHoneyComb(array[i], ref hc_list);
+        }
     }
 
 
-    static public void Add_ThisHoneyComb(int rand, ref List<List<HoneySlotInfo>> hc_list)
+    static public void Add_ThisHoneyComb(int rand, ref List<List<HoneySlotInfo>> hc_list, wg_ADDRESS address = NONE)
     {
-        List<HoneySlotInfo> slotlist = new List<HoneySlotInfo>();
+        /* 3rd parameter is defaulted.  If there, it will be a dummy request for only one slotinfo */
+        /* this is handled at the bottom */
 
+        //make slotlist to add
+        List<HoneySlotInfo> slotlist = new List<HoneySlotInfo>();
 
         switch (rand)
         {
             case 1:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -72,7 +79,7 @@ static public class LevelHouse
                 slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
                 break;
             case 2:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_2, v_2, v_2, v_2, v_2));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -81,7 +88,7 @@ static public class LevelHouse
                 slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
                 break;
             case 3:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_3, v_3, v_3, v_3, v_3, v_3));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -90,7 +97,7 @@ static public class LevelHouse
                 slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
                 break;
             case 4:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_4, v_4, v_4, v_4, v_4, v_4));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -99,7 +106,7 @@ static public class LevelHouse
                 slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
                 break;
             case 5:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_5, v_5, v_5, v_5, v_5, v_5));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -108,7 +115,7 @@ static public class LevelHouse
                 slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
                 break;
             case 6:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_6, v_6, v_6, v_6, v_6, v_6));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -117,7 +124,7 @@ static public class LevelHouse
                 slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
                 break;
             case 7:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
+                slotlist.Add(new HoneySlotInfo(AA, true, true, v_7, v_7, v_7, v_7, v_7, v_7));
                 slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
                 slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
                 slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
@@ -136,8 +143,48 @@ static public class LevelHouse
                 break;
         }
 
-        //add to list
-        hc_list.Add(slotlist);
+        //if not dummy piece try
+        if (address == NONE)
+        {
+            //add to list
+            hc_list.Add(slotlist);
+        }
+        //just need dummy piece
+        else
+        {
+            //index of list that we should add to
+            int proper_index = -1;
+
+            //need to find proper home
+            {
+                //loop hc_list
+                for(int i=0; i<=6; i++)
+                {
+                    //find first address
+                    wg_ADDRESS first_address = hc_list[i][0].Address;
+
+                    //if proper home
+                    if (IsThisAProperHome(first_address, address))
+                    {
+                        //found index
+                        proper_index = i;
+                    }
+                }
+
+            }
+
+            //find a dummy piece index
+            int index = Random.Range(0, 7);  //inclusive, exclusive
+
+            //change address and origination
+            slotlist[index].Address = address;
+            slotlist[index].HoneyJar_Originated = true;
+
+            //send this slotinfo to the proper home
+            hc_list[proper_index].Add(slotlist[index]);
+
+            /* the rest of these slotinfos will be destroyed */
+        }
     }
 
 
@@ -148,89 +195,7 @@ static public class LevelHouse
 
 
 
-    //static public List<HoneySlotInfo> Retrieve_HoneyComb(int rand)
-    //{
-    //    List<HoneySlotInfo> info = new List<HoneySlotInfo>();
-
-
-    //    switch (rand)
-    //    {
-    //        case 1:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        case 2:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        case 3:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        case 4:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        case 5:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        case 6:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        case 7:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;
-    //        default:
-    //            info.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //            info.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //            info.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //            info.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //            info.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //            info.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //            info.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //            break;      
-    //    }
-
-    //    return info;
-    //}
+    
 
     //LevelInfo Get_Level_001()
     //{
@@ -269,115 +234,91 @@ static public class LevelHouse
     //    //if there is only 49 tiles, there
 
 
-    //    //honeycomb AA
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA_GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(AA, true, true, v_1, v_blank, v_blank, v_1, v_blank, v_1));
-
-    //    //honeycomb BB
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_AA, true, true, v_0, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_BB, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_CC, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_DD, true, true, v_1, v_1, v_1, v_2, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_EE, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_FF, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB_GG, true, true, true, v_2, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(BB, true, true, v_2, v_blank, v_blank, v_2, v_blank, v_2));
-
-    //    //honeycomb CC
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_BB, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_CC, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_DD, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_EE, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_FF, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC_GG, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(CC, true, true, v_3, v_blank, v_blank, v_3, v_blank, v_3));
-
-    //    //honeycomb DD
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_AA, true, false, v_1, v_7, v_1, v_3, v_1, v_5));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_BB, false, true, v_equals, v_3, v_1, v_9, v_sub, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_CC, false, false, v_2, v_1, v_blank, v_8, v_equals, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_DD, true, true, v_9, v_2, v_blank, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_EE, true, false, v_1, v_equals, v_1, v_blank, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_FF, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD_GG, false, true, v_1, v_1, v_add, v_sub, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(DD, true, true, v_4, v_blank, v_blank, v_4, v_blank, v_4));
-
-    //    //honeycomb EE
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_BB, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_CC, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_DD, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_EE, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_FF, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE_GG, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(EE, true, true, v_5, v_blank, v_blank, v_5, v_blank, v_5));
-
-    //    //honeycomb FF
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_AA, true, true, v_1, v_1, v_1, v_2, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_BB, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_CC, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_DD, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_EE, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_FF, true, true, v_1, v_1, v_1, v_1, v_equals, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF_GG, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(FF, true, true, v_6, v_blank, v_blank, v_6, v_blank, v_6));
-
-    //    //honeycomb GG
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_BB, false, false, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    //LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_CC, true, false, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_DD, false, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_EE, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_FF, false, false, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG_GG, false, false, v_1, v_1, v_1, v_1, v_1, v_1));
-    //    LevelPackage.HoneySlots.Add(new HoneySlotInfo(GG, true, true, v_7, v_blank, v_blank, v_7, v_blank, v_7));
-
-    //    return LevelPackage;
-    //}
-
-    //LevelInfo Get_Level_002()
-    //{
-    //    LevelInfo Package = new LevelInfo();
-
-    //    return Package;
-    //}
-
-    //LevelInfo Get_Level_003()
-    //{
-    //    LevelInfo Package = new LevelInfo();
-
-    //    return Package;
-    //}
-
-    //LevelInfo Get_Level_004()
-    //{
-    //    LevelInfo Package = new LevelInfo();
-
-    //    return Package;
-    //}
-
-    //LevelInfo Get_Level_005()
-    //{
-    //    LevelInfo Package = new LevelInfo();
-
-    //    return Package;
-    //}
 
 
 
 
 
 
+    //UTILITIES
+
+    static private bool CheckUniqueness(int num, ref int[] array)
+    {
+        //loop array
+        foreach(int setnum in array)
+        {
+            //if match
+            if (num == setnum)
+            {
+                //failed uniqueness
+                return false;
+            }
+        }
+
+        //is unique
+        return true;
+    }
+
+    static public void MakeAndAdd_DummyPiece(wg_ADDRESS address, ref List<List<HoneySlotInfo>> hc_list)
+    {
+        //get random number
+        int rand = GetRandom_HoneyCombSolution();
 
 
+        Add_ThisHoneyComb(rand, ref hc_list, address);
+    }
 
+    static private int GetRandom_HoneyCombSolution()
+    {
+        return Random.Range(1, HoneyComb_Total + 1); //inclusive, exclusive
+    }
+
+    static private bool IsThisAProperHome(wg_ADDRESS first_address, wg_ADDRESS address)
+    {
+        //change to int to determine match
+        int intvalue = (int)first_address;
+        wg_ADDRESS target_address = NONE;
+
+
+        //comparing AA_AA to BB
+
+
+        if (intvalue < 9)
+        {
+            target_address = AA;
+        }
+        else if (intvalue < 17)
+        {
+            target_address = BB;
+        }
+        else if (intvalue < 25)
+        {
+            target_address = CC;
+        }
+        else if (intvalue < 33)
+        {
+            target_address = DD;
+        }
+        else if (intvalue < 41)
+        {
+            target_address = EE;
+        }
+        else if (intvalue < 49)
+        {
+            target_address = FF;
+        }
+        else
+        {
+            target_address = GG;
+        }
+
+        if(target_address == address)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 
 

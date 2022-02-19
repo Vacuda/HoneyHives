@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42966e23a57bfa64fa98bd260816b626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoneyComb_Address: 2
+  HoneyComb_Address: 9
   HoneySlots: 0a0000000b0000000c0000000d0000000e0000000f00000010000000
 --- !u!23 &103424236
 MeshRenderer:
@@ -6679,7 +6679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42966e23a57bfa64fa98bd260816b626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoneyComb_Address: 6
+  HoneyComb_Address: 41
   HoneySlots: 2a0000002b0000002c0000002d0000002e0000002f00000030000000
 --- !u!23 &389408575
 MeshRenderer:
@@ -8875,7 +8875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42966e23a57bfa64fa98bd260816b626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoneyComb_Address: 3
+  HoneyComb_Address: 17
   HoneySlots: 12000000130000001400000015000000160000001700000018000000
 --- !u!23 &504575820
 MeshRenderer:
@@ -10228,7 +10228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42966e23a57bfa64fa98bd260816b626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoneyComb_Address: 5
+  HoneyComb_Address: 33
   HoneySlots: 22000000230000002400000025000000260000002700000028000000
 --- !u!23 &598467048
 MeshRenderer:
@@ -22376,8 +22376,8 @@ MonoBehaviour:
   HoneyLockObject: {fileID: 1597231253}
   BeeBoxPanel: {fileID: 598360958}
   GameLevelScript: {fileID: 1045452745}
-  HoveredOver_HoneyComb: 0
-  HoveredOver_HoneySlot: 0
+  HoneyComb_Hover: 0
+  HoneySlot_Hover: 0
 --- !u!114 &1350614153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28751,7 +28751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42966e23a57bfa64fa98bd260816b626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoneyComb_Address: 7
+  HoneyComb_Address: 49
   HoneySlots: 32000000330000003400000035000000360000003700000038000000
 --- !u!23 &1698307720
 MeshRenderer:
@@ -33545,7 +33545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42966e23a57bfa64fa98bd260816b626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoneyComb_Address: 4
+  HoneyComb_Address: 25
   HoneySlots: 1a0000001b0000001c0000001d0000001e0000001f00000020000000
 --- !u!23 &1951514580
 MeshRenderer:
