@@ -8,16 +8,6 @@ public class HoneySlotInfo
     //CONSTRUCTOR
     public HoneySlotInfo(wg_ADDRESS address, bool movable, bool spinnable, fv_FACEVALUE fv_1, fv_FACEVALUE fv_2, fv_FACEVALUE fv_3, fv_FACEVALUE fv_4, fv_FACEVALUE fv_5, fv_FACEVALUE fv_6)
     {
-        ////determine whether HoneyJar_Originated
-        //if (address == AA || address == BB || address == CC || address == DD || address == EE || address == FF || address == GG)
-        //{
-        //    this.HoneyJar_Originated = true;
-        //}
-        //else
-        //{
-        //    this.HoneyJar_Originated = false;
-        //}
-
         this.HoneyJar_Originated = false;
         this.Address = address;
         this.IsMovable = movable;

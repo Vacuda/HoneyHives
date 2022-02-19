@@ -40,7 +40,7 @@ static public class PuzzleBuilder
         {
             foreach(var slot in honeycomblist)
             {
-                Debug.Log("address: " + slot.Address);
+                //Debug.Log("address: " + slot.Address);
 
 
                 //add to new list
@@ -256,12 +256,53 @@ static public class PuzzleBuilder
 
     static private void Spin_SpinablePieces(ref List<List<HoneySlotInfo>> hc_list)
     {
-        //so, we can't just apply rotation
-        //because then, you can just rotate everything to an UP arrow
+        /* Go to every spinnable piece and move each face value down it's own conveyor belt by 1-5 units */
 
+        //loop through 7 honeycombs
+        foreach (var honeycomb in hc_list)
+        {
+            //loop slots
+            foreach (var slot in honeycomb)
+            {
+                //if spinnable
+                if (slot.IsSpinnable)
+                {
+                    //if not honey lock originated
+                    if (!slot.HoneyJar_Originated)
+                    {
+                        //store order
+                        fv_FACEVALUE[] order = new fv_FACEVALUE[6]
+                        {
+                            slot.fv_1, slot.fv_2, slot.fv_3, slot.fv_4, slot.fv_5, slot.fv_6
+                        };
 
+                        //Debug.Log("----------------");
+                        //foreach(var item in order)
+                        //{
+                        //    Debug.Log("facevalues: " + item.ToString());
+                        //}
+                        //Debug.Log("0000");
 
+                        //shuffle order
+                        ShuffleSpin_FaceValues_Uniformly(ref order);
 
+                        //foreach (var item in order)
+                        //{
+                        //    Debug.Log("facevalues: " + item.ToString());
+                        //}
+                        //Debug.Log("----------------");
+
+                        //change honeyslot info
+                        slot.fv_1 = order[0];
+                        slot.fv_2 = order[1];
+                        slot.fv_3 = order[2];
+                        slot.fv_4 = order[3];
+                        slot.fv_5 = order[4];
+                        slot.fv_6 = order[5];
+                    }
+                }
+            }
+        }
     }
 
     //UTILITIES
@@ -322,4 +363,31 @@ static public class PuzzleBuilder
         return GG;
     }
 
+    static private void ShuffleSpin_FaceValues_Uniformly(ref fv_FACEVALUE[] order)
+    {
+        //clone array
+        fv_FACEVALUE[] copy = (fv_FACEVALUE[])order.Clone();
+
+        //get rand num to spin
+        int rand = Random.Range(0, 6); //inclusive, exclusive
+
+        //loop order
+        for(int i=0; i<=5; i++)
+        {
+            //get spun index
+            int spun_index = i + rand;
+
+            //fix spun_index maybe
+            if(spun_index > 5)
+            {
+                //reset by taking away 6;
+                spun_index -= 6;
+            }
+
+            //change original  array
+            order[i] = copy[spun_index];
+        }
+    }
+
+   
 }

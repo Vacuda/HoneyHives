@@ -64,6 +64,8 @@ static public class LevelHouse
         /* 3rd parameter is defaulted.  If there, it will be a dummy request for only one slotinfo */
         /* this is handled at the bottom */
 
+        FUNCTION_RESET_POINT: //safety
+
         //make slotlist to add
         List<HoneySlotInfo> slotlist = new List<HoneySlotInfo>();
 
@@ -152,6 +154,25 @@ static public class LevelHouse
         //just need dummy piece
         else
         {
+            //safety - this ensures that a honeycomb with NO movable pieces is NOT picked
+            {
+                bool bIsSafe = false;
+
+                foreach(var slot in slotlist)
+                {
+                    if (slot.IsMovable)
+                    {
+                        bIsSafe = true;
+                        break;
+                    }
+                }
+
+                if (!bIsSafe){
+                    //reset to start of function
+                    goto FUNCTION_RESET_POINT;
+                }
+            }
+
             //index of list that we should add to
             int proper_index = -1;
 
@@ -170,11 +191,25 @@ static public class LevelHouse
                         proper_index = i;
                     }
                 }
-
             }
 
-            //find a dummy piece index
-            int index = Random.Range(0, 7);  //inclusive, exclusive
+            //initialize
+            int index = -1;
+
+            //find index that is movable
+            {
+                while (true)
+                {
+                    //find a dummy piece index
+                    index = Random.Range(0, 7);  //inclusive, exclusive
+
+                    //if movable slot found
+                    if (slotlist[index].IsMovable)
+                    {
+                        break;
+                    }
+                }
+            }
 
             //change address and origination
             slotlist[index].Address = address;
