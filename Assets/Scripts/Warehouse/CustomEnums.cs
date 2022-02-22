@@ -52,7 +52,7 @@ public enum fv_FACEVALUE
 
 public enum t_TRI
 {
-    TRI_1, TRI_2, TRI_3, TRI_4, TRI_5, TRI_6
+    TRI_1, TRI_2, TRI_3, TRI_4, TRI_5, TRI_6, TRI_MOVE, TRI_SPIN
 }
 
 public enum c_ACTCOLOR

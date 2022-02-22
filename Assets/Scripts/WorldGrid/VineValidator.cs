@@ -25,6 +25,7 @@ public class VineValidator : MonoBehaviour
     {
         //copy reference
         WGRefDict = gameObject.GetComponent<WorldGrid>().WGRefDict; 
+
     }
 
     public void Validate_AllHoneyCombs()
