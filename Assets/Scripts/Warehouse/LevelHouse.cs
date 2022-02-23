@@ -223,6 +223,25 @@ static public class LevelHouse
     }
 
 
+    //I may have made a solutions editor ... when I didn't need to.
+
+    //why can't I go smaller still?
+
+    //why can't I make 4 tile solutions and 6 tile solutions
+    //and randomly put them onto puzzles...
+
+    //54+3_01               5, 4, +, 3
+
+    // wait, would this really not correlate?  It wouldn't
+    // and generally, making a piece movable or spinnable doesn't matter either.  It can be done randomly.
+
+    // "54+3"
+    // "7+7=14"
+
+    // I can make a full puzzle solution with just those two strings.
+
+    //so, my initial worry was that puzzles would feel lifeless, and I'm starting to get more and more procedural.
+    // the advantage is that it opens up the range of puzzles without having to hand make them.
 
 
 

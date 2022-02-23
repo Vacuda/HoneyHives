@@ -9,8 +9,6 @@ using TMPro;
 public class SE_HoneyComb : MonoBehaviour
 {
     public wg_ADDRESS HoneyComb_Address;
-    //private WorldGrid WorldGridScript;
-    private bool bIsFinalized = false;
     private ColorChanger ColorChangerScript;
 
     private MaterialPropertyBlock HC_WireframeMaterial;
@@ -35,10 +33,7 @@ public class SE_HoneyComb : MonoBehaviour
 
         ColorChangerScript = gameObject.transform.parent.GetComponent<SE_WorldGrid>().ColorChangerScript;
 
-        HC_WireFrameRenderer = gameObject.GetComponent<MeshRenderer>();
-        HC_BackgroundRenderer = gameObject.transform.Find("BG").GetComponent<MeshRenderer>();
-        HC_WireframeMaterial = new MaterialPropertyBlock();
-        HC_BackgroundMaterial = new MaterialPropertyBlock();
+
 
 
 
@@ -46,7 +41,6 @@ public class SE_HoneyComb : MonoBehaviour
     }
     private void Start()
     {
-        Inform_ColorChanger_OfActivationChange_Instant(true);
 
         //initial values
         DisplayProperFaceValues();
@@ -67,20 +61,12 @@ public class SE_HoneyComb : MonoBehaviour
 
     public void Finalize_ThisHoneyComb()
     {
-        bIsFinalized = true;
+
         Debug.Log("This honeycomb is finalized: " + HoneyComb_Address);
 
-        if (bIsFinalized)
-        {
 
-        }
 
-        //Finalize_CopyAndPlaceRelevantPieces();
 
-        //Finalize_HC_BackgroundMaterial();
-        //Finalize_HC_WireframeMaterial();
-        //Finalize_DeactivatedPieceMaterials();
-        //Finalize_FreeHoneyLockedPiece();
     }
 
     void DisplayProperFaceValues()
@@ -182,52 +168,8 @@ public class SE_HoneyComb : MonoBehaviour
         }
     }
 
-    //public bool IsHoneyComb_Finalized()
-    //{
-    //    return bIsFinalized;
-    //}
 
-    //private void Finalize_HC_WireframeMaterial()
-    //{
-    //    ColorChangerScript.ChangeColorActivation_Lerp(HC_WireFrameRenderer, HC_WireframeMaterial, c_HC_WIRE, false);
 
-    //}
-
-    //private void Finalize_HC_BackgroundMaterial()
-    //{
-    //    ColorChangerScript.ChangeColorActivation_Lerp(HC_BackgroundRenderer, HC_BackgroundMaterial, c_HC_BACK, false);
-    //}
-
-    private void Inform_ColorChanger_OfActivationChange_Instant(bool activation)
-    {
-
-        ColorChangerScript.ChangeColorActivation_Instant(HC_WireFrameRenderer, HC_WireframeMaterial, c_HC_WIRE, activation);
-        ColorChangerScript.ChangeColorActivation_Instant(HC_BackgroundRenderer, HC_BackgroundMaterial, c_HC_BACK, activation);
-    }
-
-    
-
-    //private void Finalize_DeactivatedPieceMaterials()
-    //{
-    //    //loop honey slots
-    //    foreach (var honeyslot in HoneySlotRefDict)
-    //    {
-
-    //        //condense
-    //        GameObject slot = honeyslot.Value;
-
-    //        //if piece in slot
-    //        if (slot.transform.childCount == 3)
-    //        {
-
-    //            //condense
-    //            Piece PieceScript = slot.transform.GetChild(2).gameObject.GetComponent<Piece>();
-
-    //            //deactivate
-    //            PieceScript.Deactivate_Piece();
-    //        }
-    //    }
-    //}
 
 
 
