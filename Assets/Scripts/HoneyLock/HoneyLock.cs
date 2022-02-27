@@ -132,6 +132,12 @@ public class HoneyLock : MonoBehaviour
 
     public void Release_FromThisHoneyComb(wg_ADDRESS address)
     {
+        //safety
+        if (!HLPieceDict.ContainsKey(address))
+        {
+            return;
+        }
+
         //find locked piece
         GameObject LockedPiece = HLPieceDict[address];
 
@@ -150,5 +156,6 @@ public class HoneyLock : MonoBehaviour
         Animation anim = Lid.GetComponent<Animation>();
 
         anim.Play("anim_HoneyJar_Lid_Release");
+
     }
 }

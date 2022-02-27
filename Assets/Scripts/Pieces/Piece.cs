@@ -16,7 +16,7 @@ public class Piece : MonoBehaviour
 
     //MEMBERS
 
-    int Current_TriOffset = 0;
+    public int Current_TriOffset = 0;
     public fv_FACEVALUE fv_1;
     public fv_FACEVALUE fv_2;
     public fv_FACEVALUE fv_3;

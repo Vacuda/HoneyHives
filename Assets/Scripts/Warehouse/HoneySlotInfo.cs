@@ -20,6 +20,12 @@ public class HoneySlotInfo
         this.fv_6 = fv_6;
     }
 
+    //CONSTRUCTOR
+    public HoneySlotInfo(wg_ADDRESS address)
+    {
+        this.Address = address;
+    }
+
     //MEMBERS
 
     public bool HoneyJar_Originated;

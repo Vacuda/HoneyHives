@@ -89,12 +89,6 @@ public class VineValidator : MonoBehaviour
 
     private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
-        ////missing piece check
-        //if (Check_ForNulls(val1, val2, val3, val4))
-        //{
-        //    return false;
-        //}
-
         //find amount of equals in values
         int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4);
 
@@ -215,6 +209,10 @@ public class VineValidator : MonoBehaviour
 
         PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
         PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+
+        //this needs to be done a second time in case a minus sign turns into an int, thus maybe eliminating a + sign
+        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
+        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
 
         PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
         PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
@@ -1047,7 +1045,7 @@ public class VineValidator : MonoBehaviour
         //loop Values by index
         for (int i = 0; i < VBlocks.Count; i++)
         {
-            //if plus - won't be first index
+            //if plus
             if (VBlocks[i].Value == v_add)
             {
                 //safety -check if last index
@@ -1060,7 +1058,6 @@ public class VineValidator : MonoBehaviour
                 //digit on right
                 if (IsDigit(VBlocks[i + 1].Value))
                 {
-                   
                     //check prior index, if digit
                     if (IsDigit(VBlocks[i - 1].Value))
                     {

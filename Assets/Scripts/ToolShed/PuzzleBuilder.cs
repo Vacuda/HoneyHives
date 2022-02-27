@@ -19,19 +19,19 @@ static public class PuzzleBuilder
         //place into honeycombs
         Place_IntoHoneyCombs(ref hc_list);
 
-        //initialize list of vacant spots
-        List<wg_ADDRESS> vacant_list;
+        //build list of movable spots
+        List<wg_ADDRESS> movable_list = Build_MovableSlotList(ref hc_list);
 
         //@@@@ if a setting, use this method
         if (true)
         {
-            vacant_list = UseLinearMethod_ToDetermineHoneyLockedPieces(ref hc_list);
+            UseLinearMethod_ToDetermineHoneyLockedPieces(ref hc_list);
         }
 
         //shuffle movable pieces
-        Shuffle_MovablePieces(ref hc_list, vacant_list);
+        Shuffle_MovablePieces(ref hc_list, ref movable_list);
 
-    /* at this point, we just need to combine the lists of honeycombs into the new object */
+        /* at this point, we just need to combine the lists of honeycombs into the new object */
 
         //build new puzzle object
         PuzzleInfo puz = new PuzzleInfo();
@@ -40,9 +40,6 @@ static public class PuzzleBuilder
         {
             foreach(var slot in honeycomblist)
             {
-                //Debug.Log("address: " + slot.Address);
-
-
                 //add to new list
                 puz.HoneySlots.Add(slot);
             }
@@ -80,152 +77,90 @@ static public class PuzzleBuilder
         }
     }
 
-    static private List<wg_ADDRESS> UseLinearMethod_ToDetermineHoneyLockedPieces(ref List<List<HoneySlotInfo>> hc_list)
+    static private void UseLinearMethod_ToDetermineHoneyLockedPieces(ref List<List<HoneySlotInfo>> hc_list)
     {
-        //initialize list to retrun
-        List<wg_ADDRESS> returnlist = new List<wg_ADDRESS>();
+        /* This creates a random line of honeycombs.  The first is unaltered. */
+        /* Then, each successive honeycomb finds a movable piece to remove and move to the previous honeycomb */
+        /* This honeycomb is then honeylocked into this new honeycomb */
 
         //initialize array for order of honeycomb line
-        int[] order_array = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
+        int[] comborder_array = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
         //randomize array
-        RandomizeArray(ref order_array);
-
-    //Index 0 is skipped
-
-        //start at 1
-        int i = 1;
-
-        //safety counter
-        int counter = 0;
+        Shuffle_Array(ref comborder_array);
 
         //initialize proper indexes
         int proper_index = 0;
-        int proper_prev_index = 0;
+        int proper_prev_index;
+        int[] slotorder_array = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
-        //while loop, from indexes 1-6
-        while(i < 7)
+        //Index 0 is skipped - First honeycomb is skipped
+
+        //loop honeycombs - start at 1
+        for (int i = 1; i<=6; i++)
         {
             //get indexes from order_array
-            proper_index = order_array[i];
-            proper_prev_index = order_array[i - 1];
+            proper_index = comborder_array[i];
+            proper_prev_index = comborder_array[i - 1];
 
-            //get rand piece from the 7
-            int rand = Random.Range(0, 7); //inclusive, exclusive 0-6
+            //get another index array
+            Shuffle_Array(ref slotorder_array);
 
-            //condense
-            HoneySlotInfo slotinfo = hc_list[proper_index][rand];
-
-            //if movable
-            if (slotinfo.IsMovable)
+            //loop slotrder_array
+            for(int a=0; a<=6; a++)
             {
-                //BB_AA -> AA
+                //condense
+                HoneySlotInfo slotinfo = hc_list[proper_index][a];
 
-                //get prev honeycomb first address
-                wg_ADDRESS prev_address = hc_list[proper_prev_index][0].Address;
+                //found a suitable slot
+                if (slotinfo.IsMovable)
+                {
+                    //BB_AA -> AA
 
-                //store old address for returnlist
-                returnlist.Add(slotinfo.Address);
+                    //get prev honeycomb first address
+                    wg_ADDRESS prev_address = hc_list[proper_prev_index][0].Address;
 
-                //change this address to prev honeycomb honey-locked spot
-                slotinfo.Address = Get_HoneyLockedAddress(prev_address);
+                    //change this address to prev honeycomb honey-locked spot
+                    slotinfo.Address = Get_HoneyLockedAddress(prev_address);
 
-                //change to honeylocked
-                slotinfo.HoneyJar_Originated = true;
+                    //change to honeylocked
+                    slotinfo.HoneyJar_Originated = true;
 
-                //go to prev honeycomb, add
-                hc_list[proper_prev_index].Add(slotinfo);
+                    //go to prev honeycomb, add
+                    hc_list[proper_prev_index].Add(slotinfo);
 
-                //remove from old list
-                hc_list[proper_index].Remove(slotinfo);
+                    //remove from old list
+                    hc_list[proper_index].Remove(slotinfo);
 
-                //increment to next honeycomb in the order from order_array
-                i++;
+                    //no longer need to loop
+                    break;
+                }
             }
-            else
-            {
-                //keep trying to get a movable piece
-            }
-
-            
-
-
-            //safety counter
-            counter++;
-            if(counter > 1000)
-            {
-                Debug.Log("something wrong.");
-            }
-
-
-            //i'm trying to understand how to move these things around
-            //right now, they exist as a list of a list of HoneySlotInfo objects (not gameObjects)
-            //and they WILL BE placed according to the addresses
-
-            //if I want to move an address, I can just change it
-            //But it needs to be done in an organized way to make sure no slots are double booked
-
-            //that's the only thing that matters right now, because this is only just information
-            //and the gameObjects are built from this blueprint
         }
 
     /* All but the final honeycomb has a honeylocked piece */
 
         //create dummy honeylocked piece
+        {
+            //get this honeycomb first address
+            wg_ADDRESS first_address = hc_list[proper_index][0].Address;
 
-        //get this honeycomb first address
-        wg_ADDRESS first_address = hc_list[proper_index][0].Address;
+            //get honey locked address for final honeycomb
+            wg_ADDRESS hc_address = Get_HoneyLockedAddress(first_address);
 
-        //get honey locked address for final honeycomb
-        wg_ADDRESS hc_address = Get_HoneyLockedAddress(first_address);
-
-        //make and add a dummy piece to honey slot address
-        LevelHouse.MakeAndAdd_DummyPiece(hc_address, ref hc_list);
-
-
-
-        return returnlist;
-
+            //make and add a dummy piece to honey slot address
+            LevelHouse.MakeAndAdd_DummyPiece(hc_address, ref hc_list);
+        }
     }
 
-    static private void Shuffle_MovablePieces(ref List<List<HoneySlotInfo>> hc_list, List<wg_ADDRESS> prev_vacant_list)
+    static private void Shuffle_MovablePieces(ref List<List<HoneySlotInfo>> hc_list, ref List<wg_ADDRESS> movable_list)
     {
-        //initialize list of vacant_list
-        List<wg_ADDRESS> vacant_list = new List<wg_ADDRESS>();
+        /* The shuffled movable list works as a guide to place any movable pieces found in hc_list */
 
-        //build vacant_list
-        {
-            //loop through 7 honeycombs
-            foreach (var honeycomb in hc_list)
-            {
-                //loop slots
-                foreach (var slot in honeycomb)
-                {
-                    //if movable
-                    if(slot.IsMovable){
+        //shuffle movable list
+        Shuffle_List(ref movable_list);
 
-                        //if not honey lock originated
-                        if (!slot.HoneyJar_Originated)
-                        {
-                            //add address
-                            vacant_list.Add(slot.Address);
-                        }
-                    }
-                }
-            }
-        }
-
-        //combine vacant_list and prev_vacant_list
-        foreach(var item in prev_vacant_list)
-        {
-            //add
-            vacant_list.Add(item);
-        }
-
-        //shuffle list
-        ShuffleList(ref vacant_list);
-
-        //use vacant_list as guide to move all movable pieces by changing address
+        //use movable_list as guide to move all movable pieces by changing address
         {
             //start index
             int index = 0;
@@ -233,7 +168,7 @@ static public class PuzzleBuilder
             //loop through 7 honeycombs
             foreach (var honeycomb in hc_list)
             {
-                //loop slots
+                //loop 7 slots
                 foreach (var slot in honeycomb)
                 {
                     //if movable
@@ -243,7 +178,7 @@ static public class PuzzleBuilder
                         if (!slot.HoneyJar_Originated)
                         {
                             //change address
-                            slot.Address = vacant_list[index];
+                            slot.Address = movable_list[index];
 
                             //increment through movables
                             index++;
@@ -306,7 +241,7 @@ static public class PuzzleBuilder
     }
 
     //UTILITIES
-    static private void RandomizeArray(ref int[] array)
+    static private void Shuffle_Array(ref int[] array)
     {
         for (int i=0; i<=6; i++)
         {
@@ -317,7 +252,7 @@ static public class PuzzleBuilder
         }
     }
 
-    static private void ShuffleList(ref List<wg_ADDRESS> list)
+    static private void Shuffle_List(ref List<wg_ADDRESS> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
@@ -389,5 +324,33 @@ static public class PuzzleBuilder
         }
     }
 
-   
+    static List<wg_ADDRESS> Build_MovableSlotList(ref List<List<HoneySlotInfo>> hc_list)
+    {
+        //initialize return list
+        List<wg_ADDRESS> list = new List<wg_ADDRESS>();
+
+        //loop through 7 honeycombs
+        foreach (var honeycomb in hc_list)
+        {
+            //loop slots
+            foreach (var slot in honeycomb)
+            {
+                //if movable
+                if (slot.IsMovable){ 
+
+                    //if not honey lock originated
+                    if (!slot.HoneyJar_Originated){
+
+                        //add address
+                        list.Add(slot.Address);
+                    }
+                }
+            }
+        }
+
+        return list;
+    }
+
+
+
 }

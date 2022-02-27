@@ -7,366 +7,613 @@ using static fv_FACEVALUE;
 
 static public class LevelHouse
 {
-    static int HoneyComb_Total = 7;
+    //static int HoneyComb_Total = 7;
+    static int FourBlockTemplates = 2;
+    static int SixBlockTemplates = 1;
 
-    static public void Get_SevenHoneyCombs(ref List<List<HoneySlotInfo>> hc_list)
+    static float Spinnable_Rate = 0.6f;
+    static float LastThree_Movable_Rate = 0.4f;
+
+    //create order
+    static wg_ADDRESS[] order = new wg_ADDRESS[7] { AA, BB, CC, DD, EE, FF, GG };
+
+
+    /* BUILD HONEYCOMBS */
+
+    static public void Get_SevenHoneyCombs(ref List<List<HoneySlotInfo>> hc_list) {
+
+        //Add null HoneySlotInfos
+        BuildOut_NullHoneySlotInfos(ref hc_list);
+
+        //Fill HoneySlotInfo
+        Fill_FaceValues(ref hc_list);
+
+        //fill move/spin
+        Fill_MoveValues(ref hc_list);
+
+        //fill move/spin
+        Fill_SpinValues(ref hc_list);
+    }
+
+    static void BuildOut_NullHoneySlotInfos(ref List<List<HoneySlotInfo>> hc_list)
     {
-        //total amount of honeycombs in here
-        //int HoneyComb_Total = 7;
-
-        //fixed array
-        int[] array = new int[7] {0,0,0,0,0,0,0};
-
-        //start indexcounter
-        int index_counter = 0;
-
-        //safety counter
-        int counter = 0;
-        
-        //build array in while loop
-        while(index_counter < 7)
+        //loop seven times
+        for(int i=1; i<=7; i++)
         {
-            //get random number
-            int rand = GetRandom_HoneyCombSolution();
+            //make new list
+            List<HoneySlotInfo> list = new List<HoneySlotInfo>();
 
-            //if unique
-            if (CheckUniqueness(rand, ref array))
+            //loop each slot address
+            foreach (var address in order)
             {
-                //change number
-                array[index_counter] = rand;
-
-                //increment
-                index_counter++;
+                //add to current list
+                list.Add(new HoneySlotInfo(address));
             }
 
-            //safety
-            counter++;
-            if(counter > 1000)
-            {
-                Debug.Log("Somethings wrong with Get_SevenHoneyCombs while loop");
-                index_counter = 8;
-            }
+            //add current list to overall list
+            hc_list.Add(list);
         }
+    }
 
-        //rand num array is built.  Now, we'll use this to take each unique honeycomb and put it into the list
-
-        //loop array 0-6
+    static void Fill_FaceValues(ref List<List<HoneySlotInfo>> hc_list)
+    {
+        //loop honeycombs
         for(int i=0; i<=6; i++)
         {
-            //add to list
-            Add_ThisHoneyComb(array[i], ref hc_list);
+            /* flower 1 */
+            {
+                //get block
+                fv_FACEVALUE[] four_block = Get_FourBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(GG)].fv_6 = four_block[0];
+                hc_list[i][ConvertToIndex(GG)].fv_3 = four_block[1];
+                hc_list[i][ConvertToIndex(FF)].fv_6 = four_block[2];
+                hc_list[i][ConvertToIndex(FF)].fv_3 = four_block[3];
+            }
+
+            /* flower 2 */
+            {
+                //get block
+                fv_FACEVALUE[] six_block = Get_SixBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(EE)].fv_6 = six_block[0];
+                hc_list[i][ConvertToIndex(EE)].fv_3 = six_block[1];
+                hc_list[i][ConvertToIndex(DD)].fv_6 = six_block[2];
+                hc_list[i][ConvertToIndex(DD)].fv_3 = six_block[3];
+                hc_list[i][ConvertToIndex(CC)].fv_6 = six_block[4];
+                hc_list[i][ConvertToIndex(CC)].fv_3 = six_block[5];
+            }
+
+            /* flower 3 */
+            {
+                //get block
+                fv_FACEVALUE[] four_block = Get_FourBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(BB)].fv_6 = four_block[0];
+                hc_list[i][ConvertToIndex(BB)].fv_3 = four_block[1];
+                hc_list[i][ConvertToIndex(AA)].fv_6 = four_block[2];
+                hc_list[i][ConvertToIndex(AA)].fv_3 = four_block[3];
+            }
+
+            /* flower 4 */
+            {
+                //get block
+                fv_FACEVALUE[] four_block = Get_FourBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(EE)].fv_5 = four_block[0];
+                hc_list[i][ConvertToIndex(EE)].fv_2 = four_block[1];
+                hc_list[i][ConvertToIndex(GG)].fv_5 = four_block[2];
+                hc_list[i][ConvertToIndex(GG)].fv_2 = four_block[3];
+            }
+
+            /* flower 5 */
+            {
+                //get block
+                fv_FACEVALUE[] six_block = Get_SixBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(BB)].fv_5 = six_block[0];
+                hc_list[i][ConvertToIndex(BB)].fv_2 = six_block[1];
+                hc_list[i][ConvertToIndex(DD)].fv_5 = six_block[2];
+                hc_list[i][ConvertToIndex(DD)].fv_2 = six_block[3];
+                hc_list[i][ConvertToIndex(FF)].fv_5 = six_block[4];
+                hc_list[i][ConvertToIndex(FF)].fv_2 = six_block[5];
+            }
+
+            /* flower 6 */
+            {
+                //get block
+                fv_FACEVALUE[] four_block = Get_FourBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(AA)].fv_5 = four_block[0];
+                hc_list[i][ConvertToIndex(AA)].fv_2 = four_block[1];
+                hc_list[i][ConvertToIndex(CC)].fv_5 = four_block[2];
+                hc_list[i][ConvertToIndex(CC)].fv_2 = four_block[3];
+            }
+
+            /* flower 7 */
+            {
+                //get block
+                fv_FACEVALUE[] four_block = Get_FourBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(BB)].fv_4 = four_block[0];
+                hc_list[i][ConvertToIndex(BB)].fv_1 = four_block[1];
+                hc_list[i][ConvertToIndex(EE)].fv_4 = four_block[2];
+                hc_list[i][ConvertToIndex(EE)].fv_1 = four_block[3];
+            }
+
+            /* flower 8 */
+            {
+                //get block
+                fv_FACEVALUE[] six_block = Get_SixBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(AA)].fv_4 = six_block[0];
+                hc_list[i][ConvertToIndex(AA)].fv_1 = six_block[1];
+                hc_list[i][ConvertToIndex(DD)].fv_4 = six_block[2];
+                hc_list[i][ConvertToIndex(DD)].fv_1 = six_block[3];
+                hc_list[i][ConvertToIndex(GG)].fv_4 = six_block[4];
+                hc_list[i][ConvertToIndex(GG)].fv_1 = six_block[5];
+            }
+
+            /* flower 9 */
+            {
+                //get block
+                fv_FACEVALUE[] four_block = Get_FourBlock();
+
+                //change facevalue
+                hc_list[i][ConvertToIndex(CC)].fv_4 = four_block[0];
+                hc_list[i][ConvertToIndex(CC)].fv_1 = four_block[1];
+                hc_list[i][ConvertToIndex(FF)].fv_4 = four_block[2];
+                hc_list[i][ConvertToIndex(FF)].fv_1 = four_block[3];
+            }
+
+
         }
     }
 
-
-    static public void Add_ThisHoneyComb(int rand, ref List<List<HoneySlotInfo>> hc_list, wg_ADDRESS address = NONE)
+    static void Fill_MoveValues(ref List<List<HoneySlotInfo>> hc_list)
     {
-        /* 3rd parameter is defaulted.  If there, it will be a dummy request for only one slotinfo */
-        /* this is handled at the bottom */
+        /* This needs to control the movable slots into a range of 1-4 */
+        /* This guarantees that the Beebox won't fill up, and that the HoneyLock won't have enough movables */
 
-        FUNCTION_RESET_POINT: //safety
-
-        //make slotlist to add
-        List<HoneySlotInfo> slotlist = new List<HoneySlotInfo>();
-
-        switch (rand)
+        //loop honeycombs
+        for(int i=0; i<=6; i++)
         {
-            case 1:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_1, v_1, v_1, v_1, v_1, v_1));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            case 2:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_2, v_2, v_2, v_2, v_2));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            case 3:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_3, v_3, v_3, v_3, v_3, v_3));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            case 4:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_4, v_4, v_4, v_4, v_4, v_4));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            case 5:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_5, v_5, v_5, v_5, v_5, v_5));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            case 6:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_6, v_6, v_6, v_6, v_6, v_6));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            case 7:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_7, v_7, v_7, v_7, v_7, v_7));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-            default:
-                slotlist.Add(new HoneySlotInfo(AA, true, true, v_2, v_blank, v_1, v_5, v_blank, v_add));
-                slotlist.Add(new HoneySlotInfo(BB, false, false, v_9, v_2, v_blank, v_7, v_blank, v_blank));
-                slotlist.Add(new HoneySlotInfo(CC, true, true, v_7, v_7, v_blank, v_1, v_0, v_blank));
-                slotlist.Add(new HoneySlotInfo(DD, true, true, v_2, v_5, v_blank, v_equals, v_add, v_blank));
-                slotlist.Add(new HoneySlotInfo(EE, true, false, v_8, v_add, v_2, v_blank, v_4, v_blank));
-                slotlist.Add(new HoneySlotInfo(FF, true, false, v_7, v_7, v_blank, v_equals, v_equals, v_blank));
-                slotlist.Add(new HoneySlotInfo(GG, false, true, v_5, v_blank, v_blank, v_blank, v_blank, v_blank));
-                break;
-        }
+            //make index array with all 7 indexes
+            int[] index_array = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
-        //if not dummy piece try
-        if (address == NONE)
-        {
-            //add to list
-            hc_list.Add(slotlist);
-        }
-        //just need dummy piece
-        else
-        {
-            //safety - this ensures that a honeycomb with NO movable pieces is NOT picked
+            //shuffle array
+            Shuffle_IndexArray(ref index_array);
+
+            //make first 3 unmovable = this guarantees no more than 28 are movable
             {
-                bool bIsSafe = false;
-
-                foreach(var slot in slotlist)
-                {
-                    if (slot.IsMovable)
-                    {
-                        bIsSafe = true;
-                        break;
-                    }
-                }
-
-                if (!bIsSafe){
-                    //reset to start of function
-                    goto FUNCTION_RESET_POINT;
-                }
+                hc_list[i][index_array[0]].IsMovable = false;
+                hc_list[i][index_array[1]].IsMovable = false;
+                hc_list[i][index_array[2]].IsMovable = false;
             }
 
-            //index of list that we should add to
-            int proper_index = -1;
-
-            //need to find proper home
+            //make next one movable = this guarantees 7 movables
             {
-                //loop hc_list
-                for(int i=0; i<=6; i++)
-                {
-                    //find first address
-                    wg_ADDRESS first_address = hc_list[i][0].Address;
-
-                    //if proper home
-                    if (IsThisAProperHome(first_address, address))
-                    {
-                        //found index
-                        proper_index = i;
-                    }
-                }
+                hc_list[i][index_array[3]].IsMovable = true;
             }
 
-            //initialize
-            int index = -1;
-
-            //find index that is movable
+            //loop remaining indexes
+            for (int a=4; a<=6; a++)
             {
-                while (true)
-                {
-                    //find a dummy piece index
-                    index = Random.Range(0, 7);  //inclusive, exclusive
+                //get rands
+                float rand_move = Random.value;
 
-                    //if movable slot found
-                    if (slotlist[index].IsMovable)
-                    {
-                        break;
-                    }
+                //set IsMovable
+                if (rand_move < LastThree_Movable_Rate)
+                {
+                    hc_list[i][index_array[a]].IsMovable = true;
+                }
+                else
+                {
+                    hc_list[i][index_array[a]].IsMovable = false;
                 }
             }
-
-            //change address and origination
-            slotlist[index].Address = address;
-            slotlist[index].HoneyJar_Originated = true;
-
-            //send this slotinfo to the proper home
-            hc_list[proper_index].Add(slotlist[index]);
-
-            /* the rest of these slotinfos will be destroyed */
         }
     }
 
-
-    //I may have made a solutions editor ... when I didn't need to.
-
-    //why can't I go smaller still?
-
-    //why can't I make 4 tile solutions and 6 tile solutions
-    //and randomly put them onto puzzles...
-
-    //54+3_01               5, 4, +, 3
-
-    // wait, would this really not correlate?  It wouldn't
-    // and generally, making a piece movable or spinnable doesn't matter either.  It can be done randomly.
-
-    // "54+3"
-    // "7+7=14"
-
-    // I can make a full puzzle solution with just those two strings.
-
-    //so, my initial worry was that puzzles would feel lifeless, and I'm starting to get more and more procedural.
-    // the advantage is that it opens up the range of puzzles without having to hand make them.
-
-
-
-
-
-
-
-    
-
-    //LevelInfo Get_Level_001()
-    //{
-    //    //make package to return
-    //    LevelInfo LevelPackage = new LevelInfo();
-
-    //    //initialize internal list
-    //    LevelPackage.HoneySlots = new List<HoneySlotInfo>();
-
-    //    //find 7 honeycomb solutions
-    //    //give honeycomb address
-    //    //if spinable, spin randomly
-
-
-
-
-    //    //if unmovable - > place accordingly
-
-
-
-
-    //    //an issue here is that these solutions produce 49 tiles.
-    //    //so atleast 49 tiles made for a level
-
-    //    //I think there should always be a piece in the honey jar.  
-    //    //So, if done in linear honeycomb order.
-    //    //one is free solvable. 
-    //    //6 then, are honey locked
-    //    //atleast ONE additional piece needs to be generated as a decoy.
-    //    //so, 50 minimum.
-
-    //    //there's various ways this can be done, according to settings.
-    //    //So, it should build from a settings object.
-
-
-    //    //if there is only 49 tiles, there
-
-
-
-
-
-
-
-
-    //UTILITIES
-
-    static private bool CheckUniqueness(int num, ref int[] array)
+    static void Fill_SpinValues(ref List<List<HoneySlotInfo>> hc_list)
     {
-        //loop array
-        foreach(int setnum in array)
+        //loop honeycombs
+        for (int i = 0; i <= 6; i++)
         {
-            //if match
-            if (num == setnum)
+            //loop honeyslots
+            for (int a = 0; a <= 6; a++)
             {
-                //failed uniqueness
-                return false;
+                //get rands
+                float rand_spin = Random.value;
+
+                //set IsSpinnable
+                if (rand_spin < Spinnable_Rate)
+                {
+                    hc_list[i][a].IsSpinnable = true;
+                }
+                else
+                {
+                    hc_list[i][a].IsSpinnable = false;
+                }
+
             }
         }
-
-        //is unique
-        return true;
     }
 
     static public void MakeAndAdd_DummyPiece(wg_ADDRESS address, ref List<List<HoneySlotInfo>> hc_list)
     {
-        //get random number
-        int rand = GetRandom_HoneyCombSolution();
+        //make dummy piece
+        HoneySlotInfo slot = new HoneySlotInfo(address);
+
+        //set information
+        slot.HoneyJar_Originated = true;                        //needs to be true
+        slot.IsMovable = true;                                  //needs to be true
+        slot.IsSpinnable = Roll_EitherOr() ? true: false;       //either
+        slot.fv_1 = GetRandomFaceValue(true);                   //any
+        slot.fv_2 = GetRandomFaceValue(true);                   //any
+        slot.fv_3 = GetRandomFaceValue(true);                   //any
+        slot.fv_4 = GetRandomFaceValue(true);                   //any
+        slot.fv_5 = GetRandomFaceValue(true);                   //any
+        slot.fv_6 = GetRandomFaceValue(true);                   //any
 
 
-        Add_ThisHoneyComb(rand, ref hc_list, address);
+        /* To be succinct, I need to find out which list to put this into */
+        /* This will be the list with only 6 slots in it */
+
+        //initialize index to use
+        int index = 0;
+
+        //loop hc_list
+        for(int i=0; i<=6; i++)
+        {
+            if(hc_list[i].Count < 7)
+            {
+                //set index to this i
+                index = i;
+            }
+        }
+
+        //add dummy piece to this index
+        hc_list[index].Add(slot);
     }
 
-    static private int GetRandom_HoneyCombSolution()
+
+    /* FOUR BLOCKS */
+
+    static fv_FACEVALUE[] Get_FourBlock()
     {
-        return Random.Range(1, HoneyComb_Total + 1); //inclusive, exclusive
+        //get rand
+        int rand = Random.Range(0, FourBlockTemplates); //inclusive, exclusive
+
+        switch (rand)
+        {
+            case 0: return FourBlock_AllRandom_ZeroEquals();
+            case 1: return FourBlock_OneOrThreeEquals();
+            default: return FourBlock_AllRandom_ZeroEquals();
+        }
     }
 
-    static private bool IsThisAProperHome(wg_ADDRESS first_address, wg_ADDRESS address)
+    static fv_FACEVALUE[] FourBlock_AllRandom_ZeroEquals()
     {
-        //change to int to determine match
-        int intvalue = (int)first_address;
-        wg_ADDRESS target_address = NONE;
+        /* All values are random */
 
+        //create block to return
+        fv_FACEVALUE[] block = new fv_FACEVALUE[4];
 
-        //comparing AA_AA to BB
+        //loop block
+        for (int i = 0; i <= 3; i++)
+        {
+            block[i] = GetRandomFaceValue();
+        }
 
+        return block;
+    }
 
-        if (intvalue < 9)
+    static fv_FACEVALUE[] FourBlock_OneOrThreeEquals()
+    {
+        /* Left Side Equals Right Side */
+
+        //create block to return
+        fv_FACEVALUE[] block = new fv_FACEVALUE[4];
+
+        //find common left/right facevalue
+        fv_FACEVALUE commonvalue = GetRandomFaceValue(true);
+
+        //larger left
+        if (Roll_EitherOr())
         {
-            target_address = AA;
+            //right side set
+            block[2] = v_equals;
+            block[3] = commonvalue;
+
+            // 0 is commonvalue
+            if (Roll_EitherOr())
+            {
+                //set 0
+                block[0] = commonvalue;
+
+                //set 1                                 // c _ = c
+                {
+                    /* v_blank works everywhere here */
+
+                    // 0 _ = 0      //v_blank and v_0
+                    // 3 _ = 3      //only v_blank
+                    // + _ = +      //only v_blank
+                    // - _ = -      //only v_blank
+                    // b _ = b      //only v_blank
+                    // = _ = =      //only v_blank
+
+                    //set 1;
+                    block[1] = v_blank;
+
+                    //edge handle
+                    if (commonvalue == v_0)
+                    {
+                        if (Roll_EitherOr())
+                        {
+                            //v_o also works
+                            block[1] = v_0;
+                        }
+                    }
+
+                }
+            }
+            // 1 is commonvalue
+            else
+            {
+                //set 0                                 // _ c = c
+                {
+                    /* v_blank works everywhere here */
+
+                    // _ 0 = 0      //v_0, v_add, v_sub, v_blank
+                    // _ 3 = 3      //v_0, v_add, v_blank
+                    // _ + = +      //only v_blank
+                    // _ - = -      //only v_blank
+                    // _ b = b      //only v_blank
+                    // _ = = =      //only v_blank
+
+                    //set 0;
+                    block[0] = v_blank;
+
+                    //edge handle
+                    if (commonvalue == v_0)
+                    {
+                        //get val(4)
+                        int rand = Random.Range(1, 5); //inclusive, exclusive
+
+                        if(rand == 1)
+                        {
+                            block[0] = v_0;
+                        }
+                        else if (rand == 2)
+                        {
+                            block[0] = v_add;
+                        }
+                        else if (rand == 3)
+                        {
+                            block[0] = v_sub;
+                        }
+
+                        //rand = 4, stays as v_blank
+                    }
+
+                    //edge handle
+                    if (bIsDigitMinusZero(commonvalue))
+                    {
+                        //get val(3)
+                        int rand = Random.Range(1, 4); //inclusive, exclusive
+
+                        if (rand == 1)
+                        {
+                            block[0] = v_0;
+                        }
+                        else if (rand == 2)
+                        {
+                            block[0] = v_add;
+                        }
+
+                        //rand = 3, stays as v_blank
+                    }
+
+                }
+
+                //set 1
+                block[1] = commonvalue;
+            }
         }
-        else if (intvalue < 17)
-        {
-            target_address = BB;
-        }
-        else if (intvalue < 25)
-        {
-            target_address = CC;
-        }
-        else if (intvalue < 33)
-        {
-            target_address = DD;
-        }
-        else if (intvalue < 41)
-        {
-            target_address = EE;
-        }
-        else if (intvalue < 49)
-        {
-            target_address = FF;
-        }
+        //larger right
         else
         {
-            target_address = GG;
+            //left side set
+            block[0] = commonvalue;
+            block[1] = v_equals;
+
+            // 2 is commonvalue
+            if (Roll_EitherOr())
+            {
+                //set 2
+                block[2] = commonvalue;
+
+                //set 3                                 // c = c _
+                {
+                    /* v_blank works everywhere here */
+
+                    // 0 = 0 _      //v_blank and v_0
+                    // 3 = 3 _      //only v_blank
+                    // + = + _      //only v_blank
+                    // - = - _      //only v_blank
+                    // b = b _      //only v_blank
+                    // = = = _      //only v_blank
+
+                    //set 3
+                    block[3] = v_blank;
+
+                    //edge handle
+                    if (commonvalue == v_0)
+                    {
+                        if (Roll_EitherOr())
+                        {
+                            //v_o also works
+                            block[3] = v_0;
+                        }
+                    }
+                }
+            }
+            // 3 is commonvalue
+            else
+            {
+                //set 2                                 // c = _ c
+                {
+                    /* v_blank works everywhere here */
+
+                    // 0 = _ 0      //v_0, v_add, v_sub, v_blank
+                    // 3 = _ 3      //v_0, v_add, v_blank
+                    // + = _ +      //only v_blank
+                    // - = _ -      //only v_blank
+                    // b = _ b      //only v_blank
+                    // = = _ =      //only v_blank
+
+                    //set 2;
+                    block[2] = v_blank;
+
+                    //edge handle
+                    if (commonvalue == v_0)
+                    {
+                        //get val(4)
+                        int rand = Random.Range(1, 5); //inclusive, exclusive
+
+                        if (rand == 1)
+                        {
+                            block[2] = v_0;
+                        }
+                        else if (rand == 2)
+                        {
+                            block[2] = v_add;
+                        }
+                        else if (rand == 3)
+                        {
+                            block[2] = v_sub;
+                        }
+
+                        //rand = 4, stays as v_blank
+                    }
+
+                    //edge handle
+                    if (bIsDigitMinusZero(commonvalue))
+                    {
+                        //get val(3)
+                        int rand = Random.Range(1, 4); //inclusive, exclusive
+
+                        if (rand == 1)
+                        {
+                            block[2] = v_0;
+                        }
+                        else if (rand == 2)
+                        {
+                            block[2] = v_add;
+                        }
+
+                        //rand = 3, stays as v_blank
+                    }
+
+                }
+
+                //set 3
+                block[3] = commonvalue;
+            }
         }
 
-        if(target_address == address)
+
+        return block;
+    }
+
+
+    /* SIX BLOCKS */
+
+    static fv_FACEVALUE[] Get_SixBlock()
+    {
+        //get rand
+        int rand = Random.Range(0, SixBlockTemplates); //inclusive, exclusive
+
+        switch (rand)
+        {
+            case 0: return SixBlock_AllRandom_ZeroEquals();
+            default: return SixBlock_AllRandom_ZeroEquals();
+        }
+    }
+
+    static fv_FACEVALUE[] SixBlock_AllRandom_ZeroEquals()
+    {
+        /* All values are random */
+
+        //create block to return
+        fv_FACEVALUE[] block = new fv_FACEVALUE[6];
+
+        //loop block
+        for (int i = 0; i <= 5; i++)
+        {
+            block[i] = GetRandomFaceValue();
+        }
+
+        return block;
+    }
+
+
+    /* UTILITIES */
+
+    static fv_FACEVALUE GetRandomFaceValue(bool bIncludeEquals = false)
+        {
+            // facevalue enum limit
+            int limit = 14;
+
+            //if including equals
+            if (bIncludeEquals)
+            {
+                limit = 15;
+            }
+
+            //get rand
+            int rand = Random.Range(1, limit); //inclusive, exclusive
+
+            //cast to facevalue
+            return (fv_FACEVALUE)rand;
+        }
+
+    static int ConvertToIndex(wg_ADDRESS address)
+    {
+        switch (address)
+        {
+            case AA: return 0;
+            case BB: return 1;
+            case CC: return 2;
+            case DD: return 3;
+            case EE: return 4;
+            case FF: return 5;
+            case GG: return 6;
+            default: return 0;
+        }
+    }
+
+    static bool Roll_EitherOr()
+    {
+        return (Random.value > 0.5f);
+    }
+
+    static bool bIsDigitMinusZero(fv_FACEVALUE val)
+    {
+        //cast
+        int valcast = (int)val;
+
+        //if val is v_1 -> v_9
+        if(valcast >= 2 && valcast <= 10)
         {
             return true;
         }
@@ -374,56 +621,14 @@ static public class LevelHouse
         return false;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    static void Shuffle_IndexArray(ref int[] index_array)
+    {
+        for (int i = 0; i<=6; i++)
+        {
+            int temp = index_array[i];
+            int rand = Random.Range(i, 7); //inclusive, exclusive
+            index_array[i] = index_array[rand];
+            index_array[rand] = temp;
+        }
+    }
 }
-
-
-
-//Initially, I made the level house thinking I would hand craft each LEVEL
-
-//I think I'm struggling to see how I design all those levels.
-//especially since it's not supposed to be a level design assignment
-
-
-
-
-//so, why not procedural?
-
-//options:
-//EVERYTHING handmade
-//honestly, I'll never do this
-//this may be the better feeling game solution, though
-
-//EVERYTHING procedural
-//this means less handmade work
-//honeycombs may be difficult to generate in an interesting fashion
-
-//Honeycomb solutions are handmade, but procedurally mixed up
-//magnifies handmade work
-//focuses handmade work
-//Honeycombs don't relate to each other at all
-//one honeycomb solution may be able to spun into three directions
-//there is a scenario where a puzzle is unsolvable, I think
-//if completely random, it's where keys locked in honey jars mean you can't solve any, to start the cascade of solvability
-//maybe if you ensure that 4 of 7 are free to solve without locks
-//but what if two honeycombs unlock each other
-//so, what if I ensure a->b->c->d->e->f->g
-//a is without locks
-//this assumes only one piece would be locked for each
-//what if, 6 are free solved
-
-//regardless
-
-//if I build honeycomb solutions
-//there could be multiple ways, some more difficult possibly, that I could choose the locked pieces
