@@ -141,7 +141,7 @@ public class HoneyComb : MonoBehaviour
                     //NewPiece.transform.rotation = this.transform.rotation;
 
                     //find new home for piece
-                    NewPiece.GetComponent<Piece>().FindNewHome();
+                    NewPiece.GetComponent<Piece>().FindPlacement_OnBeeBox();
 
                 }
             }

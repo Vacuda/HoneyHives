@@ -145,7 +145,7 @@ public class HoneyLock : MonoBehaviour
         HLPieceDict.Remove(address);
 
         //put piece on BeeBox
-        LockedPiece.GetComponent<Piece>().FindNewHome();
+        LockedPiece.GetComponent<Piece>().FindPlacement_OnBeeBox();
 
         //find lid
         GameObject Lid = gameObject.transform.Find("Lid").gameObject;

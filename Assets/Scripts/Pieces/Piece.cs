@@ -101,12 +101,8 @@ public class Piece : MonoBehaviour
         //scale object down so it can get closer
         gameObject.transform.localScale = pg.Scale_GrabbedPiece;
 
-        //Quaternion test = gameObject.transform.localRotation;
-
-        gameObject.transform.rotation = Quaternion.Euler(0.0f, gameObject.transform.rotation.eulerAngles.y, gameObject.transform.rotation.eulerAngles.z);
-
-        //correct rotation
-        //Quaternion rotation = gameObject.transform.rotation;
+        //reset x and y rotation
+        gameObject.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.eulerAngles.z);
 
         //change sorting layer
         Change_SortingLayer_ToFront();
@@ -264,7 +260,7 @@ public class Piece : MonoBehaviour
     }
 
    
-    public void FindNewHome()
+    public void FindPlacement_OnBeeBox()
     {
         //loop BeeBoxPanel
         for(int i=0; i<BeeBoxPanel.transform.childCount; i++)
@@ -274,7 +270,11 @@ public class Piece : MonoBehaviour
             //if empty
             if(AreaThing.transform.childCount == 2)
             {
-                this.GetComponent<Piece>().Place_Piece(AreaThing, false);
+                //reset x and y rotation
+                gameObject.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.eulerAngles.z);
+
+                //place piece
+                Place_Piece(AreaThing, false);
 
                 break;
             }

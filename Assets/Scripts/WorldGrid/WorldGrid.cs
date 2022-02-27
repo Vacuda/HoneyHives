@@ -192,8 +192,6 @@ public class WorldGrid : MonoBehaviour
 
     public void Modify_ThisHoneyCombs_HoneySlotColliders(wg_ADDRESS honeycomb, bool direction)
     {
-        Debug.Log(honeycomb);
-
         //find HoneySlots array
         wg_ADDRESS[] HoneySlots = WGRefDict[honeycomb].GetComponent<HoneyComb>().HoneySlots;
 
