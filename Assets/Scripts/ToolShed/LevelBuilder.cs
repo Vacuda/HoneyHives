@@ -43,120 +43,125 @@ public class LevelBuilder : MonoBehaviour
 
     public void BuildOut_ThisPuzzle(PuzzleInfo puz_info)
     {
-        ////get LevelInfo from LevelHouse
-        //LevelInfo info = LevelHouseScript.Retrieve_ThisLevel(level);
-
-        //build temp location
-        Transform Location;
-
         //loop HoneySlots
         foreach (HoneySlotInfo slot in puz_info.HoneySlots)
         {
-            //find location
-            Location = WGRefDict[slot.Address].transform;
-
             //make piece
             GameObject Piece = Instantiate(PF_Piece);
 
             //condense
             Piece PieceScript = Piece.GetComponent<Piece>();
 
-            //change all six face values
-            PieceScript.fv_1 = slot.fv_1;
-            PieceScript.fv_2 = slot.fv_2;
-            PieceScript.fv_3 = slot.fv_3;
-            PieceScript.fv_4 = slot.fv_4;
-            PieceScript.fv_5 = slot.fv_5;
-            PieceScript.fv_6 = slot.fv_6;
-
-            //transfer attributes
-            PieceScript.IsMovable = slot.IsMovable;
-            PieceScript.IsSpinnable = slot.IsSpinnable;
-            PieceScript.Controller = Controller;
-            PieceScript.MainCamera = MainCamera;
-            PieceScript.pg = PieceGlobalsScript;
-            PieceScript.colorchanger = ColorChangerScript;
-            PieceScript.materialchanger = MaterialChangerScript;
-            PieceScript.BeeBoxPanel = BeeBoxPanel;
-
-
-            //change all six face values - TEXT
-            Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
-            Piece.transform.Find("FaceValue_2").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_2);
-            Piece.transform.Find("FaceValue_3").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_3);
-            Piece.transform.Find("FaceValue_4").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_4);
-            Piece.transform.Find("FaceValue_5").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_5);
-            Piece.transform.Find("FaceValue_6").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_6);
-
-            //get renderer
-            MeshRenderer Renderer = Piece.GetComponent<MeshRenderer>();
-
-            //copy material info
-            Material[] MatArray = Renderer.materials;
-
-            //change piece face texture
-            if (slot.IsMovable)
+            //info transfer
             {
-                if (slot.IsSpinnable)
+                //change all six face values
+                PieceScript.fv_1 = slot.fv_1;
+                PieceScript.fv_2 = slot.fv_2;
+                PieceScript.fv_3 = slot.fv_3;
+                PieceScript.fv_4 = slot.fv_4;
+                PieceScript.fv_5 = slot.fv_5;
+                PieceScript.fv_6 = slot.fv_6;
+
+                //transfer attributes
+                PieceScript.IsMovable = slot.IsMovable;
+                PieceScript.IsSpinnable = slot.IsSpinnable;
+                PieceScript.Controller = Controller;
+                PieceScript.MainCamera = MainCamera;
+                PieceScript.pg = PieceGlobalsScript;
+                PieceScript.colorchanger = ColorChangerScript;
+                PieceScript.materialchanger = MaterialChangerScript;
+                PieceScript.BeeBoxPanel = BeeBoxPanel;
+
+
+                //change all six face values - TEXT
+                Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
+                Piece.transform.Find("FaceValue_2").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_2);
+                Piece.transform.Find("FaceValue_3").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_3);
+                Piece.transform.Find("FaceValue_4").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_4);
+                Piece.transform.Find("FaceValue_5").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_5);
+                Piece.transform.Find("FaceValue_6").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_6);
+            }
+
+            //material change
+            {
+                //get renderer
+                MeshRenderer Renderer = Piece.GetComponent<MeshRenderer>();
+
+                //copy material info
+                Material[] MatArray = Renderer.materials;
+
+                //change piece face texture
+                if (slot.IsMovable)
                 {
-                    //full
-                    MatArray[1] = M_Piece_Full;
+                    if (slot.IsSpinnable)
+                    {
+                        //full
+                        MatArray[1] = M_Piece_Full;
+                    }
+                    else
+                    {
+                        //mov
+                        MatArray[1] = M_Piece_Move;
+                    }
                 }
                 else
                 {
-                    //mov
-                    MatArray[1] = M_Piece_Move;
+                    if (slot.IsSpinnable)
+                    {
+                        //spin
+                        MatArray[1] = M_Piece_Spin;
+                    }
+                    else
+                    {
+                        //none - at default, no need to change
+                    }
                 }
 
+                //set to use altered MatArray
+                Renderer.materials = MatArray;
             }
-            else
+
+            //set location
             {
-                if (slot.IsSpinnable)
-                {
-                    //spin
-                    MatArray[1] = M_Piece_Spin;
+                //if HoneyJar Piece
+                if (slot.HoneyJar_Originated){
+
+                    //change scale
+                    PieceScript.Change_Scale_ToHoneyJar();
+
+                    //change sorting layer
+                    PieceScript.Change_SortingLayer_ToMid();
+
+                    //change position - offscreen
+                    Piece.transform.position = PieceGlobalsScript.OffsiteLocation;
+
+                    //add to honeylock dictionary
+                    HoneyLockScript.AddTo_HoneyLockPieceDictionary(slot.Address, Piece);
                 }
                 else
                 {
+                    //if movable
+                    if (slot.IsMovable)
+                    {
+                        //put in beebox
+                        PieceScript.FindPlacement_OnBeeBox();
+                    }
+                    else
+                    {
+                        //find location on WorldGrid
+                        Transform Location = WGRefDict[slot.Address].transform;
 
+                        //set position to HoneySlot
+                        Piece.transform.position = Location.position;
 
+                        //set parent to HoneySlot
+                        Piece.transform.parent = WGRefDict[slot.Address].transform;
 
-                    //none - at default, no need to change
-                }
+                        //change sorting layer
+                        PieceScript.Change_SortingLayer_ToBack();
+                    }
+                }    
             }
-
-            //set to use altered MatArray
-            Renderer.materials = MatArray;
-
-            //set position to HoneySlot
-            Piece.transform.position = Location.position;
-
-
-            //if HoneyJar Piece
-            if (slot.HoneyJar_Originated){
-
-                //change scale
-                PieceScript.Change_Scale_ToHoneyJar();
-
-                //change sorting layer
-                PieceScript.Change_SortingLayer_ToMid();
-
-                //change position - offscreen
-                Piece.transform.position = PieceGlobalsScript.OffsiteLocation;
-
-                HoneyLockScript.AddTo_HoneyLockPieceDictionary(slot.Address, Piece);
-            }
-            else
-            {
-                //set position to HoneySlot
-                Piece.transform.position = Location.position;
-
-                //set parent to HoneySlot
-                Piece.transform.parent = WGRefDict[slot.Address].transform;
-
-                PieceScript.Change_SortingLayer_ToBack();
-            }
-                
         }
     }
 
