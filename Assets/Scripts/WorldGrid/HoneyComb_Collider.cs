@@ -7,7 +7,6 @@ using static wg_ADDRESS;
 public class HoneyComb_Collider : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private WorldGrid WorldGridScript;
-    private HoneyLock HoneyLockScript;
     private wg_ADDRESS HoneyComb_Address;
 
     private void Start()
@@ -17,24 +16,16 @@ public class HoneyComb_Collider : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         // HC_Collider - HoneyComb - HoneyCombScript
         HoneyComb_Address = gameObject.transform.parent.GetComponent<HoneyComb>().HoneyComb_Address;
-
-
-        HoneyLockScript = WorldGridScript.HoneyLockObject.GetComponent<HoneyLock>();
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        WorldGridScript.Set_HoneyComb_Hover(HoneyComb_Address);
-
-
-        HoneyLockScript.BringUp_HoneyLock();
+        WorldGridScript.Trigger_EnteringThisHoneyComb(HoneyComb_Address);
     }
 
     //writing IPointerExitHander. then the function name made this work.  I think it overwrite's the base implementation written this way.
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        WorldGridScript.Set_HoneyComb_Hover(NONE);
-
-        HoneyLockScript.BringDown_HoneyLock();
+        WorldGridScript.Trigger_ExitingAHoneyComb();
     }
 }

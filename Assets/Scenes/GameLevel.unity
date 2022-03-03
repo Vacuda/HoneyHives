@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 50d3f4bab48fc6b4b888ee819e3a8cf2, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -820,7 +820,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &72378692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1042,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &78996616
 GameObject:
   m_ObjectHideFlags: 0
@@ -5040,7 +5040,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &303965835
 GameObject:
   m_ObjectHideFlags: 0
@@ -16613,7 +16613,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &997909668
 GameObject:
   m_ObjectHideFlags: 0
@@ -17994,7 +17994,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &1082804788
 GameObject:
   m_ObjectHideFlags: 0
@@ -27098,6 +27098,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1597231254}
   - component: {fileID: 1597231255}
+  - component: {fileID: 1597231256}
   m_Layer: 0
   m_Name: HoneyLock
   m_TagString: Untagged
@@ -27138,6 +27139,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WorldGridScript: {fileID: 1350614151}
   GameLevelScript: {fileID: 1045452745}
+--- !u!95 &1597231256
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597231253}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a80c6e0a27f86ff46899e62d970e6630, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1597588869
 GameObject:
   m_ObjectHideFlags: 0
@@ -27860,7 +27880,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &1665208920
 GameObject:
   m_ObjectHideFlags: 0
@@ -33422,7 +33442,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
 --- !u!1 &1951514577
 GameObject:
   m_ObjectHideFlags: 0

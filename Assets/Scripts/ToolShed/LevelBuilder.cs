@@ -7,7 +7,6 @@ using TMPro;
 
 public class LevelBuilder : MonoBehaviour
 {
-    //public LevelHouse LevelHouseScript;
     public WorldGrid WorldGridScript;
     public HoneyLock HoneyLockScript;
     public PieceGlobals PieceGlobalsScript;
@@ -24,22 +23,13 @@ public class LevelBuilder : MonoBehaviour
     public Material M_Piece_Move;
     public Material M_Piece_Spin;
 
-    Dictionary<wg_ADDRESS, GameObject> HLPieceDict;
-
     public GameObject PF_Piece;
 
     private void Awake()
     {
-
         WGRefDict = WorldGridScript.WGRefDict;
-
-
     }
 
-    private void Start()
-    {
-        
-    }
 
     public void BuildOut_ThisPuzzle(PuzzleInfo puz_info)
     {

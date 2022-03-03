@@ -15,7 +15,7 @@ public class HoneyComb : MonoBehaviour
 
 
     public wg_ADDRESS HoneyComb_Address;
-    //private WorldGrid WorldGridScript;
+    private WorldGrid WorldGridScript;
     private bool bIsFinalized = false;
     private ColorChanger ColorChangerScript;
 
@@ -42,7 +42,7 @@ public class HoneyComb : MonoBehaviour
 
         HoneyLockScript = gameObject.transform.parent.GetComponent<WorldGrid>().HoneyLockObject.GetComponent<HoneyLock>();
 
-
+        WorldGridScript = gameObject.transform.parent.gameObject.GetComponent<WorldGrid>();
     }
     private void Start()
     {
@@ -71,6 +71,8 @@ public class HoneyComb : MonoBehaviour
         Finalize_HC_WireframeMaterial();
         Finalize_DeactivatedPieceMaterials();
         Finalize_FreeHoneyLockedPiece();
+
+        WorldGridScript.Check_AllHoneycombsFinalized();
     }
 
     public bool IsHoneyComb_Finalized()

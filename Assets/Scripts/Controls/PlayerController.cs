@@ -373,8 +373,11 @@ public class PlayerController : MonoBehaviour
         //store HoneyComb
         wg_ADDRESS HoneyComb_Hover = WorldGridScript.HoneyComb_Hover;
 
+        //set new game status
+        GameLevelScript.Set_GameStatus(OUTER);  //needs to happen before triggering exiting honeycomb
+
         //remove current honeycomb
-        WorldGridScript.Set_HoneyComb_Hover(NONE);
+        WorldGridScript.Trigger_ExitingAHoneyComb();
 
         //turn off colliders for past honeycomb
         WorldGridScript.Modify_ThisHoneyCombs_HoneySlotColliders(HoneyComb_Hover, false);
@@ -382,16 +385,13 @@ public class PlayerController : MonoBehaviour
         //turn on honeycomb colliders
         WorldGridScript.Modify_AllHoneyCombColliders(true);
 
-        //set new game status
-        GameLevelScript.Set_GameStatus(OUTER);
-
         //move back
         WorldGridScript.Move_ToThisPosition(NONE);
 
         //move back button
         BackButtonScript.Move_OutOfFrame();
 
-        HoneyLockScript.BringDown_HoneyLock();
+
 
     }
 

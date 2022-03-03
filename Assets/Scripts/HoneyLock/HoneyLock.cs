@@ -6,12 +6,7 @@ using UnityEngine;
 
 public class HoneyLock : MonoBehaviour
 {
-    private bool ActiveUp = false;
-    private bool ActiveDown = false;
-    private bool ActiveMovement = false;
 
-    private Vector3 DownLocation;
-    private Vector3 UpLocation;
 
     public WorldGrid WorldGridScript;
     private GameObject PieceSlot;
@@ -19,110 +14,74 @@ public class HoneyLock : MonoBehaviour
 
     private Dictionary<wg_ADDRESS, GameObject> HLPieceDict = new Dictionary<wg_ADDRESS, GameObject>();
 
+    private Vector3 OriginLocation = new Vector3(0.0f, -0.5f, -8.4f);
+
+    Animator _Animator;
+    GameObject PieceToAttach;
+
+
 
     private void Awake()
     {
         PieceSlot = this.transform.Find("PieceSlot").gameObject;
+        _Animator = gameObject.GetComponent<Animator>();
     }
 
-    void Start()
+    public void Attach_ProperPiece()
     {
-        UpLocation = gameObject.transform.position;
-        DownLocation = UpLocation;
-        DownLocation.y -= 0.63f;
-        gameObject.transform.position = DownLocation;
+        //remove and move attached pieces
+        Remove_AnyAttachedPiece();
+
+        //get pin location
+        Vector3 CurrentLocation = this.transform.position;
+        CurrentLocation.y += 0.15f;
+
+        //set new location
+        PieceToAttach.transform.position = CurrentLocation;
+
+        //parent to honeylock
+        PieceToAttach.transform.parent = PieceSlot.transform;
     }
 
-    void Update()
+    public void Remove_AnyAttachedPiece()
     {
-        if (ActiveMovement){
+        //loop piece slot
+        foreach(Transform piece_transform in PieceSlot.transform)
+        {
+            //set proper scale
+            piece_transform.gameObject.GetComponent<Piece>().Change_Scale_ToHoneyJar();
 
-            if (ActiveUp){
+            //unparent from HoneyLock
+            piece_transform.parent = null;
 
-                Vector3 CurrentLocation = this.transform.position;
-
-                //float NewY = Mathf.Lerp(CurrentLocation.y, UpLocation.y, 4.0f * Time.deltaTime);
-                float NewY = CurrentLocation.y + 0.01f;
-                CurrentLocation.y = NewY;
-
-                //Debug.Log("up up up");
-                this.transform.position = CurrentLocation;
-
-                if(Vector3.Distance(CurrentLocation, UpLocation) < 0.003f){
-                    //Debug.Log("got there");
-                    this.transform.position = UpLocation;
-                    ActiveMovement = false;
-                }
-
-
-
-            }
-            if (ActiveDown){
-
-                gameObject.transform.position = DownLocation;
-
-                ActiveMovement = false;
-
-                //if has child
-                if(PieceSlot.transform.childCount > 0)
-                {
-                    //loop all children
-                    foreach (Transform child in PieceSlot.transform){
-
-                        //remove from PieceSlot
-                        child.transform.parent = null;
-
-                        //Debug.Log("child removed");
-                    }
-
-
-                    ////remove from slot
-                    //PieceSlot.transform.GetChild(0).transform.parent = null;
-
-                    //Debug.Log("child removed");
-                }
-
-
-            }
+            //place below screen
+            piece_transform.position = OriginLocation; 
         }
     }
 
-    public void BringUp_HoneyLock()
+    public void Trigger_Jar_UP()
     {
         //condense
         wg_ADDRESS address = WorldGridScript.HoneyComb_Hover;
 
         //check
-        if (HLPieceDict.ContainsKey(address)){
+        if (HLPieceDict.ContainsKey(address))
+        {
+            //store piece to attach
+            PieceToAttach = HLPieceDict[address];
 
-            ActiveUp = true;
-            ActiveDown = false;
-            ActiveMovement = true;
+            //goto GoingUp state
+            _Animator.Play("Base.state_GoingUp");
 
-            //condense
-            GameObject Piece = HLPieceDict[address];
-
-            Vector3 CurrentLocation = this.transform.position;
-            CurrentLocation.y += 0.15f;
-            Piece.transform.position = CurrentLocation;
-            Piece.transform.parent = this.transform.Find("PieceSlot");
+            //set to stay up until brought down by leaving honeycomb
+            _Animator.SetBool("bKeepLockUp", true);
         }
-
-
-
     }
 
-    public void BringDown_HoneyLock()
+    public void Trigger_Jar_DOWN()
     {
-
-        if (GameLevelScript.Get_GameStatus() == OUTER){
-            ActiveUp = false;
-            ActiveDown = true;
-            ActiveMovement = true;
-
-        }
-
-
+        //set to bring down honey lock
+        _Animator.SetBool("bKeepLockUp", false);
     }
 
     public void AddTo_HoneyLockPieceDictionary(wg_ADDRESS address, GameObject obj)

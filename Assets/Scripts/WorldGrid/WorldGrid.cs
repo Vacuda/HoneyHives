@@ -29,6 +29,7 @@ public class WorldGrid : MonoBehaviour
 
     //public GameObject AdminObject;
     public GameObject HoneyLockObject;
+    private HoneyLock honeylock;
     public GameObject BeeBoxPanel;
     public GameLevel GameLevelScript;
 
@@ -47,6 +48,9 @@ public class WorldGrid : MonoBehaviour
     {
         //create ref dictionary
         Make_WorldGridRefDict();
+
+        honeylock = HoneyLockObject.GetComponent<HoneyLock>();
+
     }
 
     void Start()
@@ -206,7 +210,7 @@ public class WorldGrid : MonoBehaviour
     }
 
 
-    public void Set_HoneyComb_Hover(wg_ADDRESS honeycomb)
+    public void Trigger_EnteringThisHoneyComb(wg_ADDRESS honeycomb)
     {
         //condense
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
@@ -214,9 +218,28 @@ public class WorldGrid : MonoBehaviour
         //only changes when in correct status
         if(GameStatus == OUTER)
         {
+            //set hover address
             HoneyComb_Hover = honeycomb;
-        }
 
+            //trigger honeylock up
+            honeylock.Trigger_Jar_UP();
+        }
+    }
+
+    public void Trigger_ExitingAHoneyComb()
+    {
+        //condense
+        gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
+
+        //only changes when in correct status
+        if (GameStatus == OUTER)
+        {
+            //set hover address
+            HoneyComb_Hover = NONE;
+
+            //trigger honeylock down
+            honeylock.Trigger_Jar_DOWN();
+        }
     }
 
     public void Set_HoneySlot_Hover(wg_ADDRESS honeycomb)
@@ -330,6 +353,29 @@ public class WorldGrid : MonoBehaviour
 
     }
 
+    public void Check_AllHoneycombsFinalized()
+    {
+        //build order array of honeycombs
+        wg_ADDRESS[] order_array= new wg_ADDRESS[7] { AA, BB, CC, DD, EE, FF, GG };
+
+        //loop addresses
+        foreach(var address in order_array)
+        {
+            //if not finalized
+            if (!WGRefDict[address].GetComponent<HoneyComb>().IsHoneyComb_Finalized())
+            {
+                //leave function
+                return;
+            }
+        }
+
+        /* LEVEL COMPLETE*/
+
+        //trigger game end
+        GameLevelScript.Trigger_LevelCompletion();
+    }
+
+    /* UTILITIES */
 
     Vector3 GetNewPosition(wg_ADDRESS pos)
     {

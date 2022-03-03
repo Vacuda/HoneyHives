@@ -398,6 +398,7 @@ public class Piece : MonoBehaviour
 
     public void Change_Scale_ToHoneyJar()
     {
+        //Debug.Log("changing scale" + pg.Scale_HoneyJarPiece);
         gameObject.transform.localScale = pg.Scale_HoneyJarPiece;
     }
 

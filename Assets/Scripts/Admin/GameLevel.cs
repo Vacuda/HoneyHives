@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static gs_GAMESTATUS;
-//using static ln_LEVELNAME;
+using UnityEngine.SceneManagement;
 
 
 public class GameLevel : MonoBehaviour
@@ -59,13 +59,12 @@ public class GameLevel : MonoBehaviour
         return GameStatus;
     }
 
-    //ln_LEVELNAME Find_CurrentLevel()
-    //{
-    //    //@@@@ here we'll have to figure out the level that is supposed to be built
+    public void Trigger_LevelCompletion()
+    {
+        Debug.Log("Level COMPLETE");
 
-    //    return LEVEL_001;
-
-    //}
+        SceneManager.LoadScene("GameLevel", LoadSceneMode.Single);
+    }
 
 
 }
