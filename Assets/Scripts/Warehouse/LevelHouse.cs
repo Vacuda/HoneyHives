@@ -186,6 +186,17 @@ static public class LevelHouse
         //loop honeycombs
         for(int i=0; i<=6; i++)
         {
+
+            //all movable debug
+            //hc_list[i][0].IsMovable = true;
+            //hc_list[i][1].IsMovable = true;
+            //hc_list[i][2].IsMovable = true;
+            //hc_list[i][3].IsMovable = true;
+            //hc_list[i][4].IsMovable = true;
+            //hc_list[i][5].IsMovable = true;
+            //hc_list[i][6].IsMovable = true;
+
+
             //make index array with all 7 indexes
             int[] index_array = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
@@ -205,7 +216,7 @@ static public class LevelHouse
             }
 
             //loop remaining indexes
-            for (int a=4; a<=6; a++)
+            for (int a = 4; a <= 6; a++)
             {
                 //get rands
                 float rand_move = Random.value;
@@ -315,6 +326,8 @@ static public class LevelHouse
         }
 
         return block;
+
+        //return new fv_FACEVALUE[4] { v_equals, v_equals, v_7, v_equals };
     }
 
     static fv_FACEVALUE[] FourBlock_OneOrThreeEquals()

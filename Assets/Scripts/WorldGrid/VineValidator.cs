@@ -456,6 +456,12 @@ public class VineValidator : MonoBehaviour
                 //add to right
                 Right_Values.Add(vblock);
             }
+            //at middle
+            if (EqualsTicker == 2)
+            {
+                //increment ticker again, sending to right side now
+                EqualsTicker++;
+            }
         }
 
         PossiblyEliminate_Zeros(ref Left_Values);
@@ -561,8 +567,14 @@ public class VineValidator : MonoBehaviour
                 //add to right
                 Right_Values.Add(vblock);
             }
+            //at middle
+            if(EqualsTicker == 2)
+            {
+                //increment ticker again, sending to right side now
+                EqualsTicker++;
+            }
         }
-
+        
         PossiblyEliminate_Zeros(ref Left_Values);
         PossiblyEliminate_Zeros(ref Right_Values);
 
