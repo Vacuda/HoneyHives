@@ -10,6 +10,8 @@ public class GameLevel : MonoBehaviour
     private gs_GAMESTATUS GameStatus;
     public LevelBuilder Builder;
     public WorldGrid WorldGridObject;
+    public PauseMenu Menu;
+    public FinishMenu finish_menu;
 
     private void Awake()
     {
@@ -22,12 +24,14 @@ public class GameLevel : MonoBehaviour
         //@@@@ should receive from main menu instead
         PuzzleSettings settings = new PuzzleSettings();
 
+    //DEBUG SETTINGS HERE
+
+        settings.bSpinPieces = false;
+        settings.bMovePieces = false;
+
+    //DEBUG SETTINGS HERE
 
         PuzzleInfo puz_info = PuzzleBuilder.Build_Puzzle(settings);
-
-
-        ////find current level
-        //ln_LEVELNAME CurrentLevel = Find_CurrentLevel();
 
         //build out level
         Builder.BuildOut_ThisPuzzle(puz_info);
@@ -63,7 +67,9 @@ public class GameLevel : MonoBehaviour
     {
         Debug.Log("Level COMPLETE");
 
-        SceneManager.LoadScene("GameLevel", LoadSceneMode.Single);
+        finish_menu.BringUpFinishMenu();
+
+        //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
 

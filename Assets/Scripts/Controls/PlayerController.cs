@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static wg_ADDRESS;
 using static gs_GAMESTATUS;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour
     private MainCamera MainCameraScript;
 
     public HoneyLock HoneyLockScript;
+    public PauseButton PauseButtonScript;
+
+    public PauseMenu PauseMenuScript;
+    public FinishMenu FinishMenuScript;
 
 
     //Piece In Hand - Reference
@@ -42,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         //creates new control object
         Controls = new PlayerControls();
-
+            
         GameLevelScript = GetComponentInParent<GameLevel>();
 
         BackButtonScript = BackButtonObject.GetComponent<BackButton>();
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
         BeeBoxScript = BeeBoxObject.GetComponent<BeeBox>();
 
         MainCameraScript = MainCameraObject.GetComponent<MainCamera>();
+
     }
 
     //enables controls when this script is active
@@ -112,10 +118,49 @@ public class PlayerController : MonoBehaviour
         wg_ADDRESS HoneySlot_Hover = WorldGridScript.HoneySlot_Hover;
         wg_ADDRESS Area_Hover = BeeBoxScript.Area_Hover;
         bool IsBackButton_HoveredOver = BackButtonScript.IsBackButton_HoveredOver;
+        bool IsPauseButton_HoveredOver = PauseButtonScript.IsPauseButton_HoveredOver;
+        bool IsExitButton_HoveredOver = false;
+        bool IsNewButton_HoveredOver = false;
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
+
+        //is over exit button?
+        if(PauseMenuScript.IsExitButton_HoveredOver || FinishMenuScript.IsExitButton_HoveredOver)
+        {
+            IsExitButton_HoveredOver = true;
+        }
+
+        //is over new button?
+        if (PauseMenuScript.IsNewButton_HoveredOver || FinishMenuScript.IsNewButton_HoveredOver)
+        {
+            IsNewButton_HoveredOver = true;
+        }
+
+        //if over pause button
+        if (IsPauseButton_HoveredOver == true)
+        {
+            PauseMenuScript.InteractWithPauseButton();
+
+            
+            return;
+        }
+
+        if (IsExitButton_HoveredOver)
+        {
+
+            Debug.Log("should quit.");
+            Application.Quit();
+        }
         
+
+        if (IsNewButton_HoveredOver)
+        {
+
+            Debug.Log("should be new.");
+            SceneManager.LoadSceneAsync("GameLevel", LoadSceneMode.Single);
+        }
+
         //if Area_Hover
-        if(Area_Hover != NONE)
+        if (Area_Hover != NONE)
         {
             //find AreaObject
             GameObject AreaObject = WorldGridScript.WGRefDict[Area_Hover];

@@ -65,6 +65,11 @@ public enum c_ACTCOLOR
     
 //}
 
+public enum menu_BUTTON
+{
+    menu_NONE, menu_EXIT, menu_RESET, menu_NEW
+}
+
 
 public class CustomEnums : MonoBehaviour
 {
