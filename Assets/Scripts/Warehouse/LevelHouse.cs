@@ -678,7 +678,7 @@ static public class LevelHouse
 
     /* UTILITIES */
 
-    static fv_FACEVALUE GetRandomFaceValue(bool bIncludeEquals = false)
+    public static fv_FACEVALUE GetRandomFaceValue(bool bIncludeEquals = false)
         {
             // facevalue enum limit
             int limit = 14;

@@ -28,6 +28,7 @@ public class GameLevel : MonoBehaviour
 
         settings.bSpinPieces = false;
         settings.bMovePieces = false;
+        settings.bIsTitleLevel = false;
 
     //DEBUG SETTINGS HERE
 

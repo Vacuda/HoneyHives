@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldGrid_Float : MonoBehaviour
+public class FloatMechanics_Title : MonoBehaviour
 {
     private Vector3 StartPosition;
     public float slowness = 1.0f;
