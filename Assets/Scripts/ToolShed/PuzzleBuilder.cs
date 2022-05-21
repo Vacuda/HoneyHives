@@ -13,8 +13,12 @@ static public class PuzzleBuilder
         //populate with seven raw honeycombs
         LevelHouse.Get_SevenHoneyCombs(ref hc_list);
 
-        //spin relative pieces
-        Spin_SpinablePieces(ref hc_list);
+        //if settings spinnable
+        if (settings.bSpinPieces)
+        {
+            //spin relative pieces
+            Spin_SpinablePieces(ref hc_list);
+        }
 
         //place into honeycombs
         Place_IntoHoneyCombs(ref hc_list);
@@ -28,8 +32,12 @@ static public class PuzzleBuilder
             UseLinearMethod_ToDetermineHoneyLockedPieces(ref hc_list);
         }
 
-        //shuffle movable pieces
-        Shuffle_MovablePieces(ref hc_list, ref movable_list);
+        //if settings move pieces
+        if (settings.bMovePieces)
+        {
+            //shuffle movable pieces
+            Shuffle_MovablePieces(ref hc_list, ref movable_list);
+        }
 
         /* at this point, we just need to combine the lists of honeycombs into the new object */
 

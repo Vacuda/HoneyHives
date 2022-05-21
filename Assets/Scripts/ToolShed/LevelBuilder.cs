@@ -130,14 +130,14 @@ public class LevelBuilder : MonoBehaviour
                 }
                 else
                 {
-                    //if movable
-                    if (slot.IsMovable)
-                    {
-                        //put in beebox
-                        PieceScript.FindPlacement_OnBeeBox();
-                    }
-                    else
-                    {
+                    ////if movable
+                    //if (slot.IsMovable)
+                    //{
+                    //    //put in beebox
+                    //    PieceScript.FindPlacement_OnBeeBox();
+                    //}
+                    //else
+                    //{
                         //find location on WorldGrid
                         Transform Location = WGRefDict[slot.Address].transform;
 
@@ -149,7 +149,7 @@ public class LevelBuilder : MonoBehaviour
 
                         //change sorting layer
                         PieceScript.Change_SortingLayer_ToBack();
-                    }
+                    //}
                 }    
             }
         }

@@ -111,10 +111,10 @@ public struct PuzzleSettings
 {
     //various settings here can alter how a PuzzleInfo is built
 
+    public bool bSpinPieces;
+    public bool bMovePieces;
 
 
-
-    bool bExtraPieces;
     
 }
 

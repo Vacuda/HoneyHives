@@ -7,9 +7,9 @@ using static fv_FACEVALUE;
 
 static public class LevelHouse
 {
-    //static int HoneyComb_Total = 7;
+    //these need to change when a new template is added
     static int FourBlockTemplates = 2;
-    static int SixBlockTemplates = 1;
+    static int SixBlockTemplates = 2;
 
     static float Spinnable_Rate = 0.6f;
     static float LastThree_Movable_Rate = 0.4f;
@@ -553,14 +553,17 @@ static public class LevelHouse
 
     static fv_FACEVALUE[] Get_SixBlock()
     {
-        //get rand
-        int rand = Random.Range(0, SixBlockTemplates); //inclusive, exclusive
+        return SixBlock_AllRandom_ZeroEquals();
 
-        switch (rand)
-        {
-            case 0: return SixBlock_AllRandom_ZeroEquals();
-            default: return SixBlock_AllRandom_ZeroEquals();
-        }
+        //get rand
+        //int rand = Random.Range(0, SixBlockTemplates); //inclusive, exclusive
+
+        //switch (rand)
+        //{
+        //    case 0: return SixBlock_AllRandom_ZeroEquals();
+        //    //case 1: return SixBlock_NoMath_OneEquals_OneAndFourSplit();
+        //    default: return SixBlock_AllRandom_ZeroEquals();
+        //}
     }
 
     static fv_FACEVALUE[] SixBlock_AllRandom_ZeroEquals()
@@ -576,6 +579,99 @@ static public class LevelHouse
             block[i] = GetRandomFaceValue();
         }
 
+        return block;
+    }
+
+    static fv_FACEVALUE[] SixBlock_NoMath_OneEquals_OneAndFourSplit()
+    {
+        /* One Side Equals Four Side */
+        /* Later, I Determine Left Or Right */
+
+        //create fourblock
+        fv_FACEVALUE[] fourblock = new fv_FACEVALUE[4];
+
+        //find the one facevalue   - @@@@ this needs to be weighted towards digits
+        fv_FACEVALUE onefacevalue = GetRandomFaceValue(true);
+
+        //if digit
+        if (bIsDigit(onefacevalue))
+        {
+
+
+
+
+
+
+
+
+
+
+
+
+
+            fourblock[0] = v_add;
+            fourblock[1] = v_add;
+            fourblock[2] = v_add;
+            fourblock[3] = v_add;
+        }
+        //if NOT digit
+        else
+        {
+            //if v_add
+            if(onefacevalue == v_add)
+            {
+                fourblock = Get_BlankedFourBlock_WithThisValueInserted(v_add);
+            }
+            //if v_sub
+            if (onefacevalue == v_sub)
+            {
+                fourblock = Get_BlankedFourBlock_WithThisValueInserted(v_sub);
+            }
+            //if v_blank
+            if (onefacevalue == v_blank)
+            {
+                return new fv_FACEVALUE[4] { v_blank, v_blank, v_blank, v_blank };
+            }
+            //if v_equals
+            if (onefacevalue == v_equals)
+            {
+                fourblock = Get_BlankedFourBlock_WithThisValueInserted(v_equals);
+            }
+        }
+
+        //create block to return
+        fv_FACEVALUE[] block = new fv_FACEVALUE[6];
+
+        //place onefacevalue on left or right
+        if (Roll_EitherOr())
+        {
+            block[0] = onefacevalue;
+            block[1] = v_equals;
+            block[2] = fourblock[0];
+            block[3] = fourblock[1];
+            block[4] = fourblock[2];
+            block[5] = fourblock[3];
+        }
+        else
+        {
+            block[0] = fourblock[0];
+            block[1] = fourblock[1];
+            block[2] = fourblock[2];
+            block[3] = fourblock[3];
+            block[4] = v_equals;
+            block[5] = onefacevalue;
+        }
+
+        //testing
+        foreach(fv_FACEVALUE lava in block)
+        {
+            if(lava == v_null)
+            {
+                Debug.Log("THIS SHOULDNt HAPPEN - some blocks are null");
+            }
+        }
+
+        //return block
         return block;
     }
 
@@ -634,6 +730,20 @@ static public class LevelHouse
         return false;
     }
 
+    static bool bIsDigit(fv_FACEVALUE val)
+    {
+        //cast
+        int valcast = (int)val;
+
+        //if val is v_0 -> v_9
+        if (valcast >= 1 && valcast <= 10)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     static void Shuffle_IndexArray(ref int[] index_array)
     {
         for (int i = 0; i<=6; i++)
@@ -643,5 +753,21 @@ static public class LevelHouse
             index_array[i] = index_array[rand];
             index_array[rand] = temp;
         }
+    }
+
+    static fv_FACEVALUE[] Get_BlankedFourBlock_WithThisValueInserted(fv_FACEVALUE val)
+    {
+        //create block to return
+        fv_FACEVALUE[] block = new fv_FACEVALUE[4] {v_blank, v_blank, v_blank, v_blank };
+
+        //get rand
+        int rand = Random.Range(0, 4); //inclusive, exclusive
+
+        //add val
+        block[rand] = val;
+
+        //return
+        return block;
+
     }
 }
