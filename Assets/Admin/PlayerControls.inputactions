@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "GameLevel_Outer",
+            "name": "GameLevel",
             "id": "1a714881-2df5-4a7a-a6a9-4cc955916597",
             "actions": [
                 {
@@ -61,6 +61,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "TitleLevel",
+            "id": "099ae11f-6a43-4ee3-ad00-c8f29a3d5ba5",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "af5be0b4-c792-4908-bccb-b7c57c6a06cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "188aaaaa-b724-479c-908b-1620269d33d0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

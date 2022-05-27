@@ -12,6 +12,15 @@ public class FloatMechanics_Title : MonoBehaviour
     public float y_rotation = -0.005f;
 
 
+    //I should build this out more generally.
+    //x, y, z distance
+    //x, y, z wav type
+    //x, y, z speed
+    //start position on wav
+
+
+
+
     void Start()
     {
         StartPosition = gameObject.transform.position;

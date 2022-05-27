@@ -7,6 +7,8 @@ public class WorldGrid_Title : MonoBehaviour
 {
     public Dictionary<wg_ADDRESS, GameObject> WGRefDict = new Dictionary<wg_ADDRESS, GameObject>();
 
+    public ColorChanger ColorChangerScript;
+
     private void Awake()
     {
         //create ref dictionary

@@ -112,9 +112,9 @@ public class HoneyLock : MonoBehaviour
         //unparent
         //Lid.transform.parent = null;
 
-        Animation anim = Lid.GetComponent<Animation>();
+        //Animation anim = Lid.GetComponent<Animation>();
 
-        anim.Play("anim_HoneyJar_Lid_Release");
+        //anim.Play("anim_HoneyJar_Lid_Release");
 
     }
 }

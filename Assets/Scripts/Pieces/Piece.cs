@@ -141,7 +141,7 @@ public class Piece : MonoBehaviour
     private void Move_Piece_ToMousePointerPosition()
     {
         //get mouse position
-        Vector2 MousePosition = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>();
+        Vector2 MousePosition = Controls.GameLevel.MousePointer.ReadValue<Vector2>();
 
         //convert MousePosition to Vector 3
         Vector3 MouseVector3 = new Vector3(MousePosition.x, MousePosition.y, pg.GrabbedPiece_LengthAwayFromCamera);

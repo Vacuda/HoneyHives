@@ -12,10 +12,12 @@ public class GameLevel : MonoBehaviour
     public WorldGrid WorldGridObject;
     public PauseMenu Menu;
     public FinishMenu finish_menu;
+    public GameObject BlackScreen;
+    private FadeInOut BlackScreen_FadeInOut;
 
     private void Awake()
     {
-
+        BlackScreen_FadeInOut = BlackScreen.GetComponent<FadeInOut>();
 
     }
 
@@ -40,9 +42,11 @@ public class GameLevel : MonoBehaviour
 
         GameStatus = OUTER;
 
-        //starts the CoRoutine below
-        StartCoroutine(DelayedValidation());
+        ////starts the CoRoutine below
+        //StartCoroutine(DelayedValidation());
 
+        //start opening sequence
+        StartCoroutine(Sequence_LevelOpening());
     }
 
     IEnumerator DelayedValidation()
@@ -71,6 +75,20 @@ public class GameLevel : MonoBehaviour
         finish_menu.BringUpFinishMenu();
 
         //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    private IEnumerator Sequence_LevelOpening()
+    {
+        //trigger fade in
+        StartCoroutine(BlackScreen_FadeInOut.Start_Fade(false));
+
+
+        yield return new WaitForSeconds(1);
+
+        //Verify each HoneyComb
+        WorldGridObject.GetComponent<VineValidator>().Validate_AllHoneyCombs();
+
+        yield return null;
     }
 
 

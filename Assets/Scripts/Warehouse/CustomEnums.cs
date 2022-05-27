@@ -70,6 +70,11 @@ public enum menu_BUTTON
     menu_NONE, menu_EXIT, menu_RESET, menu_NEW
 }
 
+public enum w_WAVETYPE
+{
+    w_SIN, w_COS, w_TAN, w_PINGPONG
+}
+
 
 public class CustomEnums : MonoBehaviour
 {

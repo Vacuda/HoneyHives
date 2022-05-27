@@ -24,8 +24,7 @@ public class VineValidator : MonoBehaviour
     void Start()
     {
         //copy reference
-        WGRefDict = gameObject.GetComponent<WorldGrid>().WGRefDict; 
-
+        WGRefDict = gameObject.GetComponent<WorldGrid>().WGRefDict;
     }
 
     public void Validate_AllHoneyCombs()
@@ -87,7 +86,9 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    /* The following are static because they are also used for the VineValidor_Title on the TitleScreen */
+
+    static public bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
         //find amount of equals in values
         int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4);
@@ -110,7 +111,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    static public bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         ////missing piece check
         //if (Check_ForNulls(val1, val2, val3, val4, val5, val6))
@@ -143,7 +144,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    static private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
         //separate into Left and Right lists
         //remove blanks
@@ -272,7 +273,7 @@ public class VineValidator : MonoBehaviour
         return false;
     }
 
-    private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    static private bool Validate_With_1_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         //separate into Left and Right lists
         //remove blanks
@@ -400,7 +401,7 @@ public class VineValidator : MonoBehaviour
         return false;
     }
 
-    private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    static private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         /* Of the 3, the middle equals is the divider.  Side equals are just symbols */
 
@@ -513,7 +514,7 @@ public class VineValidator : MonoBehaviour
         return false;
     }
 
-    private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    static private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
         /* Of the 3, the middle equals is the divider.  Side equals are just symbols */
 
@@ -624,7 +625,7 @@ public class VineValidator : MonoBehaviour
         return false;
     }
 
-    private bool Validate_With_5_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    static private bool Validate_With_5_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         // the one non-equal has to be a v_blank
         if(val1==v_blank || val2 == v_blank || val3 == v_blank || val4 == v_blank || val5 == v_blank || val6 == v_blank)
@@ -635,7 +636,7 @@ public class VineValidator : MonoBehaviour
         return false;
     }
 
-    private bool Validate_ThisFlower(Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict, string flowername)
+    static private bool Validate_ThisFlower(Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict, string flowername)
     {
         /*
          This finds each value that is needed, with a correct offset and sends it off for validation to 
@@ -783,7 +784,7 @@ public class VineValidator : MonoBehaviour
 
     //Utilities
 
-    private void PossiblyMerge_Ints(ref List<VineBlock> VBlocks)
+    static private void PossiblyMerge_Ints(ref List<VineBlock> VBlocks)
     {
         int IntValue = 1;
         int DigitTracker = 0;
@@ -865,7 +866,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private void PossiblyEliminate_MinusSigns_YesMath(ref List<VineBlock> VBlocks)
+    static private void PossiblyEliminate_MinusSigns_YesMath(ref List<VineBlock> VBlocks)
     {
         //loop Values by index
         for (int i = 0; i < VBlocks.Count; i++)
@@ -1002,7 +1003,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private void PossiblyEliminate_PlusSigns_NoMath(ref List<VineBlock> VBlocks)
+    static private void PossiblyEliminate_PlusSigns_NoMath(ref List<VineBlock> VBlocks)
     {
         //loop Values by index
         for (int i=0; i< VBlocks.Count; i++)
@@ -1052,7 +1053,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private void PossiblyEliminate_PlusSigns_OnlyMath(ref List<VineBlock> VBlocks)
+    static private void PossiblyEliminate_PlusSigns_OnlyMath(ref List<VineBlock> VBlocks)
     {
         //loop Values by index
         for (int i = 0; i < VBlocks.Count; i++)
@@ -1111,7 +1112,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private void PossiblyEliminate_Zeros(ref List<VineBlock> VBlocks)
+    static private void PossiblyEliminate_Zeros(ref List<VineBlock> VBlocks)
     {
         //loop Values by index
         for(int i=0; i< VBlocks.Count; i++)
@@ -1153,7 +1154,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
+    static private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4)
     {
         int EqualsAmount = 0;
 
@@ -1165,7 +1166,7 @@ public class VineValidator : MonoBehaviour
         return EqualsAmount;
     }
 
-    private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    static private int Get_AmountOfEqualsValues(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         int EqualsAmount = 0;
 
@@ -1179,7 +1180,7 @@ public class VineValidator : MonoBehaviour
         return EqualsAmount;
     }
    
-    private int Get_Digit(fv_FACEVALUE val)
+    static private int Get_Digit(fv_FACEVALUE val)
     {
         switch (val)
         {
@@ -1208,7 +1209,7 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    private bool IsDigit(fv_FACEVALUE val)
+    static private bool IsDigit(fv_FACEVALUE val)
     {
         switch (val)
         {
@@ -1238,5 +1239,4 @@ public class VineValidator : MonoBehaviour
                 return false;
         }
     }
-
 }

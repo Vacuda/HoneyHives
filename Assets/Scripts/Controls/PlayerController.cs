@@ -78,13 +78,13 @@ public class PlayerController : MonoBehaviour
         WorldGridScript = WorldGridObject.GetComponent<WorldGrid>();
 
         //sets up event listener to call functions upon input
-        Controls.GameLevel_Outer.Interact.performed += _ => Interact();
-        Controls.GameLevel_Outer.Spin.performed += _ => Spin();
+        Controls.GameLevel.Interact.performed += _ => Interact();
+        Controls.GameLevel.Spin.performed += _ => Spin();
     }
 
     private void Update()
     {
-        float Mouse_X = Controls.GameLevel_Outer.MousePointer.ReadValue<Vector2>().x;
+        float Mouse_X = Controls.GameLevel.MousePointer.ReadValue<Vector2>().x;
 
         if (MainCameraScript.IsAtMainPosition)
         {

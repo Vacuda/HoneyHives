@@ -9,17 +9,16 @@ public class LevelBuilder_Title : MonoBehaviour
 {
     public WorldGrid_Title WorldGrid_TitleScript;
     public GameObject HodgePodge;
+    public MaterialChanger MaterialChangerScript;
 
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
-    //public PlayerController Controller;
-    //public Camera MainCamera;
 
     public Material M_Piece_Full;
     public Material M_Piece_None;
     public Material M_Piece_Move;
     public Material M_Piece_Spin;
 
-    public GameObject PF_Piece;
+    public GameObject PF_Piece_Title;
 
     private void Awake()
     {
@@ -33,13 +32,24 @@ public class LevelBuilder_Title : MonoBehaviour
         foreach (HoneySlotInfo slot in puz_info.HoneySlots)
         {
             //make piece
-            GameObject Piece = Instantiate(PF_Piece);
+            GameObject Piece = Instantiate(PF_Piece_Title);
 
             //condense
-            Piece PieceScript = Piece.GetComponent<Piece>();
+            Piece_Title PieceScript = Piece.GetComponent<Piece_Title>();
 
             //info transfer
             {
+                //change all six face values
+                PieceScript.fv_1 = slot.fv_1;
+                PieceScript.fv_2 = slot.fv_2;
+                PieceScript.fv_3 = slot.fv_3;
+                PieceScript.fv_4 = slot.fv_4;
+                PieceScript.fv_5 = slot.fv_5;
+                PieceScript.fv_6 = slot.fv_6;
+
+                //transfer attributes
+                PieceScript.materialchanger = MaterialChangerScript;
+
                 //change all six face values - TEXT
                 Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
                 Piece.transform.Find("FaceValue_2").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_2);

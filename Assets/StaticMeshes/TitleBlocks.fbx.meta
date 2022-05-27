@@ -2,7 +2,19 @@ fileFormatVersion: 2
 guid: 54a1fce0a9ecddb47ab70175f6bec9d9
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 4682942289265243015
+    second: FullJar|Action
+  - first:
+      74: 3088710080744220893
+    second: FullJar|SM_TitleBlocksAction
+  - first:
+      74: -7818373019362196448
+    second: SM_TitleBlocks|Action
+  - first:
+      74: 7457981468820477856
+    second: SM_TitleBlocks|SM_TitleBlocksAction
   externalObjects: {}
   materials:
     materialImportMode: 0

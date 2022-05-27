@@ -23,7 +23,7 @@ public class FlowerIndicator : MonoBehaviour
 
     public void Awake()
     {
-        ColorChangerScript = gameObject.transform.parent.transform.parent.GetComponent<WorldGrid>().ColorChangerScript;
+        ColorChangerScript = transform.root.GetComponent<WorldGrid>().ColorChangerScript;
 
         Center_Renderer = gameObject.transform.Find("Flower_Center").GetComponent<MeshRenderer>();
         Petals_Renderer = gameObject.transform.Find("Flower_Petals").GetComponent<MeshRenderer>();
