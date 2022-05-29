@@ -16994,7 +16994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: {fileID: 1317720131}
-  Panel_Material_Highlighted: {fileID: 2100000, guid: 8a1f189849cb5994c89cbc2a5eeed30b, type: 2}
+  Panel_Material_Highlighted: {fileID: 2100000, guid: 76b98e1c963864f4eb81f041fc126b2c, type: 2}
 --- !u!1 &1398390166
 GameObject:
   m_ObjectHideFlags: 0

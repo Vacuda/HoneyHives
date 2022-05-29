@@ -15,6 +15,8 @@ public class BackButton_Collider : MonoBehaviour, IPointerEnterHandler, IPointer
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
+
+        Debug.Log("back button collide");
         BackButtonScript.IsBackButton_HoveredOver = true;
     }
 

@@ -28,8 +28,6 @@ public class FadeInOut : MonoBehaviour
 
     public IEnumerator Start_Fade(bool fadeIntoImage)
     {
-        Debug.Log("at start fade");
-
         //determine direction
         if (fadeIntoImage)
         {
@@ -46,8 +44,6 @@ public class FadeInOut : MonoBehaviour
         time_start = Time.time;
 
         yield return StartCoroutine(Perform_Fade());
-
-        Debug.Log("after fade");
     }
 
     IEnumerator Perform_Fade()

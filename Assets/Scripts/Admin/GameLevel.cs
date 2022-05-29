@@ -80,15 +80,24 @@ public class GameLevel : MonoBehaviour
     private IEnumerator Sequence_LevelOpening()
     {
         //trigger fade in
-        StartCoroutine(BlackScreen_FadeInOut.Start_Fade(false));
+        yield return StartCoroutine(BlackScreen_FadeInOut.Start_Fade(false));
 
 
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
 
         //Verify each HoneyComb
         WorldGridObject.GetComponent<VineValidator>().Validate_AllHoneyCombs();
 
+        //give control to player
+        Unlock_PlayerController();
+
         yield return null;
+    }
+
+    void Unlock_PlayerController()
+    {
+        //allow raycasting, allow pressing play button
+        BlackScreen.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
 

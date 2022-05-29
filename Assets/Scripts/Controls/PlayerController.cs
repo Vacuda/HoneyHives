@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
         if (MainCameraScript.IsAtMainPosition)
         {
+
             if(Mouse_X > 1860.0f)
             {
                 MainCameraScript.Goto_SidePosition();
