@@ -113,7 +113,7 @@ public struct PuzzleSettings
 
     public bool bSpinPieces;
     public bool bMovePieces;
-    public bool bIsTitleLevel;
+    public bool bMoveMovablesToBeeBox;
 
     
 }

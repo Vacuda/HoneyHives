@@ -65,7 +65,7 @@ public class TitleLevel : MonoBehaviour
 
         settings.bSpinPieces = true;
         settings.bMovePieces = false;
-        settings.bIsTitleLevel = false;  //unneeded
+        settings.bMoveMovablesToBeeBox = false;
 
         //DEBUG SETTINGS HERE
 
