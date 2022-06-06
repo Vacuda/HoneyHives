@@ -2363,9 +2363,45 @@ PrefabInstance:
       propertyPath: m_text
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3836082078708476989, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
       propertyPath: m_text
       value: =
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5754656676062179351, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7546553173090241138, guid: 9b34dccf56d89c44796b6ab710a0208a, type: 3}
       propertyPath: m_text
@@ -16091,6 +16127,7 @@ MonoBehaviour:
   Piece_DeactivatedMaterial: {fileID: 2100000, guid: f72dda55d5377be46b1fbfec84154e65, type: 2}
   Piece_UnmovableMat: {fileID: 2100000, guid: 0e4a8e1bca799ab43838921b8a62b090, type: 2}
   Piece_UnmovableSpinableMat: {fileID: 2100000, guid: 5d35955fb9f119e4dbadfd8758000276, type: 2}
+  Piece_Sides: {fileID: 2100000, guid: 4fef600031160704687ef52249b2b275, type: 2}
   DeactivatedDuration: 2
 --- !u!4 &1317720130
 Transform:
@@ -16142,6 +16179,7 @@ MonoBehaviour:
   WorldGrid_TitleScript: {fileID: 1384462691}
   HodgePodge: {fileID: 1700899471}
   MaterialChangerScript: {fileID: 1317720129}
+  EqualsHighlight_Font: {fileID: 11400000, guid: 8a84f6a67008b094ab45f42fa832db2d, type: 2}
   M_Piece_Full: {fileID: 2100000, guid: 84a2280fcca791f4cb7863b5c2597e31, type: 2}
   M_Piece_None: {fileID: 2100000, guid: 0e4a8e1bca799ab43838921b8a62b090, type: 2}
   M_Piece_Move: {fileID: 2100000, guid: a5ee605161d44f64394fdff8955037f2, type: 2}

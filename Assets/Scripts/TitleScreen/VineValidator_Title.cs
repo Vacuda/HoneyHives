@@ -47,6 +47,9 @@ public class VineValidator_Title : MonoBehaviour
         //get truncated ref dictionary
         Dictionary<wg_ADDRESS, GameObject> HoneySlotRefDict = ThisHoneyComb.HoneySlotRefDict;
 
+        //start counter
+        int ValidFlowerCounter = 0;
+
         //loop through nine flowers
         for (int i = 1; i <= 9; i++)
         {
@@ -58,6 +61,9 @@ public class VineValidator_Title : MonoBehaviour
             {
                 //activate
                 WGRefDict[HoneyCombAddress].transform.Find(FlowerName).GetComponent<FlowerIndicator_Title>().Inform_ColorChanger_OfActivationChange_Instant(true);
+
+                //increment counter
+                ValidFlowerCounter++;
             }
             //if flower is bad
             else
@@ -65,6 +71,13 @@ public class VineValidator_Title : MonoBehaviour
                 //deactivate
                 WGRefDict[HoneyCombAddress].transform.Find(FlowerName).GetComponent<FlowerIndicator_Title>().Inform_ColorChanger_OfActivationChange_Instant(false);
             }
+        }
+
+        //if all 9 Flowers are valid
+        if (ValidFlowerCounter == 9)
+        {
+            //finalize honeycomb
+            ThisHoneyComb.Finalize_ThisHoneyComb();
         }
     }
 

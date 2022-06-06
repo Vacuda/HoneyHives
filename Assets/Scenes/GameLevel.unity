@@ -17102,6 +17102,7 @@ MonoBehaviour:
   ColorChangerScript: {fileID: 965787839}
   MaterialChangerScript: {fileID: 965787838}
   BeeBoxPanel: {fileID: 598360958}
+  EqualsHighlight_Font: {fileID: 11400000, guid: 8a84f6a67008b094ab45f42fa832db2d, type: 2}
   Controller: {fileID: 1045452747}
   MainCamera: {fileID: 1637530305}
   M_Piece_Full: {fileID: 2100000, guid: 84a2280fcca791f4cb7863b5c2597e31, type: 2}
@@ -17124,6 +17125,7 @@ MonoBehaviour:
   Piece_DeactivatedMaterial: {fileID: 2100000, guid: f72dda55d5377be46b1fbfec84154e65, type: 2}
   Piece_UnmovableMat: {fileID: 2100000, guid: 0e4a8e1bca799ab43838921b8a62b090, type: 2}
   Piece_UnmovableSpinableMat: {fileID: 2100000, guid: 5d35955fb9f119e4dbadfd8758000276, type: 2}
+  Piece_Sides: {fileID: 2100000, guid: 4fef600031160704687ef52249b2b275, type: 2}
   DeactivatedDuration: 2
 --- !u!114 &965787839
 MonoBehaviour:

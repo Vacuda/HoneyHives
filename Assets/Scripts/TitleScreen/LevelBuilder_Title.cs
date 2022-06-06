@@ -10,6 +10,7 @@ public class LevelBuilder_Title : MonoBehaviour
     public WorldGrid_Title WorldGrid_TitleScript;
     public GameObject HodgePodge;
     public MaterialChanger MaterialChangerScript;
+    public TMP_FontAsset EqualsHighlight_Font;
 
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
 
@@ -50,13 +51,34 @@ public class LevelBuilder_Title : MonoBehaviour
                 //transfer attributes
                 PieceScript.materialchanger = MaterialChangerScript;
 
-                //change all six face values - TEXT
-                Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
-                Piece.transform.Find("FaceValue_2").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_2);
-                Piece.transform.Find("FaceValue_3").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_3);
-                Piece.transform.Find("FaceValue_4").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_4);
-                Piece.transform.Find("FaceValue_5").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_5);
-                Piece.transform.Find("FaceValue_6").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_6);
+                //create build aid
+                fv_FACEVALUE[] fv_array = new fv_FACEVALUE[6] { slot.fv_1, slot.fv_2, slot.fv_3, slot.fv_4, slot.fv_5, slot.fv_6 };
+
+                //set index
+                int index = 0;
+
+                //loop faces
+                foreach (Transform face in Piece.transform)
+                {
+                    //get TMPro
+                    TextMeshPro current_tmpro = face.GetComponent<TextMeshPro>();
+
+                    //change to proper text
+                    current_tmpro.text = Convert_FaceValueToString(fv_array[index]);
+
+                    //check if equals
+                    if (fv_array[index] == v_equals)
+                    {
+                        //change font asset to equalshighlight
+                        current_tmpro.font = EqualsHighlight_Font;
+
+                        //change text size
+                        current_tmpro.fontSize = 5;
+                    }
+
+                    //iterate index
+                    index++;
+                }
             }
 
             //material change
@@ -90,7 +112,10 @@ public class LevelBuilder_Title : MonoBehaviour
                     }
                     else
                     {
-                        //none - at default, no need to change
+                        //no front material change - at default, no need to change
+
+                        //change unmovabales to green
+                        MaterialChangerScript.MaterialChange_Instant(Piece);
                     }
                 }
 
@@ -125,21 +150,108 @@ public class LevelBuilder_Title : MonoBehaviour
 
     public void Randomize_HodgePodge()
     {
+
         //loop three pieces
         foreach (Transform piece in HodgePodge.transform)
         {
-            //loop 1-6, each face value
-            for(int i=1; i<=6; i++)
-            {
-                //build string
-                string facename = "FaceValue_" + i;
+            //condense
+            Piece_Title PieceScript = piece.GetComponent<Piece_Title>();
 
+            //loop faces
+            foreach (Transform face in piece.transform)
+            {
                 //get rand value
                 fv_FACEVALUE rand_value = LevelHouse.GetRandomFaceValue(true);
 
-                //set new text
-                piece.transform.Find(facename).GetComponent<TextMeshPro>().text = Convert_FaceValueToString(rand_value);
+                //get TMPro
+                TextMeshPro current_tmpro = face.GetComponent<TextMeshPro>();
+
+                //change to proper text
+                current_tmpro.text = Convert_FaceValueToString(rand_value);
+
+                //check if equals
+                if (rand_value == v_equals)
+                {
+                    //change font asset to equalshighlight
+                    current_tmpro.font = EqualsHighlight_Font;
+
+                    //change text size
+                    current_tmpro.fontSize = 5;
+                }
             }
+            
+            //material change
+            {
+                //get renderer
+                MeshRenderer Renderer = piece.GetComponent<MeshRenderer>();
+
+                //copy material info
+                Material[] MatArray = Renderer.materials;
+
+                bool bIsMovable = LevelHouse.Roll_EitherOr();
+                bool bIsSpinnable = LevelHouse.Roll_EitherOr();
+
+                //change piece face texture
+                if (bIsMovable)
+                {
+                    if (bIsSpinnable)
+                    {
+                        //full
+                        MatArray[1] = M_Piece_Full;
+                    }
+                    else
+                    {
+                        //mov
+                        MatArray[1] = M_Piece_Move;
+                    }
+                }
+                else
+                {
+                    if (bIsSpinnable)
+                    {
+                        //spin
+                        MatArray[1] = M_Piece_Spin;
+                    }
+                    else
+                    {
+                        //no spin, no move
+                        MatArray[1] = M_Piece_None;
+
+                        //change unmovabales to green
+                        MaterialChangerScript.MaterialChange_Instant(piece.gameObject);
+                    }
+                }
+
+                //set to use altered MatArray
+                Renderer.materials = MatArray;
+            }
+
+
+
+            ////loop faces
+            //foreach (Transform face in piece.transform)
+            //{
+            //    //get TMPro
+            //    TextMeshPro current_tmpro = face.GetComponent<TextMeshPro>();
+
+            //    //get rand value
+            //    fv_FACEVALUE rand_value = LevelHouse.GetRandomFaceValue(true);
+
+            //    //change to proper text
+            //    current_tmpro.text = Convert_FaceValueToString(rand_value);
+
+            //    //check if equals
+            //    if (rand_value == v_equals)
+            //    {
+            //        //change font asset to equalshighlight
+            //        current_tmpro.font = EqualsHighlight_Font;
+
+            //        //change text size
+            //        current_tmpro.fontSize = 5;
+            //    }
+            //}
+
+
         }
     }
 

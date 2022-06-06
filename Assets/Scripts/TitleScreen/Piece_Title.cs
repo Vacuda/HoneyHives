@@ -46,7 +46,7 @@ public class Piece_Title : MonoBehaviour
     public void Deactivate_Piece()
     {
         //deactivate piece material
-        materialchanger.MaterialChange_Lerp(gameObject);
+        materialchanger.MaterialChange_Instant(gameObject);
 
     }
 

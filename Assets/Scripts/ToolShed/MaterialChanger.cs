@@ -10,15 +10,13 @@ public class MaterialChanger : MonoBehaviour
     public Material Piece_DeactivatedMaterial;
     public Material Piece_UnmovableMat;
     public Material Piece_UnmovableSpinableMat;
+    public Material Piece_Sides;
 
     public float DeactivatedDuration = 2.0f;
 
     // Update is called once per frame
     void Update()
     {
-        //tracker
-        //Debug.Log("amount: " + JobList.Count);
-
         //perform all color changes
         Perform_AllMaterialChanges();
     }
@@ -39,43 +37,22 @@ public class MaterialChanger : MonoBehaviour
             //get precentage
             float percentage_complete = timechange / duration;
 
-            //Debug.Log(percentage_complete);
-
+            //get materials
             var mats = rend.materials;
-            Texture text = rend.materials[1].mainTexture;
-
             
-
-            mats[0].Lerp(Piece_UnmovableMat, Piece_DeactivatedMaterial, percentage_complete);
+            //change materials
+            mats[0].Lerp(Piece_Sides, Piece_DeactivatedMaterial, percentage_complete);
             mats[1].Lerp(Piece_UnmovableMat, Piece_DeactivatedMaterial, percentage_complete);
 
+            //set materials back to rend
             rend.materials = mats;
-
-            //Fade_PieceNumbers(rend);
 
             //finish check
             if (percentage_complete >= 1.0f)
             {
-                //var mats2 = rend.materials;
-
-                //mats2[0] = Piece_DeactivatedMaterial;
-                //mats2[1] = Piece_DeactivatedMaterial;
-
-                //rend.materials = mats2;
-
-                //Destroy(rend.gameObject);
-
-                //Debug.Log("got here");
-
                 //add to list to remove job
                 JobList.RemoveAt(i);
-
             }
-
-
-
-
-
         }
     }
 
@@ -85,6 +62,16 @@ public class MaterialChanger : MonoBehaviour
 
 
         MaterialChangeJob job = new MaterialChangeJob(rend, DeactivatedDuration);
+
+        JobList.Add(job);
+    }
+
+    public void MaterialChange_Instant(GameObject Piece)
+    {
+        Renderer rend = Piece.GetComponent<Renderer>();
+
+
+        MaterialChangeJob job = new MaterialChangeJob(rend, 0.0001f);
 
         JobList.Add(job);
     }

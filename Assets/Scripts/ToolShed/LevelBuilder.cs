@@ -13,6 +13,7 @@ public class LevelBuilder : MonoBehaviour
     public ColorChanger ColorChangerScript;
     public MaterialChanger MaterialChangerScript;
     public GameObject BeeBoxPanel;
+    public TMP_FontAsset EqualsHighlight_Font;
 
     Dictionary<wg_ADDRESS, GameObject> WGRefDict;
     public PlayerController Controller;
@@ -62,14 +63,34 @@ public class LevelBuilder : MonoBehaviour
                 PieceScript.materialchanger = MaterialChangerScript;
                 PieceScript.BeeBoxPanel = BeeBoxPanel;
 
+                //create build aid
+                fv_FACEVALUE[] fv_array = new fv_FACEVALUE[6] {slot.fv_1, slot.fv_2, slot.fv_3, slot.fv_4, slot.fv_5, slot.fv_6};
 
-                //change all six face values - TEXT
-                Piece.transform.Find("FaceValue_1").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_1);
-                Piece.transform.Find("FaceValue_2").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_2);
-                Piece.transform.Find("FaceValue_3").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_3);
-                Piece.transform.Find("FaceValue_4").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_4);
-                Piece.transform.Find("FaceValue_5").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_5);
-                Piece.transform.Find("FaceValue_6").GetComponent<TextMeshPro>().text = Convert_FaceValueToString(slot.fv_6);
+                //set index
+                int index = 0;
+
+                //loop faces
+                foreach(Transform face in Piece.transform)
+                {
+                    //get TMPro
+                    TextMeshPro current_tmpro = face.GetComponent<TextMeshPro>();
+
+                    //change to proper text
+                    current_tmpro.text = Convert_FaceValueToString(fv_array[index]);
+
+                    //check if equals
+                    if(fv_array[index] == v_equals)
+                    {
+                        //change font asset to equalshighlight
+                        current_tmpro.font = EqualsHighlight_Font;
+
+                        //change text size
+                        current_tmpro.fontSize = 5;
+                    }
+
+                    //iterate index
+                    index++;
+                }
             }
 
             //material change
@@ -103,7 +124,10 @@ public class LevelBuilder : MonoBehaviour
                     }
                     else
                     {
-                        //none - at default, no need to change
+                        //no front material change - at default, no need to change
+
+                        //change unmovabales to green
+                        MaterialChangerScript.MaterialChange_Instant(Piece);
                     }
                 }
 

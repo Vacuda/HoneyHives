@@ -132,7 +132,7 @@ static public class PuzzleBuilder_Title
                 //get random
                 float rand = Random.value;
 
-                if(rand <= 0.27f)
+                if(rand <= 0.27f)    
                 {
                     remove_array.Add(a);
                 }

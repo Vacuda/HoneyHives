@@ -267,7 +267,7 @@ static public class LevelHouse
         //set information
         slot.HoneyJar_Originated = true;                        //needs to be true
         slot.IsMovable = true;                                  //needs to be true
-        slot.IsSpinnable = Roll_EitherOr() ? true: false;       //either
+        slot.IsSpinnable = Roll_EitherOr() ? true: false;       //either     //@@@@ I think the ? condition should be removed, redundant
         slot.fv_1 = GetRandomFaceValue(true);                   //any
         slot.fv_2 = GetRandomFaceValue(true);                   //any
         slot.fv_3 = GetRandomFaceValue(true);                   //any
@@ -711,7 +711,7 @@ static public class LevelHouse
         }
     }
 
-    static bool Roll_EitherOr()
+    public static bool Roll_EitherOr()
     {
         return (Random.value > 0.5f);
     }
