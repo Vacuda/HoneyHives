@@ -46,7 +46,7 @@ public class HoneyComb : MonoBehaviour
     }
     private void Start()
     {
-        Inform_ColorChanger_OfActivationChange_Instant(true);
+        //Inform_ColorChanger_OfActivationChange_Instant(true);
     }
 
     private void Build_LocalDictionaryOfHoneySlotObjects()

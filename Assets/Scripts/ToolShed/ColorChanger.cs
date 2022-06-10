@@ -12,6 +12,7 @@ public class ColorChanger : MonoBehaviour
     Color VineColor_GOOD = new Color32(48, 120, 43, 255);
     Color PetalsColor_GOOD = new Color32(231, 231, 231, 255);
     Color CenterColor_GOOD = new Color32(231, 186, 24, 255);
+    //Color HCWIREColor_GOOD = new Color32(231, 39, 24, 255);
     Color HCWIREColor_GOOD = new Color32(231, 39, 24, 255);
     Color HCBACKColor_GOOD = new Color32(231, 231, 231, 255);
 

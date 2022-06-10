@@ -128,6 +128,9 @@ public class LevelBuilder : MonoBehaviour
 
                         //change unmovabales to green
                         MaterialChangerScript.MaterialChange_Instant(Piece);
+
+                        //set to deactivated
+                        PieceScript.SetTo_Deactivated();
                     }
                 }
 

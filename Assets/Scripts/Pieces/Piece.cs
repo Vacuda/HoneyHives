@@ -26,7 +26,7 @@ public class Piece : MonoBehaviour
 
     public bool IsMovable;
     public bool IsSpinnable;
-    //private bool IsDeactivated = false;
+    private bool IsDeactivated = false;
     public bool IsInHand = false;
     public bool ActiveSpin = false;
     public float TargetSpinTotal = 0.0f;
@@ -57,7 +57,7 @@ public class Piece : MonoBehaviour
         Controls = Controller.Get_Controls();
     } 
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (IsInHand)
         {
@@ -217,21 +217,30 @@ public class Piece : MonoBehaviour
             //There's no build up of small amounts of spin not done.  It carries over.
         }
     }
+
     public void Deactivate_Piece()
     {
-        //set to deactive
-        //IsDeactivated = true;
 
         //stop ability to spin
         IsSpinnable = false;
 
-        //@@@@ will delete
+        //stop ability to move
         IsMovable = false;
 
+        //if already deactivated
+        if (!IsDeactivated)
+        {
+            //set to deactive
+            IsDeactivated = true;
 
-        //deactivate piece material
-        materialchanger.MaterialChange_Lerp(gameObject);
+            //deactivate piece material
+            materialchanger.MaterialChange_Lerp(gameObject);
+        }
+    }
 
+    public void SetTo_Deactivated()
+    {
+        IsDeactivated = true;
     }
 
     public void SetSettledRotation()

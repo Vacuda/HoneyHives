@@ -25,6 +25,12 @@ public class VineValidator : MonoBehaviour
     {
         //copy reference
         WGRefDict = gameObject.GetComponent<WorldGrid>().WGRefDict;
+
+        //Debug.Log("----");
+        //bool lava = Validate_With_1_Equals(v_7, v_add, v_sub, v_3, v_equals, v_1);
+        //Debug.Log("7 + - 3 = 1");
+        //Debug.Log(lava);
+        //Debug.Log("----");
     }
 
     public void Validate_AllHoneyCombs()
@@ -113,12 +119,6 @@ public class VineValidator : MonoBehaviour
 
     static public bool DoesThisValidate(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
-        ////missing piece check
-        //if (Check_ForNulls(val1, val2, val3, val4, val5, val6))
-        //{
-        //    return false;
-        //}
-
         //find amount of equals in values
         int EqualsAmount = Get_AmountOfEqualsValues(val1, val2, val3, val4, val5, val6);
 
@@ -130,7 +130,7 @@ public class VineValidator : MonoBehaviour
             case 1:
                 return Validate_With_1_Equals(val1, val2, val3, val4, val5, val6);
             case 2:
-                return false;
+                return false; //what about:   1 = 0 1 = 1   @@@@
             case 3:
                 return Validate_With_3_Equals(val1, val2, val3, val4, val5, val6);
             case 4:
