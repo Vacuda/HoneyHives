@@ -49,4 +49,16 @@ public class MainCamera : MonoBehaviour
 
         IsAtMainPosition = true;
     }
+
+    public void Slide_CameraPosition()
+    {
+        if (IsAtMainPosition)
+        {
+            Goto_SidePosition();
+        }
+        else
+        {
+            Goto_MainPosition();
+        }
+    }
 }

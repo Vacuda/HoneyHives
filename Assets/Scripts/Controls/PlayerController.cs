@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public PauseMenu PauseMenuScript;
     public FinishMenu FinishMenuScript;
 
+    SlideButton SlideButtonScript;
+
 
     //Piece In Hand - Reference
     public GameObject PieceInHand;
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour
         BeeBoxScript = BeeBoxObject.GetComponent<BeeBox>();
 
         MainCameraScript = MainCameraObject.GetComponent<MainCamera>();
+
+        SlideButtonScript = BeeBoxObject.transform.Find("SlideButton").GetComponent<SlideButton>();
 
     }
 
@@ -84,26 +88,26 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float Mouse_X = Controls.GameLevel.MousePointer.ReadValue<Vector2>().x;
+        //float Mouse_X = Controls.GameLevel.MousePointer.ReadValue<Vector2>().x;
 
-        if (MainCameraScript.IsAtMainPosition)
-        {
+        //if (MainCameraScript.IsAtMainPosition)
+        //{
 
-            if(Mouse_X > 1860.0f)
-            {
-                MainCameraScript.Goto_SidePosition();
+        //    if(Mouse_X > 1860.0f)
+        //    {
+        //        MainCameraScript.Goto_SidePosition();
 
-            }
+        //    }
 
-        }
-        else
-        {
-            if (Mouse_X < 120.0f)
-            {
-                MainCameraScript.Goto_MainPosition();
+        //}
+        //else
+        //{
+        //    if (Mouse_X < 120.0f)
+        //    {
+        //        MainCameraScript.Goto_MainPosition();
 
-            }
-        }
+        //    }
+        //}
 
 
 
@@ -120,6 +124,7 @@ public class PlayerController : MonoBehaviour
         wg_ADDRESS Area_Hover = BeeBoxScript.Area_Hover;
         bool IsBackButton_HoveredOver = BackButtonScript.IsBackButton_HoveredOver;
         bool IsPauseButton_HoveredOver = PauseButtonScript.IsPauseButton_HoveredOver;
+        bool IsSlideButton_HoveredOver = SlideButtonScript.bIsHoveredOver;
         bool IsExitButton_HoveredOver = false;
         bool IsNewButton_HoveredOver = false;
         gs_GAMESTATUS GameStatus = GameLevelScript.Get_GameStatus();
@@ -158,6 +163,11 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("should be new.");
             SceneManager.LoadSceneAsync("GameLevel", LoadSceneMode.Single);
+        }
+
+        if (IsSlideButton_HoveredOver)
+        {
+            MainCameraScript.Slide_CameraPosition();
         }
 
         //if Area_Hover
@@ -238,6 +248,9 @@ public class PlayerController : MonoBehaviour
 
                 //move back button
                 BackButtonScript.Move_IntoFrame();
+
+                //move jar out of frame
+                HoneyLockScript.Trigger_Jar_DOWN();
 
             }
 
