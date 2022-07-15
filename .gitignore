@@ -71,8 +71,13 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# TextMeshPro package
+# TextMeshPro package , but provides opportunity for exception
 /Assets/TextMesh Pro
+!Assets/TextMesh Pro
+
+# Ignore everything here, except the Fonts folder
+Assets/TextMesh Pro/*
+!Assets/TextMesh Pro/Fonts
 
 # Git Ignore Folder
 /GitIgnored/*
