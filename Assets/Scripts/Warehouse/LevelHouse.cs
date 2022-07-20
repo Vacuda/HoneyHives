@@ -553,7 +553,8 @@ static public class LevelHouse
 
     static fv_FACEVALUE[] Get_SixBlock()
     {
-        return SixBlock_AllRandom_ZeroEquals();
+        //return SixBlock_AllRandom_ZeroEquals();
+        return SixBlock_YesMath_Addition_OneEquals_AllDigits();
 
         //get rand
         //int rand = Random.Range(0, SixBlockTemplates); //inclusive, exclusive
@@ -561,7 +562,8 @@ static public class LevelHouse
         //switch (rand)
         //{
         //    case 0: return SixBlock_AllRandom_ZeroEquals();
-        //    //case 1: return SixBlock_NoMath_OneEquals_OneAndFourSplit();
+        //    case 1: return SixBlock_NoMath_OneEquals_OneAndFourSplit();
+        //    case 2: return SixBlock_YesMath_Addition_OneEquals_AllDigits();
         //    default: return SixBlock_AllRandom_ZeroEquals();
         //}
     }
@@ -675,26 +677,168 @@ static public class LevelHouse
         return block;
     }
 
+    //static fv_FACEVALUE[] SixBlock_NoMath_OneEquals_TwoAndThreeSplit()
+    //{
+
+    //}
+
+    static fv_FACEVALUE[] SixBlock_YesMath_Addition_OneEquals_AllDigits()
+    {
+
+        /* EDGE CASE */
+        //make two sides
+        // number + number number = number
+        // this one seems unlikely, but is doable
+        // 1+01=2
+
+
+        /* Plus Side Equals Two Int Side */
+        /* int + int = int int */
+        /* Later, I Determine Left Or Right */
+
+        //create threeblock
+        fv_FACEVALUE[] threeblock = new fv_FACEVALUE[3];
+
+        //fill threeblock
+        threeblock[0] = GetRandomDigitValue();
+        threeblock[1] = v_add;
+        threeblock[2] = GetRandomDigitValue();
+
+        //create twoblock
+        fv_FACEVALUE[] twoblock = new fv_FACEVALUE[2];
+
+        //get result
+        int firstint = VineValidator.Get_Digit(threeblock[0]);
+        int secondint = VineValidator.Get_Digit(threeblock[2]);
+        int result = firstint + secondint;
+
+        //if ten  or over
+        if(result >= 10)
+        {
+            //first is 1
+            twoblock[0] = v_1;
+
+            //second is result - 10, converted to facevalue
+            twoblock[1] = VineValidator.Get_FaceValue(result - 10);
+        }
+        //single digit result
+        else
+        {
+            //digit first
+            if (Roll_EitherOr())
+            {
+                twoblock[0] = VineValidator.Get_FaceValue(result);
+                twoblock[1] = v_blank;
+            }
+            //digit second
+            else
+            {
+                //set up rand  
+                int rand;
+
+                //get rand
+                {
+                    /* first digit could be 0, +, or blank */
+                    /* if zero, first could be - */
+
+                    //if result 0
+                    if (result == 0)
+                    {
+                        //get rand, 1-4
+                        rand = Random.Range(1, 5); //inclusive, exclusive
+                    }
+                    else
+                    {
+                        //get rand, 1-3
+                        rand = Random.Range(1, 4); //inclusive, exclusive
+                    }
+                }
+
+                //set first digit
+                switch (rand)
+                {
+                    case 1:
+                        twoblock[0] = v_0;
+                        break;
+                    case 2:
+                        twoblock[0] = v_add;
+                        break;
+                    case 3:
+                        twoblock[0] = v_blank;
+                        break;
+                    case 4:
+                        twoblock[0] = v_sub;
+                        break;
+                    default:
+                        break;
+                }
+
+                //set second digit
+                twoblock[1] = VineValidator.Get_FaceValue(result);
+            }
+        }
+
+        /* Got both blocks made */
+        /* Decide Left and Right, and combine */
+
+        //create sixblock to return
+        fv_FACEVALUE[] sixblock = new fv_FACEVALUE[6];
+
+        //if left
+        if (Roll_EitherOr())
+        {
+            sixblock[0] = threeblock[0];
+            sixblock[1] = threeblock[1];
+            sixblock[2] = threeblock[2];
+            sixblock[3] = v_equals;
+            sixblock[4] = twoblock[0];
+            sixblock[5] = twoblock[1];
+        }
+        //if right
+        else
+        {
+            sixblock[0] = twoblock[0];
+            sixblock[1] = twoblock[1];
+            sixblock[2] = v_equals;
+            sixblock[3] = threeblock[0];
+            sixblock[4] = threeblock[1];
+            sixblock[5] = threeblock[2];
+        }
+
+        //return sixblock
+        return sixblock;
+    }
+
+
 
     /* UTILITIES */
 
     public static fv_FACEVALUE GetRandomFaceValue(bool bIncludeEquals = false)
         {
             // facevalue enum limit
-            int limit = 14;
+            int limit = 13;
 
             //if including equals
             if (bIncludeEquals)
             {
-                limit = 15;
+                limit = 14;
             }
 
             //get rand
-            int rand = Random.Range(1, limit); //inclusive, exclusive
+            int rand = Random.Range(1, limit + 1); //inclusive, exclusive
 
             //cast to facevalue
             return (fv_FACEVALUE)rand;
         }
+
+    public static fv_FACEVALUE GetRandomDigitValue()
+    {
+        //get rand index for enum digits
+        int rand = Random.Range(1, 11); //inclusive, exclusive
+
+        //cast to facevalue
+        return (fv_FACEVALUE)rand;
+    }
 
     static int ConvertToIndex(wg_ADDRESS address)
     {

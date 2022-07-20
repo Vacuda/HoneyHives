@@ -671,7 +671,7 @@ public class VineValidator : MonoBehaviour
                     fv_FACEVALUE val2 = HoneySlotRefDict[EE].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
                     fv_FACEVALUE val3 = HoneySlotRefDict[DD].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
                     fv_FACEVALUE val4 = HoneySlotRefDict[DD].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
-                    fv_FACEVALUE val5 = HoneySlotRefDict[CC].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
+                    fv_FACEVALUE val5 = HoneySlotRefDict[CC].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_6);
                     fv_FACEVALUE val6 = HoneySlotRefDict[CC].GetComponentInChildren<Piece>().Get_FaceValue_WithOffset(TRI_3);
                     return DoesThisValidate(val1, val2, val3, val4, val5, val6);
                 }
@@ -1180,7 +1180,7 @@ public class VineValidator : MonoBehaviour
         return EqualsAmount;
     }
    
-    static private int Get_Digit(fv_FACEVALUE val)
+    static public int Get_Digit(fv_FACEVALUE val)
     {
         switch (val)
         {
@@ -1207,6 +1207,11 @@ public class VineValidator : MonoBehaviour
             default:
                 return 99;
         }
+    }
+
+    static public fv_FACEVALUE Get_FaceValue(int val)
+    {
+        return (fv_FACEVALUE)(val + 1);
     }
 
     static private bool IsDigit(fv_FACEVALUE val)
@@ -1238,5 +1243,21 @@ public class VineValidator : MonoBehaviour
             default:
                 return false;
         }
+    }
+
+    static public void Run_SpecificTestValidate()
+    {
+        fv_FACEVALUE fv_1 = v_9;
+        fv_FACEVALUE fv_2 = v_add;
+        fv_FACEVALUE fv_3 = v_7;
+        fv_FACEVALUE fv_4 = v_equals;
+        fv_FACEVALUE fv_5 = v_1;
+        fv_FACEVALUE fv_6 = v_6;
+
+        bool result = DoesThisValidate(fv_1, fv_2, fv_3, fv_4, fv_5, fv_6);
+
+        Debug.Log("Test validation: " + result);
+
+
     }
 }

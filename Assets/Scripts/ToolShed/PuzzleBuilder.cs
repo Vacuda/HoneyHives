@@ -53,6 +53,10 @@ static public class PuzzleBuilder
             }
         }
 
+        //transfer settings
+        puz.settings = settings;
+
+        //return puzzle info
         return puz;
     }
 

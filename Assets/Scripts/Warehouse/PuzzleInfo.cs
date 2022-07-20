@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class PuzzleInfo
 {
+    public PuzzleSettings settings;
+
+
+
     public List<HoneySlotInfo> HoneySlots = new List<HoneySlotInfo>();
 
 }

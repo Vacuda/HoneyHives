@@ -157,8 +157,8 @@ public class LevelBuilder : MonoBehaviour
                 }
                 else
                 {
-                    //if movable
-                    if (slot.IsMovable)
+                    //if moving pieces and it's movable
+                    if (puz_info.settings.bMoveMovablesToBeeBox && slot.IsMovable)
                     {
                         //put in beebox
                         PieceScript.FindPlacement_OnBeeBox();

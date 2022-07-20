@@ -91,6 +91,9 @@ public class GameLevel : MonoBehaviour
         //give control to player
         Unlock_PlayerController();
 
+        //run test validation
+        VineValidator.Run_SpecificTestValidate();
+
         yield return null;
     }
 
