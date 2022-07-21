@@ -130,7 +130,7 @@ public class VineValidator : MonoBehaviour
             case 1:
                 return Validate_With_1_Equals(val1, val2, val3, val4, val5, val6);
             case 2:
-                return false; //what about:   1 = 0 1 = 1   @@@@
+                return Validate_With_2_Equals(val1, val2, val3, val4, val5, val6);
             case 3:
                 return Validate_With_3_Equals(val1, val2, val3, val4, val5, val6);
             case 4:
@@ -150,8 +150,8 @@ public class VineValidator : MonoBehaviour
         //remove blanks
         //remove zeros
         //merge ints
-        //remove plus signs, but not do math
-        //incorporate minus signs into ints, AND do math
+        //remove plus signs and minus signs, but not do math
+        //do minus sign math
         //do plus sign math
         //check each side for equality
 
@@ -205,40 +205,14 @@ public class VineValidator : MonoBehaviour
         PossiblyMerge_Ints(ref Left_Values);
         PossiblyMerge_Ints(ref Right_Values);
 
-        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
-        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Left_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Right_Values);
 
-        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
-        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
-
-        //this needs to be done a second time in case a minus sign turns into an int, thus maybe eliminating a + sign
-        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
-        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Right_Values);
 
         PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
         PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
-
-        //Debug.Log("LeftValues------ ");
-        //foreach (VineBlock block in Left_Values)
-        //{
-        //    if (block.Value == v_int)
-        //    {
-        //        Debug.Log("LeftValues: int " + block.IntValue);
-        //        continue;
-        //    }
-        //    Debug.Log("LeftValues: " + block.Value);
-        //}
-        //Debug.Log("RightValues------ ");
-        //foreach (VineBlock block in Right_Values)
-        //{
-        //    if (block.Value == v_int)
-        //    {
-        //        Debug.Log("RightValues: int " + block.IntValue);
-        //        continue;
-        //    }
-        //    Debug.Log("RightValues: " + block.Value);
-        //}
-
 
         /* Scrubbing Done.  Check If Equal Now */
 
@@ -279,8 +253,8 @@ public class VineValidator : MonoBehaviour
         //remove blanks
         //remove zeros
         //merge ints
-        //remove plus signs, but not do math
-        //incorporate minus signs into ints, AND do math
+        //remove plus signs and minus signs, but not do math
+        //do minus sign math
         //do plus sign math
         //check each side for equality
 
@@ -337,11 +311,11 @@ public class VineValidator : MonoBehaviour
         PossiblyMerge_Ints(ref Left_Values);
         PossiblyMerge_Ints(ref Right_Values);
 
-        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
-        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Left_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Right_Values);
 
-        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
-        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Right_Values);
 
         PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
         PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
@@ -401,6 +375,144 @@ public class VineValidator : MonoBehaviour
         return false;
     }
 
+    static private bool Validate_With_2_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
+    {
+        /* Three blocks need to equal each other */
+
+        //put values into list
+        List<VineBlock> AllValues = new List<VineBlock>();
+        AllValues.Add(new VineBlock(val1, 0));
+        AllValues.Add(new VineBlock(val2, 0));
+        AllValues.Add(new VineBlock(val3, 0));
+        AllValues.Add(new VineBlock(val4, 0));
+        AllValues.Add(new VineBlock(val5, 0));
+        AllValues.Add(new VineBlock(val6, 0));
+
+        //create a A list, B list, and C list
+        List<VineBlock> A_Values = new List<VineBlock>();
+        List<VineBlock> B_Values = new List<VineBlock>();
+        List<VineBlock> C_Values = new List<VineBlock>();
+
+        // runner to interpret which list to put it in
+        int ListTrigger = 0;
+
+        //loop all 6 values, also remove blanks
+        foreach (VineBlock vblock in AllValues)
+        {
+            //set equals trigger
+            if (vblock.Value == v_equals)
+            {
+                ListTrigger++;
+                continue;
+            }
+
+            // skip, if blank
+            if (vblock.Value == v_blank)
+            {
+                continue;
+            }
+
+            // A-List
+            if (ListTrigger == 0)
+            {
+                //add to A-List
+                A_Values.Add(vblock);
+            }
+
+            // B-List
+            if (ListTrigger == 1)
+            {
+                //add to B-List
+                B_Values.Add(vblock);
+            }
+
+            // C-List
+            if (ListTrigger == 2)
+            {
+                //add to C-List
+                C_Values.Add(vblock);
+            }
+        }
+
+        //scrub each list
+        {
+            //A-List
+            if (A_Values.Count > 1)
+            {
+                PossiblyEliminate_Zeros(ref A_Values);
+                PossiblyMerge_Ints(ref A_Values);
+                PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref A_Values);
+                PossiblyEliminate_MinusSigns_OnlyMath(ref A_Values);
+                PossiblyEliminate_PlusSigns_OnlyMath(ref A_Values);
+            }
+            else
+            {
+                PossiblyMerge_Ints(ref A_Values);
+            }
+
+            //B-List
+            if (B_Values.Count > 1)
+            {
+                PossiblyEliminate_Zeros(ref B_Values);
+                PossiblyMerge_Ints(ref B_Values);
+                PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref B_Values);
+                PossiblyEliminate_MinusSigns_OnlyMath(ref B_Values);
+                PossiblyEliminate_PlusSigns_OnlyMath(ref B_Values);
+            }
+            else
+            {
+                PossiblyMerge_Ints(ref B_Values);
+            }
+
+            //C-List
+            if (C_Values.Count > 1)
+            {
+                PossiblyEliminate_Zeros(ref C_Values);
+                PossiblyMerge_Ints(ref C_Values);
+                PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref C_Values);
+                PossiblyEliminate_MinusSigns_OnlyMath(ref C_Values);
+                PossiblyEliminate_PlusSigns_OnlyMath(ref C_Values);
+            }
+            else
+            {
+                PossiblyMerge_Ints(ref C_Values);
+            }
+
+        }
+
+        /* Scrubbing Done.  Check If Equal Now */
+
+        //if equal counts
+        if (A_Values.Count == B_Values.Count && A_Values.Count == C_Values.Count)
+        {
+            //loop indexes
+            for (int i = 0; i < A_Values.Count; i++)
+            {
+                //if no match between all three
+                if (A_Values[i].Value != B_Values[i].Value || A_Values[i].Value != C_Values[i].Value)
+                {
+                    return false;
+                }
+                //if all are v_int
+                if (A_Values[i].Value == v_int)
+                {
+                    //if IntValues don't match
+                    if (A_Values[i].IntValue != B_Values[i].IntValue || A_Values[i].IntValue != C_Values[i].IntValue)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            /* Everything matches */
+
+            return true;
+        }
+
+        //safety
+        return false;
+    }
+
     static private bool Validate_With_3_Equals(fv_FACEVALUE val1, fv_FACEVALUE val2, fv_FACEVALUE val3, fv_FACEVALUE val4, fv_FACEVALUE val5, fv_FACEVALUE val6)
     {
         /* Of the 3, the middle equals is the divider.  Side equals are just symbols */
@@ -409,8 +521,8 @@ public class VineValidator : MonoBehaviour
         //remove blanks
         //remove zeros
         //merge ints
-        //remove plus signs, but not do math
-        //incorporate minus signs into ints, AND do math
+        //remove plus signs and minus signs, but not do math
+        //do minus sign math
         //do plus sign math
         //check each side for equality
 
@@ -469,13 +581,13 @@ public class VineValidator : MonoBehaviour
         PossiblyEliminate_Zeros(ref Right_Values);
 
         PossiblyMerge_Ints(ref Left_Values);                
-        PossiblyMerge_Ints(ref Right_Values);               
+        PossiblyMerge_Ints(ref Right_Values);
 
-        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);                
-        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);               
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Left_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Right_Values);               
 
-        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);              
-        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);             
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Left_Values);              
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Right_Values);             
 
         PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);              
         PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);             
@@ -522,8 +634,8 @@ public class VineValidator : MonoBehaviour
         //remove blanks
         //remove zeros
         //merge ints
-        //remove plus signs, but not do math
-        //incorporate minus signs into ints, AND do math
+        //remove plus signs and minus signs, but not do math
+        //do minus sign math
         //do plus sign math
         //check each side for equality
 
@@ -582,11 +694,11 @@ public class VineValidator : MonoBehaviour
         PossiblyMerge_Ints(ref Left_Values);
         PossiblyMerge_Ints(ref Right_Values);
 
-        PossiblyEliminate_PlusSigns_NoMath(ref Left_Values);
-        PossiblyEliminate_PlusSigns_NoMath(ref Right_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Left_Values);
+        PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref Right_Values);
 
-        PossiblyEliminate_MinusSigns_YesMath(ref Left_Values);
-        PossiblyEliminate_MinusSigns_YesMath(ref Right_Values);
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Left_Values);
+        PossiblyEliminate_MinusSigns_OnlyMath(ref Right_Values);
 
         PossiblyEliminate_PlusSigns_OnlyMath(ref Left_Values);
         PossiblyEliminate_PlusSigns_OnlyMath(ref Right_Values);
@@ -866,7 +978,155 @@ public class VineValidator : MonoBehaviour
         }
     }
 
-    static private void PossiblyEliminate_MinusSigns_YesMath(ref List<VineBlock> VBlocks)
+    static private void PossiblyEliminate_MinusAndPlusSigns_NoMathx3(ref List<VineBlock> VBlocks)
+    {
+        //do atleast three times
+        for (int times = 0; times < 3; times++)
+        {
+            //loop Values by index
+            for (int i = 0; i < VBlocks.Count; i++)
+            {
+                //if plus
+                if (VBlocks[i].Value == v_add)
+                {
+                    //safety -check if last index
+                    if (i + 1 == VBlocks.Count)
+                    {
+                        //it stays as symbol
+                        continue;
+                    }
+
+                    //digit on right
+                    if (IsDigit(VBlocks[i + 1].Value))
+                    {
+                        //safety -check if first index
+                        if (i - 1 == -1)
+                        {
+                            //it is deleted, just a positive indicator
+                            VBlocks.RemoveAt(i);
+
+                            //need to deincrement index because of removal
+                            i--;
+
+                            continue;
+                        }
+                        //check prior index, if  not digit
+                        if (!IsDigit(VBlocks[i - 1].Value))
+                        {
+                            //it is deleted, just a positive indicator
+                            VBlocks.RemoveAt(i);
+
+                            //need to deincrement index because of removal
+                            i--;
+
+                            continue;
+                        }
+                        //prior digit
+                        else
+                        {
+                            /* WONT DO MATH YET */
+                        }
+                    }
+                }
+
+                //if minus
+                if (VBlocks[i].Value == v_sub)
+                {
+                    //safety -check if first index
+                    if (i == 0)
+                    {
+                        //safety -check if at end
+                        if (i + 1 >= VBlocks.Count)
+                        {
+                            //just a minus
+                            continue;
+                        }
+                        //to right, int
+                        if (VBlocks[i + 1].Value == v_int)
+                        {
+                            //store OldInt
+                            int OldInt = VBlocks[i + 1].IntValue;
+
+                            //remove old v_int block
+                            VBlocks.RemoveAt(i + 1);
+
+                            //remove minus block
+                            VBlocks.RemoveAt(i);
+
+                            //multiply by -1
+                            OldInt = OldInt * -1;
+
+                            //build new VBlock
+                            VineBlock NewVineBlock = new VineBlock(v_int, OldInt);
+
+                            //add new VBlock
+                            VBlocks.Insert(i, NewVineBlock);
+
+                            //removed two, added one
+                            //no need to change i
+                        }
+                    }
+                    //not at first index
+                    else
+                    {
+                        //if digit on left
+                        if (VBlocks[i - 1].Value == v_int)
+                        {
+                            //safety -check if at end
+                            if (i + 1 >= VBlocks.Count)
+                            {
+                                //stays symbol
+                                continue;
+                            }
+
+                            // digit - digit
+                            if (VBlocks[i + 1].Value == v_int)
+                            {
+                                //do nothing, no math yet
+                            }
+                        }
+                        //no v_int on left
+                        else
+                        {
+                            //safety -check if at end
+                            if (i + 1 >= VBlocks.Count)
+                            {
+                                //just a minus
+                                continue;
+                            }
+                            //to right, int
+                            if (VBlocks[i + 1].Value == v_int)
+                            {
+                                //store OldInt
+                                int OldInt = VBlocks[i + 1].IntValue;
+
+                                //remove old v_int block
+                                VBlocks.RemoveAt(i + 1);
+
+                                //remove minus block
+                                VBlocks.RemoveAt(i);
+
+                                //multiply by -1
+                                OldInt = OldInt * -1;
+
+                                //build new VBlock
+                                VineBlock NewVineBlock = new VineBlock(v_int, OldInt);
+
+                                //add new VBlock
+                                VBlocks.Insert(i, NewVineBlock);
+
+                                //removed two, added one
+                                //no need to change i
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static private void PossiblyEliminate_MinusSigns_OnlyMath(ref List<VineBlock> VBlocks)
     {
         //loop Values by index
         for (int i = 0; i < VBlocks.Count; i++)
@@ -999,56 +1259,6 @@ public class VineValidator : MonoBehaviour
                 }
 
 
-            }
-        }
-    }
-
-    static private void PossiblyEliminate_PlusSigns_NoMath(ref List<VineBlock> VBlocks)
-    {
-        //loop Values by index
-        for (int i=0; i< VBlocks.Count; i++)
-        {
-            //if plus
-            if(VBlocks[i].Value == v_add)
-            {
-                //safety -check if last index
-                if (i + 1 == VBlocks.Count)
-                {
-                    //it stays as symbol
-                    continue;
-                }
-
-                //digit on right
-                if (IsDigit(VBlocks[i + 1].Value))
-                {
-                    //safety -check if first index
-                    if(i-1 == -1)
-                    {
-                        //it is deleted, just a positive indicator
-                        VBlocks.RemoveAt(i);
-
-                        //need to deincrement index because of removal
-                        i--;
-
-                        continue;
-                    }
-                    //check prior index, if  not digit
-                    if (!IsDigit(VBlocks[i - 1].Value))
-                    {
-                        //it is deleted, just a positive indicator
-                        VBlocks.RemoveAt(i);
-
-                        //need to deincrement index because of removal
-                        i--;
-
-                        continue;
-                    }
-                    //prior digit
-                    else
-                    {
-                        /* WONT DO MATH YET */
-                    }
-                }
             }
         }
     }
@@ -1248,11 +1458,11 @@ public class VineValidator : MonoBehaviour
     static public void Run_SpecificTestValidate()
     {
         fv_FACEVALUE fv_1 = v_9;
-        fv_FACEVALUE fv_2 = v_add;
-        fv_FACEVALUE fv_3 = v_7;
-        fv_FACEVALUE fv_4 = v_equals;
-        fv_FACEVALUE fv_5 = v_1;
-        fv_FACEVALUE fv_6 = v_6;
+        fv_FACEVALUE fv_2 = v_equals;
+        fv_FACEVALUE fv_3 = v_sub;
+        fv_FACEVALUE fv_4 = v_add;
+        fv_FACEVALUE fv_5 = v_sub;
+        fv_FACEVALUE fv_6 = v_9;
 
         bool result = DoesThisValidate(fv_1, fv_2, fv_3, fv_4, fv_5, fv_6);
 
