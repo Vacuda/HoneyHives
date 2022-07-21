@@ -554,7 +554,10 @@ static public class LevelHouse
     static fv_FACEVALUE[] Get_SixBlock()
     {
         //return SixBlock_AllRandom_ZeroEquals();
-        return SixBlock_YesMath_Addition_OneEquals_AllDigits();
+        //return SixBlock_YesMath_Addition_OneEquals_AllDigits();
+        //return SixBlock_NoMath_OneEquals_OneAndFourSplit();
+        //return SixBlock_YesMath_Subtraction_OneEquals_AllDigits();
+        return SixBlock_NoMath_OneEquals_TwoAndThreeSplit();
 
         //get rand
         //int rand = Random.Range(0, SixBlockTemplates); //inclusive, exclusive
@@ -598,23 +601,65 @@ static public class LevelHouse
         //if digit
         if (bIsDigit(onefacevalue))
         {
+            //get rand, 0 - 3
+            int rand = Random.Range(0, 4); //inclusive, exclusive
 
+            //place digit
+            fourblock[rand] = onefacevalue;
 
+            //fill, to the right, with blanks
+            for(int i = rand + 1; i<=3; i++)
+            {
+                fourblock[i] = v_blank;
+            }
 
+            //fill, to the left, with blanks or +
+            for (int i = rand - 1; i >= 0; i--)
+            {
+                if (Roll_EitherOr())
+                {
+                    fourblock[i] = v_blank;
+                }
+                else
+                {
+                    fourblock[i] = v_add;
+                }
+            }
 
+            /* This is finished, but I'm going to add a chance for it to have two minus signs */
 
+            // if digit placed at 2 or 3
+            if(rand >= 2)
+            {
+                //get high chance to leave this code
+                if(Random.value > 0.9f)
+                {
+                    //do nothing, move on
+                }
+                else
+                {
+                    // if digit placed at 2
+                    if(rand == 2)
+                    {
+                        fourblock[0] = v_sub;
+                        fourblock[1] = v_sub;
+                    }
+                    // if digit placed at 3
+                    else
+                    {
+                        //make all sub
+                        fourblock[0] = v_sub;
+                        fourblock[1] = v_sub;
+                        fourblock[2] = v_sub;
 
+                        //get rand, 0 - 2
+                        int newrand = Random.Range(0, 3); //inclusive, exclusive
 
-
-
-
-
-
-
-            fourblock[0] = v_add;
-            fourblock[1] = v_add;
-            fourblock[2] = v_add;
-            fourblock[3] = v_add;
+                        //change newrand back to v_add
+                        fourblock[newrand] = v_add;
+                    }
+                }
+            }
         }
         //if NOT digit
         else
@@ -632,7 +677,7 @@ static public class LevelHouse
             //if v_blank
             if (onefacevalue == v_blank)
             {
-                return new fv_FACEVALUE[4] { v_blank, v_blank, v_blank, v_blank };
+                fourblock = Get_BlankedFourBlock_WithThisValueInserted(v_blank); 
             }
             //if v_equals
             if (onefacevalue == v_equals)
@@ -664,23 +709,213 @@ static public class LevelHouse
             block[5] = onefacevalue;
         }
 
-        //testing
-        foreach(fv_FACEVALUE lava in block)
-        {
-            if(lava == v_null)
-            {
-                Debug.Log("THIS SHOULDNt HAPPEN - some blocks are null");
-            }
-        }
-
         //return block
         return block;
     }
 
-    //static fv_FACEVALUE[] SixBlock_NoMath_OneEquals_TwoAndThreeSplit()
-    //{
+    static fv_FACEVALUE[] SixBlock_NoMath_OneEquals_TwoAndThreeSplit()
+    {
+        // 2 block = 3 block
+        // 2 7 = 2 _ 7
+        // 2 7 = _ 2 7
+        // 2 7 = 2 7 _
+        // - 7 = - _ 7
+        // 7 + = _ 7 +
+        // 7 + = + 7 +
 
-    //}
+
+
+        /* Two Side Equals Three Side, No Math */
+        /* Later, I Determine Left Or Right */
+
+        //get random facevalues
+        fv_FACEVALUE firstvalue = GetRandomFaceValue();
+        fv_FACEVALUE secondvalue = GetRandomFaceValue();
+
+        //create twoblock
+        fv_FACEVALUE[] twoblock = new fv_FACEVALUE[2];
+
+        //fill twoblock
+        twoblock[0] = firstvalue;
+        twoblock[1] = secondvalue;
+
+        //create threeblock
+        fv_FACEVALUE[] threeblock = new fv_FACEVALUE[3];
+
+        //fill threeblock
+        threeblock[0] = firstvalue;
+        threeblock[1] = secondvalue;
+        threeblock[2] = v_blank;
+
+        //if(firstvalue == v_blank)
+
+        //could just add a blank anywhere
+        //if has a digit, can add a plus before hand
+
+
+
+
+
+
+        /* Got both blocks made */
+        /* Decide Left and Right, and combine */
+
+        //create sixblock to return
+        fv_FACEVALUE[] sixblock = new fv_FACEVALUE[6];
+
+        //if left
+        if (Roll_EitherOr())
+        {
+            sixblock[0] = threeblock[0];
+            sixblock[1] = threeblock[1];
+            sixblock[2] = threeblock[2];
+            sixblock[3] = v_equals;
+            sixblock[4] = twoblock[0];
+            sixblock[5] = twoblock[1];
+        }
+        //if right
+        else
+        {
+            sixblock[0] = twoblock[0];
+            sixblock[1] = twoblock[1];
+            sixblock[2] = v_equals;
+            sixblock[3] = threeblock[0];
+            sixblock[4] = threeblock[1];
+            sixblock[5] = threeblock[2];
+        }
+
+        //return sixblock
+        return sixblock;
+    }
+
+
+    static fv_FACEVALUE[] SixBlock_YesMath_Subtraction_OneEquals_AllDigits()
+    {
+        /* Minus Side Equals Two Int Side */
+        /* int - int = int int */
+        /* int - int = - int */
+        /* Later, I Determine Left Or Right */
+
+        //create threeblock
+        fv_FACEVALUE[] threeblock = new fv_FACEVALUE[3];
+
+        //fill threeblock
+        threeblock[0] = GetRandomDigitValue();
+        threeblock[1] = v_sub;
+        threeblock[2] = GetRandomDigitValue();
+
+        //create twoblock
+        fv_FACEVALUE[] twoblock = new fv_FACEVALUE[2];
+
+        //get result
+        int firstint = VineValidator.Get_Digit(threeblock[0]);
+        int secondint = VineValidator.Get_Digit(threeblock[2]);
+        int result = firstint - secondint;
+
+        //if positive, non-zero
+        if (result > 0)
+        {
+            //get rand 1 - 4
+            int rand = Random.Range(1, 5); //inclusive, exclusive
+
+            switch (rand) // 09, _9, 9_, +9
+            {
+                case 1:
+                    twoblock[0] = v_0;
+                    twoblock[1] = VineValidator.Get_FaceValue(result);
+                    break;
+                case 2:
+                    twoblock[0] = v_blank;
+                    twoblock[1] = VineValidator.Get_FaceValue(result);
+                    break;
+                case 3:
+                    twoblock[0] = VineValidator.Get_FaceValue(result);
+                    twoblock[1] = v_blank;
+                    break;
+                case 4:
+                    twoblock[0] = v_add;
+                    twoblock[1] = VineValidator.Get_FaceValue(result);
+                    break;
+                default:
+                    twoblock[0] = v_null;
+                    twoblock[1] = v_null;
+                    break;
+            }
+        }
+
+        // if zero
+        if (result == 0)
+        {
+            //get rand 1 - 5
+            int rand = Random.Range(1, 6); //inclusive, exclusive
+
+            switch (rand) //_0, 0_, 00, +0, -0
+            {
+                case 1:
+                    twoblock[0] = v_blank;
+                    twoblock[1] = v_0;
+                    break;
+                case 2:
+                    twoblock[0] = v_0;
+                    twoblock[1] = v_blank;
+                    break;
+                case 3:
+                    twoblock[0] = v_0;
+                    twoblock[1] = v_0;
+                    break;
+                case 4:
+                    twoblock[0] = v_add;
+                    twoblock[1] = v_0;
+                    break;
+                case 5:
+                    twoblock[0] = v_sub;
+                    twoblock[1] = v_0;
+                    break;
+                default:
+                    twoblock[0] = v_null;
+                    twoblock[1] = v_null;
+                    break;
+            }
+        }
+
+        // if negative
+        if (result < 0)
+        {
+            // - (absolute value of result)
+            twoblock[0] = v_sub;
+            twoblock[1] = VineValidator.Get_FaceValue(Mathf.Abs(result));
+        }
+
+        /* Got both blocks made */
+        /* Decide Left and Right, and combine */
+
+        //create sixblock to return
+        fv_FACEVALUE[] sixblock = new fv_FACEVALUE[6];
+
+        //if left
+        if (Roll_EitherOr())
+        {
+            sixblock[0] = threeblock[0];
+            sixblock[1] = threeblock[1];
+            sixblock[2] = threeblock[2];
+            sixblock[3] = v_equals;
+            sixblock[4] = twoblock[0];
+            sixblock[5] = twoblock[1];
+        }
+        //if right
+        else
+        {
+            sixblock[0] = twoblock[0];
+            sixblock[1] = twoblock[1];
+            sixblock[2] = v_equals;
+            sixblock[3] = threeblock[0];
+            sixblock[4] = threeblock[1];
+            sixblock[5] = threeblock[2];
+        }
+
+        //return sixblock
+        return sixblock;
+    }
 
     static fv_FACEVALUE[] SixBlock_YesMath_Addition_OneEquals_AllDigits()
     {
@@ -712,7 +947,7 @@ static public class LevelHouse
         int secondint = VineValidator.Get_Digit(threeblock[2]);
         int result = firstint + secondint;
 
-        //if ten  or over
+        //if result ten or over
         if(result >= 10)
         {
             //first is 1
@@ -721,60 +956,70 @@ static public class LevelHouse
             //second is result - 10, converted to facevalue
             twoblock[1] = VineValidator.Get_FaceValue(result - 10);
         }
-        //single digit result
-        else
+
+        //else if result positive, non-zero, less than 10
+        else if(result > 0)
         {
-            //digit first
-            if (Roll_EitherOr())
+            //get rand 1 - 4
+            int rand = Random.Range(1, 5); //inclusive, exclusive
+
+            switch (rand) // 09, _9, 9_, +9
             {
-                twoblock[0] = VineValidator.Get_FaceValue(result);
-                twoblock[1] = v_blank;
+                case 1:
+                    twoblock[0] = v_0;
+                    twoblock[1] = VineValidator.Get_FaceValue(result);
+                    break;
+                case 2:
+                    twoblock[0] = v_blank;
+                    twoblock[1] = VineValidator.Get_FaceValue(result);
+                    break;
+                case 3:
+                    twoblock[0] = VineValidator.Get_FaceValue(result);
+                    twoblock[1] = v_blank;
+                    break;
+                case 4:
+                    twoblock[0] = v_add;
+                    twoblock[1] = VineValidator.Get_FaceValue(result);
+                    break;
+                default:
+                    twoblock[0] = v_null;
+                    twoblock[1] = v_null;
+                    break;
             }
-            //digit second
-            else
+        }
+
+        //if result 0
+        if(result == 0)
+        {
+            //get rand 1 - 5
+            int rand = Random.Range(1, 6); //inclusive, exclusive
+
+            switch (rand) //_0, 0_, 00, +0, -0
             {
-                //set up rand  
-                int rand;
-
-                //get rand
-                {
-                    /* first digit could be 0, +, or blank */
-                    /* if zero, first could be - */
-
-                    //if result 0
-                    if (result == 0)
-                    {
-                        //get rand, 1-4
-                        rand = Random.Range(1, 5); //inclusive, exclusive
-                    }
-                    else
-                    {
-                        //get rand, 1-3
-                        rand = Random.Range(1, 4); //inclusive, exclusive
-                    }
-                }
-
-                //set first digit
-                switch (rand)
-                {
-                    case 1:
-                        twoblock[0] = v_0;
-                        break;
-                    case 2:
-                        twoblock[0] = v_add;
-                        break;
-                    case 3:
-                        twoblock[0] = v_blank;
-                        break;
-                    case 4:
-                        twoblock[0] = v_sub;
-                        break;
-                    default:
-                        break;
-                }
-
-                //set second digit
-                twoblock[1] = VineValidator.Get_FaceValue(result);
+                case 1:
+                    twoblock[0] = v_blank;
+                    twoblock[1] = v_0;
+                    break;
+                case 2:
+                    twoblock[0] = v_0;
+                    twoblock[1] = v_blank;
+                    break;
+                case 3:
+                    twoblock[0] = v_0;
+                    twoblock[1] = v_0;
+                    break;
+                case 4:
+                    twoblock[0] = v_add;
+                    twoblock[1] = v_0;
+                    break;
+                case 5:
+                    twoblock[0] = v_sub;
+                    twoblock[1] = v_0;
+                    break;
+                default:
+                    twoblock[0] = v_null;
+                    twoblock[1] = v_null;
+                    break;
             }
         }
 

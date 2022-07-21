@@ -16157,7 +16157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Builder: {fileID: 1317720132}
   Validator: {fileID: 1384462695}
-  bSkipOpening: 1
+  bSkipOpening: 0
   BlackScreen: {fileID: 1535610431}
   LogoScreen: {fileID: 1654683431}
   TitleBlocks_Mover: {fileID: 609257737}
