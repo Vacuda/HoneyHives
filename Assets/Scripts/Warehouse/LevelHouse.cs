@@ -568,7 +568,7 @@ static public class LevelHouse
             case 2: return SixBlock_NoMath_OneEquals_OneAndFourSplit();
             case 3: return SixBlock_NoMath_OneEquals_TwoAndThreeSplit();
             case 4: return SixBlock_YesMath_Subtraction_OneEquals_AllDigits();
-            case 5: return SixBlock_YesMath_Addition_OneEquals_AllDigits();More
+            case 5: return SixBlock_YesMath_Addition_OneEquals_AllDigits();
             default: return SixBlock_AllRandom_ZeroEquals();
         }
     }
