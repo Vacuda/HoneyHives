@@ -22,13 +22,14 @@ public class PlayerController : MonoBehaviour
     private BackButton BackButtonScript;
 
     public GameObject BeeBoxObject;
-    private BeeBox BeeBoxScript;
+    BeeBox BeeBoxScript;
+    SlideButton SlideButtonScript;
 
-    private VineValidator ValidatorScript;
-    private GameLevel GameLevelScript;
+    VineValidator ValidatorScript;
+    GameLevel GameLevelScript;
 
     public Camera MainCameraObject;
-    private MainCamera MainCameraScript;
+    //private MainCamera MainCameraScript;
 
     public HoneyLock HoneyLockScript;
     public PauseButton PauseButtonScript;
@@ -36,7 +37,6 @@ public class PlayerController : MonoBehaviour
     public PauseMenu PauseMenuScript;
     public FinishMenu FinishMenuScript;
 
-    SlideButton SlideButtonScript;
 
 
     //Piece In Hand - Reference
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         BeeBoxScript = BeeBoxObject.GetComponent<BeeBox>();
 
-        MainCameraScript = MainCameraObject.GetComponent<MainCamera>();
+        //MainCameraScript = MainCameraObject.GetComponent<MainCamera>();
 
         SlideButtonScript = BeeBoxObject.transform.Find("SlideButton").GetComponent<SlideButton>();
 
@@ -144,7 +144,9 @@ public class PlayerController : MonoBehaviour
 
         if (IsSlideButton_HoveredOver)
         {
-            MainCameraScript.Slide_CameraPosition();
+
+            BeeBoxScript.Move_BeeBoxPostion();
+            //MainCameraScript.Slide_CameraPosition();
         }
 
         //if Area_Hover

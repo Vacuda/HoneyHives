@@ -6,25 +6,53 @@ public class BeeBox : MonoBehaviour
 {
     public wg_ADDRESS Area_Hover;
 
+    private Vector3 NormalPosition;
+    private Vector3 SlidePosition;
+    private bool bAtNormalPosition = true;
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
+    private MoverBase Mover;
 
-    //}
+    private void Awake()
+    {
+        //-1.60
+        NormalPosition = gameObject.transform.position;
+        SlidePosition = NormalPosition;
+        SlidePosition.x = SlidePosition.x - 1.60f;
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+        Mover = gameObject.transform.GetComponent<MoverBase>();
+    }
 
     public void Set_Area_Hover(wg_ADDRESS address)
     {
         Area_Hover = address;
-
-        //Debug.Log(Area_HoverAddress);
     }
+
+    public void Move_BeeBoxPostion()
+    {
+        if (bAtNormalPosition)
+        {
+            //change target position
+            Mover.Change_TargetPosition(SlidePosition);
+
+            //set active move
+            Mover.Activate_Move();
+
+            //set state
+            bAtNormalPosition = false;
+        }
+        else
+        {
+            //change target position
+            Mover.Change_TargetPosition(NormalPosition);
+
+            //set active move
+            Mover.Activate_Move();
+
+            //set state
+            bAtNormalPosition = true;
+        }
+    }
+
 }
 
 

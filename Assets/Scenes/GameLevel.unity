@@ -23985,12 +23985,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5183d38164bf13547955279634256901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bInteractingWith_FloatingMechanic: 1
   bLinearMovement: 0
   target_x: 0
   target_y: 1
   target_z: -10
   duration: 1
   lerp_speed: 4
+  lerp_snap_distance: 0.03
 --- !u!114 &1350614153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29309,7 +29311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01875246fdba6984b878e95637821c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsAtMainPosition: 1
 --- !u!1 &1642164665
 GameObject:
   m_ObjectHideFlags: 0
@@ -39028,6 +39029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2114306268}
   - component: {fileID: 2114306265}
+  - component: {fileID: 2114306266}
   m_Layer: 9
   m_Name: BeeBox
   m_TagString: Untagged
@@ -39048,6 +39050,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Area_Hover: 0
+--- !u!114 &2114306266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114306264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5183d38164bf13547955279634256901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bInteractingWith_FloatingMechanic: 0
+  bLinearMovement: 0
+  target_x: 0
+  target_y: 1
+  target_z: -10
+  duration: 1
+  lerp_speed: 4.5
+  lerp_snap_distance: 0.001
 --- !u!4 &2114306268
 Transform:
   m_ObjectHideFlags: 0
