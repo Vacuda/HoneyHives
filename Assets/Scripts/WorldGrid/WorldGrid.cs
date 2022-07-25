@@ -9,12 +9,7 @@ public class WorldGrid : MonoBehaviour
 {
     public ColorChanger ColorChangerScript;
 
-    //grid positions
-    //private Vector3 StartPosition = new Vector3(-12.34f, 0.8f, 26.33f);
-    private Vector3 StartPosition = new Vector3(-15.04f, 0.8f, 26.33f);
-    private Vector3 TargetPosition;
-    //float TimeToTarget = 3.0f;
-
+    /* These are the World Grid movement target locations */
     float z_set = -.18f;
 
     float x1_set = 7.53f;
@@ -27,20 +22,16 @@ public class WorldGrid : MonoBehaviour
     float y4_set = 7.18f;
     float y5_set = 13.4f;
 
-    //public GameObject AdminObject;
+    Vector3 StartPosition;
+
     public GameObject HoneyLockObject;
     private HoneyLock honeylock;
     public GameObject BeeBoxPanel;
     public GameLevel GameLevelScript;
-
-    //int Tracker = 0;
+    private MoverBase Mover;
 
     public Dictionary<wg_ADDRESS,GameObject> WGRefDict = new Dictionary<wg_ADDRESS, GameObject>();
 
-
-    //private Vector3 StartRotation = new Vector3(0.0f, 0.0f, 0.0f);
-    private bool ActiveFlotation = true;
-    private bool ActiveMovement = false;
     public wg_ADDRESS HoneyComb_Hover = NONE;
     public wg_ADDRESS HoneySlot_Hover = NONE;
 
@@ -50,32 +41,21 @@ public class WorldGrid : MonoBehaviour
         Make_WorldGridRefDict();
 
         honeylock = HoneyLockObject.GetComponent<HoneyLock>();
+        Mover = gameObject.GetComponent<MoverBase>();
 
     }
 
     void Start()
     {
         //set a start position to move around
-        TargetPosition = StartPosition;
-
-        //GameLevelScript = AdminObject.GetComponent<GameLevel>();
+        StartPosition = gameObject.transform.position;
     }
 
 
-    void Update()
-    {
-        if (ActiveFlotation)
-        {
-            //run flotation
-            Floating_WorldGrid();
-        }
+    //void Update()
+    //{
 
-        if (ActiveMovement)
-        {
-            Move_WorldGridTowardsTargetPosition();
-        }
-
-    }
+    //}
 
     private void Make_WorldGridRefDict()
     {
@@ -248,110 +228,44 @@ public class WorldGrid : MonoBehaviour
     }
 
 
+    //void Move_WorldGridTowardsTargetPosition()
+    //{
+    //    //Tracker++;
 
-    void Floating_WorldGrid()
-    {
-        Vector3 CurrentPosition = gameObject.transform.position;
+    //    Vector3 CurrentPosition = gameObject.transform.position;
 
-        //gs_GAMESTATUS GameStatus = Admin.GetComponent<GameLevel>().Get_GameStatus();
+    //    //float test = Vector3.Distance(CurrentPosition, TargetPosition);
 
-        //if (GameStatus == 
+    //    //Debug.Log(test);
 
-        //float floatslow = 0.10f;
-        float floatslow = 1.0f;
+    //    if (Vector3.Distance(CurrentPosition, TargetPosition) > 0.03)
+    //    {
+    //        //keep going
+    //        gameObject.transform.position = Vector3.Lerp(CurrentPosition, TargetPosition, 4.50f * Time.deltaTime);
 
+    //    }
+    //    else
+    //    {
 
-        //position change
-        {
-            //x change
-            float x_change = Mathf.Cos(Time.time) * 0.2f * floatslow;
-            //y change
-            float y_change = Mathf.Sin(Time.time * 2.0f) * 0.15f * floatslow;
-            //z change
-            float z_change = Mathf.Sin(Time.time) * 0.1f * floatslow;
+    //        gameObject.transform.position = TargetPosition;
+    //        ActiveMovement = false;
+    //        ActiveFlotation = true;
+    //    }
 
+    //}
 
-            //find PositionChange based off of sin behavior
-            Vector3 PositionChange = new Vector3(x_change, y_change, z_change);
-
-            //make position change with StartPosition in mind
-            gameObject.transform.position = TargetPosition + PositionChange;
-        }
-
-        //rotation change
-        {
-            //x change
-            float x_change = 0.0f;
-            //y change
-            float y_change = Mathf.Sin(Time.time) * -0.005f;
-            //z change
-            float z_change = 0.0f;
-
-            //find PositionChange based off of sin behavior
-            Vector3 RotationChange = new Vector3(x_change, y_change, z_change);
-
-            gameObject.transform.Rotate(RotationChange);
-
-        }
-    }
 
 
     public void Move_ToThisPosition(wg_ADDRESS pos)
     {
-        ////if moving INNER to OUTER
-        //if(pos == NONE)
-        //{
-        //    //active float again
-        //    ActiveFlotation = true;
+        //get and set new target position
+        Mover.Change_TargetPosition(GetNewPosition(pos));
 
-        //}
-        ////if moving IN
-        //else
-        //{
-        //    //deactivate float
-        //    //ActiveFlotation = false;
-
-        //    ////reset rotation
-        //    //gameObject.transform.rotation = Quaternion.identity;
-        //}
-
-        ActiveFlotation = false;
-
-        //turn on movement
-        ActiveMovement = true;
-
-        //get and set new position
-        TargetPosition = GetNewPosition(pos);
-
-
-
+        //set in motion
+        Mover.Activate_Move();
     }
 
-    void Move_WorldGridTowardsTargetPosition()
-    {
-        //Tracker++;
-
-        Vector3 CurrentPosition = gameObject.transform.position;
-
-        //float test = Vector3.Distance(CurrentPosition, TargetPosition);
-
-        //Debug.Log(test);
-
-        if(Vector3.Distance(CurrentPosition, TargetPosition) > 0.03)
-        {
-            //keep going
-            gameObject.transform.position = Vector3.Lerp(CurrentPosition, TargetPosition, 4.50f * Time.deltaTime);
-
-        }
-        else
-        {
-
-            gameObject.transform.position = TargetPosition;
-            ActiveMovement = false;
-            ActiveFlotation = true;
-        }
-
-    }
+    
 
     public void Check_AllHoneycombsFinalized()
     {

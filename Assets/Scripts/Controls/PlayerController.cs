@@ -86,33 +86,10 @@ public class PlayerController : MonoBehaviour
         Controls.GameLevel.Spin.performed += _ => Spin();
     }
 
-    private void Update()
-    {
-        //float Mouse_X = Controls.GameLevel.MousePointer.ReadValue<Vector2>().x;
+    //private void Update()
+    //{
 
-        //if (MainCameraScript.IsAtMainPosition)
-        //{
-
-        //    if(Mouse_X > 1860.0f)
-        //    {
-        //        MainCameraScript.Goto_SidePosition();
-
-        //    }
-
-        //}
-        //else
-        //{
-        //    if (Mouse_X < 120.0f)
-        //    {
-        //        MainCameraScript.Goto_MainPosition();
-
-        //    }
-        //}
-
-
-
-        //1720
-    }
+    //}
 
 /*METHODS*/
 
