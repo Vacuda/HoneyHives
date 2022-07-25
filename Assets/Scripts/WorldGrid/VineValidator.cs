@@ -1457,12 +1457,12 @@ public class VineValidator : MonoBehaviour
 
     static public void Run_SpecificTestValidate()
     {
-        fv_FACEVALUE fv_1 = v_9;
+        fv_FACEVALUE fv_1 = v_0;
         fv_FACEVALUE fv_2 = v_equals;
         fv_FACEVALUE fv_3 = v_sub;
-        fv_FACEVALUE fv_4 = v_add;
+        fv_FACEVALUE fv_4 = v_sub;
         fv_FACEVALUE fv_5 = v_sub;
-        fv_FACEVALUE fv_6 = v_9;
+        fv_FACEVALUE fv_6 = v_0;
 
         bool result = DoesThisValidate(fv_1, fv_2, fv_3, fv_4, fv_5, fv_6);
 

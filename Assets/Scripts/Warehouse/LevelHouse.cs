@@ -9,7 +9,7 @@ static public class LevelHouse
 {
     //these need to change when a new template is added
     static int FourBlockTemplates = 2;
-    static int SixBlockTemplates = 2;
+    static int SixBlockTemplates = 5;
 
     static float Spinnable_Rate = 0.6f;
     static float LastThree_Movable_Rate = 0.4f;
@@ -557,18 +557,20 @@ static public class LevelHouse
         //return SixBlock_YesMath_Addition_OneEquals_AllDigits();
         //return SixBlock_NoMath_OneEquals_OneAndFourSplit();
         //return SixBlock_YesMath_Subtraction_OneEquals_AllDigits();
-        return SixBlock_NoMath_OneEquals_TwoAndThreeSplit();
+        //return SixBlock_NoMath_OneEquals_TwoAndThreeSplit();
 
-        //get rand
-        //int rand = Random.Range(0, SixBlockTemplates); //inclusive, exclusive
+        //get rand 1 - 5
+        int rand = Random.Range(1, SixBlockTemplates + 1); //inclusive, exclusive
 
-        //switch (rand)
-        //{
-        //    case 0: return SixBlock_AllRandom_ZeroEquals();
-        //    case 1: return SixBlock_NoMath_OneEquals_OneAndFourSplit();
-        //    case 2: return SixBlock_YesMath_Addition_OneEquals_AllDigits();
-        //    default: return SixBlock_AllRandom_ZeroEquals();
-        //}
+        switch (rand)
+        {
+            case 1: return SixBlock_AllRandom_ZeroEquals();
+            case 2: return SixBlock_NoMath_OneEquals_OneAndFourSplit();
+            case 3: return SixBlock_NoMath_OneEquals_TwoAndThreeSplit();
+            case 4: return SixBlock_YesMath_Subtraction_OneEquals_AllDigits();
+            case 5: return SixBlock_YesMath_Addition_OneEquals_AllDigits();More
+            default: return SixBlock_AllRandom_ZeroEquals();
+        }
     }
 
     static fv_FACEVALUE[] SixBlock_AllRandom_ZeroEquals()
@@ -742,10 +744,61 @@ static public class LevelHouse
         //create threeblock
         fv_FACEVALUE[] threeblock = new fv_FACEVALUE[3];
 
-        //fill threeblock
-        threeblock[0] = firstvalue;
-        threeblock[1] = secondvalue;
-        threeblock[2] = v_blank;
+        ////fill threeblock
+        //threeblock[0] = firstvalue;
+        //threeblock[1] = secondvalue;
+        //threeblock[2] = v_blank;
+
+        ////includes digits
+        //if(bIsDigit(firstvalue) || bIsDigit(secondvalue))
+        //{
+
+        //}
+        ////no digits
+        //else
+        //{
+        //    //-, + , _
+
+
+
+        //    threeblock[0] = firstvalue;
+        //    threeblock[1] = secondvalue;
+        //    threeblock[2] = v_blank;
+        //}
+
+
+        //get rand 1 - 3
+        int rand = Random.Range(1, 4); //inclusive, exclusive
+
+        switch (rand)
+        {
+            case 1:
+                threeblock[0] = firstvalue;
+                threeblock[1] = secondvalue;
+                threeblock[2] = v_blank;
+                break;
+            case 2:
+                threeblock[0] = firstvalue;
+                threeblock[1] = v_blank;
+                threeblock[2] = secondvalue;
+                break;
+            case 3:
+                threeblock[0] = v_blank;
+                threeblock[1] = firstvalue;
+                threeblock[2] = secondvalue;
+                break;
+            default:
+                threeblock[0] = v_null;
+                threeblock[1] = v_null;
+                threeblock[2] = v_null;
+                break;
+        }
+
+
+
+
+
+
 
         //if(firstvalue == v_blank)
 

@@ -28,9 +28,9 @@ public class GameLevel : MonoBehaviour
 
     //DEBUG SETTINGS HERE
 
-        settings.bSpinPieces = false;
-        settings.bMovePieces = false;
-        settings.bMoveMovablesToBeeBox = false;
+        settings.bSpinPieces = true;
+        settings.bMovePieces = true;
+        settings.bMoveMovablesToBeeBox = true;
 
     //DEBUG SETTINGS HERE
 
