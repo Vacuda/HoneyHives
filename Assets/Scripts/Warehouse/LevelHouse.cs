@@ -267,7 +267,7 @@ static public class LevelHouse
         //set information
         slot.HoneyJar_Originated = true;                        //needs to be true
         slot.IsMovable = true;                                  //needs to be true
-        slot.IsSpinnable = Roll_EitherOr() ? true: false;       //either     //@@@@ I think the ? condition should be removed, redundant
+        slot.IsSpinnable = Roll_EitherOr();       //either
         slot.fv_1 = GetRandomFaceValue(true);                   //any
         slot.fv_2 = GetRandomFaceValue(true);                   //any
         slot.fv_3 = GetRandomFaceValue(true);                   //any
@@ -725,7 +725,8 @@ static public class LevelHouse
         // 7 + = _ 7 +
         // 7 + = + 7 +
 
-
+        //normal
+        // _ _ = _ D _
 
         /* Two Side Equals Three Side, No Math */
         /* Later, I Determine Left Or Right */
@@ -744,55 +745,144 @@ static public class LevelHouse
         //create threeblock
         fv_FACEVALUE[] threeblock = new fv_FACEVALUE[3];
 
-        ////fill threeblock
-        //threeblock[0] = firstvalue;
-        //threeblock[1] = secondvalue;
-        //threeblock[2] = v_blank;
+        //initialize blocktype
+        int blocktype;
 
-        ////includes digits
-        //if(bIsDigit(firstvalue) || bIsDigit(secondvalue))
-        //{
-
-        //}
-        ////no digits
-        //else
-        //{
-        //    //-, + , _
-
-
-
-        //    threeblock[0] = firstvalue;
-        //    threeblock[1] = secondvalue;
-        //    threeblock[2] = v_blank;
-        //}
-
-
-        //get rand 1 - 3
-        int rand = Random.Range(1, 4); //inclusive, exclusive
-
-        switch (rand)
+        //fill threeblock
         {
-            case 1:
-                threeblock[0] = firstvalue;
-                threeblock[1] = secondvalue;
-                threeblock[2] = v_blank;
-                break;
-            case 2:
-                threeblock[0] = firstvalue;
-                threeblock[1] = v_blank;
-                threeblock[2] = secondvalue;
-                break;
-            case 3:
-                threeblock[0] = v_blank;
-                threeblock[1] = firstvalue;
-                threeblock[2] = secondvalue;
-                break;
-            default:
-                threeblock[0] = v_null;
-                threeblock[1] = v_null;
-                threeblock[2] = v_null;
-                break;
+            //get blocktype 1 - 3
+            blocktype = Random.Range(1, 4); //inclusive, exclusive
+
+            switch (rand)
+            {
+                case 1:
+                    threeblock[0] = firstvalue;
+                    threeblock[1] = secondvalue;
+                    threeblock[2] = v_blank;
+                    break;
+                case 2:
+                    threeblock[0] = firstvalue;
+                    threeblock[1] = v_blank;
+                    threeblock[2] = secondvalue;
+                    break;
+                case 3:
+                    threeblock[0] = v_blank;
+                    threeblock[1] = firstvalue;
+                    threeblock[2] = secondvalue;
+                    break;
+                default:
+                    threeblock[0] = v_null;
+                    threeblock[1] = v_null;
+                    threeblock[2] = v_null;
+                    break;
+            }
         }
+
+        //make alterations maybe
+        {
+            // 7 7 = + 7 7
+            if(bIsDigit(firstvalue) && blocktype == 3)
+            {
+                //perhaps change
+                Roll_EitherOr() ? threeblock[0] = v_add;
+
+                //if secondvalue is blank  7 _ = +/_ 7 _
+                if(secondvalue == v_blank)
+                {
+                    //get rand 1 - 4
+                    int rand = Random.Range(1, 5); //inclusive, exclusive
+
+                    switch (rand)
+                    {
+                        case 1: //no change
+                            break;
+                        case 2: //no change
+                            break;
+
+                        case 3: //move to third position
+
+                            //change 2nd into blank or +
+                            Roll_EitherOr() ? threeblock[1] = v_blank : threeblock[1] = v_add;
+
+                            //firstvalue replaces second value
+                            threeblock[2] = firstvalue;
+
+                            //break
+                            break;
+
+                        case 4: //move to third position, two negatives
+
+                            //make both negatives
+                            threeblock[0] = v_sub;
+                            threeblock[1] = v_sub;
+
+                            //firstvalue replaces second value
+                            threeblock[2] = firstvalue;
+
+                            //break
+                            break;
+
+                        default: //do nothing
+                            break;
+                    }
+                }
+            }
+
+
+            // + 8 = 
+            if(firstvalue == v_add && bIsDigit(secondvalue))
+            {
+                // 008
+                // +08
+                // --8
+                // 8--
+
+                //get rand 1 - 4
+                int rand = Random.Range(1, 5); //inclusive, exclusive
+
+                switch (rand)
+                {
+                    case 1: // 8 _ _
+                        threeblock[0] = secondvalue;
+                        threeblock[1] = v_blank;
+                        threeblock[2] = v_blank;
+                        break;
+                    case 2: // _ 8 _
+                        threeblock[0] = v_blank;
+                        threeblock[1] = secondvalue;
+                        threeblock[2] = v_blank;
+                        break;
+                    case 3: // _ _ 8
+                        threeblock[0] = v_blank;
+                        threeblock[1] = secondvalue;
+                        threeblock[2] = v_blank;
+                        break;
+                    case 4: // + 0 8
+                        threeblock[0] = v_add;
+                        threeblock[1] = v_0;
+                        threeblock[2] = secondvalue;
+                        break;
+                    case 5: // 0 0 8
+                        threeblock[0] = v_0;
+                        threeblock[1] = v_0;
+                        threeblock[2] = secondvalue;
+                        break;
+                    case 5: // 0 0 8
+                        threeblock[0] = v_0;
+                        threeblock[1] = v_0;
+                        threeblock[2] = secondvalue;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        
+
+
+
+        
 
 
 
